@@ -65,8 +65,10 @@ export const ExpertData: {
 
 // data.tsx
 export const galleryImages = [
-  { src: '/images/Gallery/foodone.jpg', name: 'Caesar Salad(187 Kcal)', price: 35 },
-  { src: '/images/Gallery/foodtwo.jpg', name: 'Christmas salad(118 Kcal)', price: 17 },
-  { src: '/images/Gallery/foodthree.jpg', name: 'Sauteed mushrooms with pumpkin and sweet pepper(238 kcal)', price: 45 },
-  { src: '/images/Gallery/foodfour.jpg', name: 'BBQ Chicken Feast Pizza(272 kcal)', price: 27 },
+  { src: '/images/gallery/foodone.jpg', name: 'Spice Curry', price: 25 },
+  { src: '/images/gallery/foodtwo.jpg', name: 'Rice Delights', price: 20 },
+  { src: '/images/gallery/foodthree.jpg', name: 'Boxed Meal', price: 30 },
+  { src: '/images/gallery/foodfour.jpg', name: 'Snacks', price: 15 },
+  { src: '/images/gallery/gallery-05.jpg', name: 'Desserts', price: 18 },
+  { src: '/images/gallery/gallery-06.jpg', name: 'Sides', price: 12 },
 ];

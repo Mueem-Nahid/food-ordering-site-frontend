@@ -1,8 +1,8 @@
 "use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import { FeaturesData } from '@/app/api/data';
 import { Icon } from "@iconify/react";
+import {FeaturesData} from "@/app/api/data";
 
 const Features = () => {
     return (

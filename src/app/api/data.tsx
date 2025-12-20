@@ -34,32 +34,32 @@ export const ExpertData: {
     {
       profession: 'Senior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/boyone.svg',
+      imgSrc: '/images/expert/boyone.svg',
     },
     {
       profession: 'Junior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/girl.png',
+      imgSrc: '/images/expert/girl.png',
     },
     {
       profession: 'Junior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/boytwo.svg',
+      imgSrc: '/images/expert/boytwo.svg',
     },
     {
       profession: 'Junior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/girl.png',
+      imgSrc: '/images/expert/girl.png',
     },
     {
       profession: 'Senior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/boyone.svg',
+      imgSrc: '/images/expert/boyone.svg',
     },
     {
       profession: 'Junior Chef',
       name: 'Shoo Thar Mien',
-      imgSrc: '/images/Expert/boytwo.svg',
+      imgSrc: '/images/expert/boytwo.svg',
     },
   ]
 

@@ -33,19 +33,19 @@ const Newsletter = () => {
                     </div>
                     <div className="col-span-5 relative hidden md:block">
                         <div>
-                            <Image src={'/images/Newsletter/soup.svg'} alt="soup-image" width={626} height={602} className='-mt-24' />
+                            <Image src={'/images/newsletter/soup.svg'} alt="soup-image" width={626} height={602} className='-mt-24' />
                         </div>
                         <div className="absolute top-[78%]">
-                            <Image src={'/images/Newsletter/onion.svg'} alt="onion-image" width={300} height={122} />
+                            <Image src={'/images/newsletter/onion.svg'} alt="onion-image" width={300} height={122} />
                         </div>
                         <div className="absolute top-[30%] right-[-23%] hidden lg:block">
-                            <Image src={'/images/Newsletter/lec.svg'} alt="lettuce-image" width={300} height={122} />
+                            <Image src={'/images/newsletter/lec.svg'} alt="lettuce-image" width={300} height={122} />
                         </div>
                         <div className="absolute bottom-[10%] left-[0%]">
-                            <Image src={'/images/Newsletter/yellow.svg'} alt="yellow-image" width={59} height={59} />
+                            <Image src={'/images/newsletter/yellow.svg'} alt="yellow-image" width={59} height={59} />
                         </div>
                         <div className="absolute bottom-[20%] right-[20%]">
-                            <Image src={'/images/Newsletter/blue.svg'} alt="blue-image" width={25} height={25} />
+                            <Image src={'/images/newsletter/blue.svg'} alt="blue-image" width={25} height={25} />
                         </div>
                     </div>
 

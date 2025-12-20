@@ -11,7 +11,7 @@ const Hero = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-12 items-center'>
                     <div className='col-span-6'>
                         <h1 className="text-4xl lg:text-7xl font-semibold mb-5 text-black dark:text-white md:4px lg:text-start text-center">
-                            Cook anything with the experts
+                            Authentic Flavors, Modern Twist!
                         </h1>
                         <p className='text-black/55 dark:text-white/50 lg:text-lg font-normal mb-10 lg:text-start text-center'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem <br /> accusantium doloremque laudantium, totam</p>
                         <div className='md:flex align-middle justify-center lg:justify-start'>
@@ -20,11 +20,11 @@ const Hero = () => {
                         </div>
                     </div>
                     <div className='col-span-6 flex justify-center relative'>
-                        <div className='flex bg-white p-2 gap-5 items-center bottom-10 left-10 rounded-xl absolute'>
-                            <Image src={'/images/hero/pizza.svg'} alt="pizza-image" width={68} height={68} />
-                            <p className='text-lg font-normal'>More than 500+ <br /> recipes.</p>
+                        <div className='flex bg-white p-2 gap-5 items-center bottom-10 right-12 rounded-xl absolute'>
+                            <Image src={'/images/hero/pizza.svg'} alt="pizza-image" width={50} height={50} />
+                            <p className='text-md font-normal'>More than 20+ <br /> recipes.</p>
                         </div>
-                        <Image src="/images/hero/banner-image.png" alt="nothing" width={1000} height={805} />
+                        <Image src="/images/hero/cooking-pana.png" alt="nothing" width={1000} height={805} />
                     </div>
                 </div>
             </div>

@@ -589,7 +589,7 @@ body {
   padding: 1rem 0;
 }
 #login-parent {
-  background-image: url("/images/bg.png");
+  background-image: url("./images/bg.png");
   padding: 130px 0;
 }
 .login .or-login-with {

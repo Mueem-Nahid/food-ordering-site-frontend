@@ -1,0 +1,24 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
+import PaymentMethAvailable from "./PaymentMethAvailable";
+
+const PaymentMethod: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="checkout-item">
+      <div
+        className="delivery-head"
+        style={{
+          marginBottom: "1rem",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <strong>{t("paymentMethod")}</strong>
+      </div>
+      <PaymentMethAvailable />
+    </div>
+  );
+};
+
+export default PaymentMethod;

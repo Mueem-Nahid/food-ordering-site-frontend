@@ -2,8 +2,8 @@ import "./globals.css";
 import React from "react";
 
 export const metadata = {
-  title: "Food Order and Delivery",
-  description: "KFC-style food ordering app migrated to Next.js",
+  title: "DeshiQ || Food Order and Delivery",
+  description: "Food ordering website.",
 };
 
 import Providers from "./Providers";

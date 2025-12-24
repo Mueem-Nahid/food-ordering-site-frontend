@@ -884,12 +884,13 @@ body {
   .header .select-location-header button {
     padding: 0.2rem 0.2rem;
     font-size: 8px;
+    display: none;
   }
   #bucket-btn {
     height: 40px;
   }
   .logo img {
-    width: 40px;
+    width: 70px;
   }
   #modal {
     font-size: 13px;
@@ -958,7 +959,7 @@ body {
 }
 @media (max-width: 464px) {
   .header .header-inner {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
   .deal-container {

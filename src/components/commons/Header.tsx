@@ -54,7 +54,6 @@ const Header: React.FC = () => {
           <Link href="/login" style={{textDecoration: "none"}}>
             <Button variant="contained" className="regLogBtn">
               <strong>{t("registerBtn")} </strong>
-              {/* <strong>Register </strong> */}
             </Button>
           </Link>
         ) : (

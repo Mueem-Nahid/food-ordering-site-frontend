@@ -35,16 +35,16 @@ export default function OrderHistoryPage() {
         ) : (
           <>
             <Grid container display="flex" justifyContent="space-around">
-              <Grid item md={3} sm={3} xs={3}>
+              <Grid size={{xs: 3, sm: 3, md: 3}}>
                 <strong>{t("paymentMethod")}</strong>
               </Grid>
-              <Grid item md={3} sm={3} xs={4}>
+              <Grid size={{xs:4, sm: 3, md: 3}}>
                 <strong>{t("address")}</strong>
               </Grid>
-              <Grid item md={3} sm={3} xs={2}>
+              <Grid size={{xs: 2, sm: 3, md: 3}}>
                 <strong>{t("items")}</strong>
               </Grid>
-              <Grid item md={3} sm={3} xs={3}>
+              <Grid size={{xs: 3, sm: 3, md: 3}}>
                 <strong>{t("subTotal")}</strong>
               </Grid>
             </Grid>

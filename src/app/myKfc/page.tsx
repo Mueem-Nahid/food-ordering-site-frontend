@@ -44,7 +44,7 @@ export default function MyKfcPage() {
 
   return (
     <Container>
-      {loading === true ? (
+      {loading ? (
         <MyKFCSkeleton />
       ) : (
         <div className="my-kfc">
@@ -54,22 +54,19 @@ export default function MyKfcPage() {
                 flexDirection="row"
                 display="flex"
                 gap=".7rem"
-                item
-                xs={12}
-                md={12}
-                sm={12}
+                size={{xs: 12, sm: 12, md: 12}}
               >
                 <h3>{t("hello")} &#128512;</h3>
                 <h3>{user.name}</h3>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={12} sm={12}>
+            <Grid size={{xs: 12, sm: 12, md: 12}}>
               <Accordin />
             </Grid>
-            <Grid item xs={12} md={12} sm={12} marginTop="2rem">
+            <Grid size={{xs: 12, sm: 12, md: 12}} marginTop="2rem">
               <PastOrders />
             </Grid>
-            <Grid item xs={12} md={12} sm={12}>
+            <Grid size={{xs: 12, sm: 12, md: 12}}>
               <Favourites favs={favs} setFavs={setFavs} />
             </Grid>
           </div>

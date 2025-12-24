@@ -68,8 +68,8 @@ export default function CategoryPage() {
               style={{
                 textAlign:
                   typeof window !== "undefined" && window.innerWidth < 768
-                    ? "center"
-                    : "",
+                    ? ("center" as React.CSSProperties["textAlign"])
+                    : undefined,
               }}
             >
               {products[0].catId.name}
@@ -88,7 +88,7 @@ export default function CategoryPage() {
                   }}
                 >
                   {products.map((prod, index) => (
-                    <Grid key={index} item md={2.8} sm={5} xs={10}>
+                    <Grid key={index} size={{xs: 10, sm: 5, md: 2.8}}>
                       <Card
                         key={index}
                         title={prod.name}

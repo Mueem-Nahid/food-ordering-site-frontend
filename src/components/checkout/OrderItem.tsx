@@ -17,7 +17,6 @@ interface OrderItemProps {
 const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
   return (
     <Grid
-      item
       display="flex"
       justifyContent="space-between"
       alignItems="center"

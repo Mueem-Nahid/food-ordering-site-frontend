@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import Link from "next/link";
-import OrderHistory from "../../pages/OrderHistory";
+import OrderHistory from "./OrderHistory";
 import { useTranslation } from "react-i18next";
 
 const PastOrders: React.FC = () => {

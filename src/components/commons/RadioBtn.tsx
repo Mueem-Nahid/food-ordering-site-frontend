@@ -23,7 +23,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index }) => {
           control={
             <Radio
               onClick={() => handleClick(index)}
-              checked={value.index === index ? true : false}
+              checked={value.index === index}
               sx={{ color: "#e4002b !important" }}
             />
           }

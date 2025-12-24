@@ -57,12 +57,9 @@ export default function DeliveryPage() {
         <Stepper step={2} />
         <Grid container display="flex" gap={{ md: 4 }}>
           <Grid
-            item
             display="flex"
             flexDirection="column"
-            md={7}
-            sm={12}
-            xs={12}
+            size={{xs: 12, sm: 12, md: 7}}
             columnSpacing={{ xs: 3, sm: 3, md: 3 }}
             gap={{ md: 3, sm: 3, xs: 3 }}
           >
@@ -74,21 +71,18 @@ export default function DeliveryPage() {
             />
           </Grid>
           <Grid
-            item
-            md={4}
-            sm={12}
-            xs={12}
+            size={{xs: 12, sm: 12, md: 4}}
             display="flex"
             flexDirection="column"
             gap={{ md: 4, sm: 4, xs: 3 }}
           >
-            <Grid item className="checkout-item">
+            <Grid className="checkout-item">
               <OrderSummary />
             </Grid>
-            <Grid item className="checkout-item">
+            <Grid className="checkout-item">
               <OrderTotal />
             </Grid>
-            <Grid item>
+            <Grid>
               <ConfirmOrder phoneValue={phoneValue} />
             </Grid>
           </Grid>

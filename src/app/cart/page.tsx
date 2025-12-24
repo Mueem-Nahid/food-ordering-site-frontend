@@ -22,7 +22,7 @@ export default function CartPage() {
       <div className="cart">
         <Stepper step={1} />
         <Grid container columnSpacing={{ xs: 0, sm: 0, md: 3 }}>
-          <Grid item className="cart-prod-item" md={8} sm={12} xs={12}>
+          <Grid className="cart-prod-item" size={{xs: 12, sm: 12, md: 8}}>
             {cartItems.length === 0 ? (
               <div>No items in cart.</div>
             ) : (
@@ -31,7 +31,7 @@ export default function CartPage() {
               ))
             )}
           </Grid>
-          <Grid item md={4} sm={12} xs={12}>
+          <Grid size={{xs: 12, sm: 12, md: 4}}>
             <ProceedToCheckout />
           </Grid>
         </Grid>

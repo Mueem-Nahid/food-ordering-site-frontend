@@ -174,10 +174,7 @@ export default function ProductPage() {
                   columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 >
                   <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={6}
+                    size={{xs: 12, sm: 12, md: 6}}
                     justifyContent="center"
                     alignItems="center"
                     textAlign="center"
@@ -186,7 +183,7 @@ export default function ProductPage() {
                       <img src={detail.prodImg} width={300} alt="Deal" />
                     </div>
                   </Grid>
-                  <Grid item xs={12} sm={12} md={6}>
+                  <Grid size={{xs: 12, sm: 12, md: 6}}>
                     <div className="product-info-inner">
                       <div className="info">
                         <h1>{detail.name}</h1>
@@ -238,10 +235,10 @@ export default function ProductPage() {
                 marginBottom={30}
                 columnSpacing={{ xs: 3, sm: 3, md: 3 }}
               >
-                <Grid item sm={6} xs={12} md={4}>
+                <Grid size={{xs: 12, sm: 6, md: 4}}>
                   <AddonCard title={t("addons")} prod_id={id} />
                 </Grid>
-                <Grid item sm={6} xs={12} md={4}>
+                <Grid size={{xs: 12, sm: 6, md: 4}}>
                   <SoftDrinkCard title={t("softDrink")} prod_id={id} />
                 </Grid>
               </Grid>

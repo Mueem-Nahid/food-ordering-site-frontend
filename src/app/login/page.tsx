@@ -16,10 +16,10 @@ export default function LoginPage() {
           justifyContent="center"
           rowSpacing={1}
         >
-          <Grid item md={6} sm={6} xs={12} textAlign="center">
+          <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
             <img src="/images/login.gif" id="gif" alt="Hello" />
           </Grid>
-          <Grid item md={6} sm={6} xs={12} textAlign="center">
+          <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
             <h1 style={{ marginBottom: "1rem", textAlign: "left" }}>
               {t("welcome")}!
             </h1>

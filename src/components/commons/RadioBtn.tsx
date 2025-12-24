@@ -20,6 +20,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index }) => {
       >
         <FormControlLabel
           value={value.value === "" ? "" : value.value}
+          label=""
           control={
             <Radio
               onClick={() => handleClick(index)}

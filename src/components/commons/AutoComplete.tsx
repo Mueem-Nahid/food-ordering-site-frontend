@@ -62,7 +62,7 @@ class AutoComplete extends React.Component<AutoCompleteProps, AutoCompleteState>
                   ? {
                       backgroundColor: "#48413e",
                       borderBottom: "1px solid #48413e",
-                      textAlign: "left",
+                      textAlign: "left" as React.CSSProperties["textAlign"],
                       padding: ".5rem .5rem",
                       cursor: "pointer",
                       marginTop: "1rem",
@@ -70,14 +70,13 @@ class AutoComplete extends React.Component<AutoCompleteProps, AutoCompleteState>
                   : {
                       backgroundColor: "#1c1816",
                       borderBottom: "1px solid #48413e",
-                      textAlign: "left",
+                      textAlign: "left" as React.CSSProperties["textAlign"],
                       padding: ".5rem .5rem",
                       cursor: "pointer",
                       marginTop: "1rem",
                     };
                 return (
                   <div
-                    key={index}
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,

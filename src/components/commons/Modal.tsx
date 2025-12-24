@@ -59,7 +59,9 @@ const ModalFunc: React.FC = () => {
 
           <Map />
 
-          <AutoComplete style={{ width: "100%" }} />
+          <div style={{ width: "100%" }}>
+            <AutoComplete />
+          </div>
           <Box
             sx={{ display: "flex", marginTop: "1rem", gap: ".5rem" }}
             className="modal-search-loc"

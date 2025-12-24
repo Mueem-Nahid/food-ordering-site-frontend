@@ -11,7 +11,10 @@ interface AddonCardProps {
 }
 
 interface Addon {
-  // Define the structure of an addon as needed
+  _id: string;
+  name: string;
+  price: number;
+  pic: string;
   [key: string]: any;
 }
 
@@ -36,7 +39,43 @@ const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
   };
 
   useEffect(() => {
-    getAllAddons();
+    // For UI-only: set dummy addons if empty
+    if (!addons || addons.length === 0) {
+      context.setAddons?.([
+        {
+          _id: "addon1",
+          name: "Extra Cheese",
+          price: 50,
+          pic: "/images/addon1.png",
+        },
+        {
+          _id: "addon2",
+          name: "Spicy Sauce",
+          price: 30,
+          pic: "/images/addon2.png",
+        },
+        {
+          _id: "addon3",
+          name: "Garlic Mayo",
+          price: 40,
+          pic: "/images/addon3.png",
+        },
+        {
+          _id: "addon4",
+          name: "Crispy Onions",
+          price: 20,
+          pic: "/images/addon4.png",
+        },
+        {
+          _id: "addon5",
+          name: "Jalapenos",
+          price: 25,
+          pic: "/images/addon5.png",
+        },
+      ]);
+    } else {
+      getAllAddons();
+    }
     //eslint-disable-next-line
   }, []);
 

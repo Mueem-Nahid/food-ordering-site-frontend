@@ -11,6 +11,10 @@ interface SoftDrinkCardProps {
 }
 
 interface SoftDrink {
+  _id: string;
+  name: string;
+  price: number;
+  pic: string;
   [key: string]: any;
 }
 

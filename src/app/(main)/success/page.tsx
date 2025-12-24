@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Spinner from "../../components/commons/Spinner";
+import Spinner from "../../../components/commons/Spinner";
 
 export default function SuccessPage() {
   const [showSuccess, setShowSuccess] = useState(false);

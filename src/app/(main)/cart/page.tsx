@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
-import CartProdItem from "../../components/cart/CartProdItem";
-import Stepper from "../../components/commons/Stepper";
+import CartProdItem from "../../../components/cart/CartProdItem";
+import Stepper from "../../../components/commons/Stepper";
 import { Container, Grid } from "@mui/material";
-import ProceedToCheckout from "../../components/cart/ProceedToCheckout";
+import ProceedToCheckout from "../../../components/cart/ProceedToCheckout";
 import { useSelector } from "react-redux";
 
 export default function CartPage() {

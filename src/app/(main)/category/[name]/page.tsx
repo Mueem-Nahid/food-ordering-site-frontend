@@ -4,11 +4,11 @@ import { useParams } from "next/navigation";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Card from "../../../components/commons/Card";
-import DealSection from "../../../components/deals/DealSection";
-import CategoryPageSkeleton from "../../../components/deals/CatergoryPageSkeleton";
-import softDrinkContext from "../../../context/softDrinkContext";
-import addonContext from "../../../context/addonContext";
+import Card from "../../../../components/commons/Card";
+import DealSection from "../../../../components/deals/DealSection";
+import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
+import softDrinkContext from "../../../../context/softDrinkContext";
+import addonContext from "../../../../context/addonContext";
 
 export default function CategoryPage() {
   const params = useParams();

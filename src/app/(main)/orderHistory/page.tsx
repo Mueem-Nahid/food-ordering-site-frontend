@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
-import OrderHistoryItem from "../../components/MyKFC/OrderHistoryItem";
+import OrderHistoryItem from "../../../components/MyKFC/OrderHistoryItem";
 import { useTranslation } from "react-i18next";
 
 export default function OrderHistoryPage() {

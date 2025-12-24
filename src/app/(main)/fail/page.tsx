@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Spinner from "../../components/commons/Spinner";
+import Spinner from "../../../components/commons/Spinner";
 import { toast } from "react-toastify";
 
 export default function FailPage() {

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 /* image import removed, use public path */
-import {Button, Typography} from "@mui/material";
+import {Button, Stack, Typography} from "@mui/material";
 /* image import removed, use public path */
 import {MyLocation} from "@mui/icons-material";
 import Modal from "./Modal";
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         <div className="select-location-header">
           <Button variant="contained" disableElevation>
             <MyLocation/>
-            Select Location // TODO: change later
+            {/* TODO: change later*/}
             {/*<Modal/>*/}
           </Button>
         </div>

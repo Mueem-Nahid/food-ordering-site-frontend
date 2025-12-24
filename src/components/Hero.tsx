@@ -2,9 +2,6 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-/* image import removed, use public path */
-/* image import removed, use public path */
-/* image import removed, use public path */
 
 const settings = {
   dots: true,

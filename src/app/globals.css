@@ -248,7 +248,8 @@ body {
 }
 /* Hero Component */
 .banner-img {
-  border-radius: 5px;
+  border-radius: 10px;
+  width: 100%;
 }
 /* Signout Btn Component */
 .signout-btn {
@@ -898,7 +899,7 @@ body {
   }
   .deal-container {
     display: grid;
-    grid-template-columns: repeat(2, 0.25fr);
+    grid-template-columns: repeat(3, 0.25fr);
   }
   .deals .deals-inner {
     font-size: 10px;
@@ -961,7 +962,7 @@ body {
     align-items: flex-start;
   }
   .deal-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, .5fr);
   }
   .product-info-inner .info .input-div {
     width: 95vw;

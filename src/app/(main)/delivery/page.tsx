@@ -1,14 +1,14 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import Stepper from "../../components/commons/Stepper";
+import Stepper from "../../../components/commons/Stepper";
 import { Container, Grid } from "@mui/material";
-import DeliveryDetails from "../../components/checkout/DeliveryDetails";
-import OrderSummary from "../../components/checkout/OrderSummary";
-import locationContext from "../../context/locationContext";
-import PaymentMethod from "../../components/checkout/PaymentMethod";
-import PhoneNumber from "../../components/checkout/PhoneNumber";
-import ConfirmOrder from "../../components/checkout/ConfirmOrder";
-import OrderTotal from "../../components/checkout/OrderTotal";
+import DeliveryDetails from "../../../components/checkout/DeliveryDetails";
+import OrderSummary from "../../../components/checkout/OrderSummary";
+import locationContext from "../../../context/locationContext";
+import PaymentMethod from "../../../components/checkout/PaymentMethod";
+import PhoneNumber from "../../../components/checkout/PhoneNumber";
+import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
+import OrderTotal from "../../../components/checkout/OrderTotal";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 

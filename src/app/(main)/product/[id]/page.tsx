@@ -5,21 +5,21 @@ import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import AddonCard from "../../../components/commons/AddonCard";
-import DealSection from "../../../components/deals/DealSection";
-import ProductPageSkeleton from "../../../components/ProductPageSkeleton";
-import dealContext from "../../../context/dealContext";
-import DealSkeleton from "../../../components/deals/DealSkeleton";
-import addonContext from "../../../context/addonContext";
-import SoftDrinkCard from "../../../components/commons/SoftDrinkCard";
-import softDrinkContext from "../../../context/softDrinkContext";
+import AddonCard from "../../../../components/commons/AddonCard";
+import DealSection from "../../../../components/deals/DealSection";
+import ProductPageSkeleton from "../../../../components/ProductPageSkeleton";
+import dealContext from "../../../../context/dealContext";
+import DealSkeleton from "../../../../components/deals/DealSkeleton";
+import addonContext from "../../../../context/addonContext";
+import SoftDrinkCard from "../../../../components/commons/SoftDrinkCard";
+import softDrinkContext from "../../../../context/softDrinkContext";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   updateCartItem,
   increaseItemQuantity,
   decreaseItemQuantity,
-} from "../../../redux/cart/cartSlice";
+} from "../../../../redux/cart/cartSlice";
 import { useTranslation } from "react-i18next";
 
 export default function ProductPage() {

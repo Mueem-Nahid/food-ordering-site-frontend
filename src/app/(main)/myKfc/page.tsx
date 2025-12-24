@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import Accordin from "../../components/MyKFC/Accordin";
-import PastOrders from "../../components/MyKFC/PastOrders";
-import Favourites from "../../components/MyKFC/Favourites";
-import MyKFCSkeleton from "../../components/MyKFC/MyKFCSkeleton";
+import Accordin from "../../../components/MyKFC/Accordin";
+import PastOrders from "../../../components/MyKFC/PastOrders";
+import Favourites from "../../../components/MyKFC/Favourites";
+import MyKFCSkeleton from "../../../components/MyKFC/MyKFCSkeleton";
 import { useTranslation } from "react-i18next";
 
 export default function MyKfcPage() {

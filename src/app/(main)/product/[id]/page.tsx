@@ -19,7 +19,7 @@ import {
   updateCartItem,
   increaseItemQuantity,
   decreaseItemQuantity,
-} from "../../../../redux/cart/cartSlice";
+} from "@/redux/cart/cartSlice";
 import { useTranslation } from "react-i18next";
 
 export default function ProductPage() {

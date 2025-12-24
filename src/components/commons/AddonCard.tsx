@@ -18,6 +18,39 @@ interface Addon {
   [key: string]: any;
 }
 
+const addsOn = [
+  {
+    _id: "addon1",
+    name: "Extra Cheese",
+    price: 50,
+    pic: "/images/addon1.png",
+  },
+  {
+    _id: "addon2",
+    name: "Spicy Sauce",
+    price: 30,
+    pic: "/images/addon2.png",
+  },
+  {
+    _id: "addon3",
+    name: "Garlic Mayo",
+    price: 40,
+    pic: "/images/addon3.png",
+  },
+  {
+    _id: "addon4",
+    name: "Crispy Onions",
+    price: 20,
+    pic: "/images/addon4.png",
+  },
+  {
+    _id: "addon5",
+    name: "Jalapenos",
+    price: 25,
+    pic: "/images/addon5.png",
+  },
+]
+
 const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
   const [show, setShow] = useState<"none" | "flex">("none");
   const { t } = useTranslation();
@@ -86,14 +119,14 @@ const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
         <span className="optional">{t("optional")}</span>
       </div>
       <div className="addon-item">
-        {addons.slice(0, 2).map((addon: Addon, index: number) => {
+        {addsOn.slice(0, 2).map((addon: Addon, index: number) => {
           return (
             <div className="addon-info" key={index}>
               <AddonItem addon={addon} index={index} prod_id={prod_id} />
             </div>
           );
         })}
-        {addons.slice(2, 5).map((addon: Addon, index: number) => {
+        {addsOn.slice(2, 5).map((addon: Addon, index: number) => {
           return (
             <div className="addon-info" key={index} style={{ display: show }}>
               <AddonItem addon={addon} index={index} prod_id={prod_id} />

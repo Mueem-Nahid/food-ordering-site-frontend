@@ -1,9 +1,10 @@
 import React from "react";
-import { Container } from "@mui/system";
-import { Grid, Box } from "@mui/material";
+import {Container} from "@mui/system";
+import {Box, Grid} from "@mui/material";
 /* image import removed, use public path */
-import { YouTube, Instagram, Facebook } from "@mui/icons-material";
+import {Facebook, Instagram, YouTube} from "@mui/icons-material";
 import Link from "next/link";
+import Image from "next/image";
 /* image import removed, use public path */
 /* image import removed, use public path */
 
@@ -13,11 +14,11 @@ const Footer: React.FC = () => {
       <Container>
         <Grid
           container
-          sx={{ marginBottom: "5rem" }}
+          sx={{marginBottom: "5rem"}}
           spacing={4}
           justifyContent="center"
           alignItems="center"
-          gridTemplateColumns={{ xs: 12, sm: 12, md: 12 }}
+          gridTemplateColumns={{xs: 12, sm: 12, md: 12}}
         >
           <Grid
             sx={{
@@ -27,28 +28,28 @@ const Footer: React.FC = () => {
             }}
           >
             <Box>
-<img src="/images/KFC-Logo-Red.png" alt="KFC" className="footer-logo" />
+              <Image src="/images/deshi-q.png" height={70} width={70} alt="DeshiQ"/>
             </Box>
           </Grid>
-          <Grid className="footer-box-cont" sx={{ alignItems: "center" }}>
+          <Grid className="footer-box-cont" sx={{alignItems: "center"}}>
             <Box id="footer-box"></Box>
           </Grid>
-          <Grid sx={{ textAlign: "center" }}>
+          <Grid sx={{textAlign: "center"}}>
             <span>Find Us On</span>
-            <div className="footer-icons" style={{ marginTop: "1rem" }}>
+            <div className="footer-icons" style={{marginTop: "1rem"}}>
               <div className="icon-item">
                 <Link href="/" className="youtube">
-                  <YouTube fontSize="large" />
+                  <YouTube fontSize="large"/>
                 </Link>
               </div>
               <div className="icon-item">
                 <Link href="/" className="insta">
-                  <Instagram fontSize="large" />
+                  <Instagram fontSize="large"/>
                 </Link>
               </div>
               <div className="icon-item">
                 <Link href="/" className="fb">
-                  <Facebook fontSize="large" />
+                  <Facebook fontSize="large"/>
                 </Link>
               </div>
             </div>
@@ -57,7 +58,7 @@ const Footer: React.FC = () => {
         <Grid
           container
           spacing={17}
-          gridTemplateColumns={{ xs: 12, sm: 12, md: 12 }}
+          gridTemplateColumns={{xs: 12, sm: 12, md: 12}}
           justifyContent="center"
         >
           <div>
@@ -95,10 +96,10 @@ const Footer: React.FC = () => {
           </div>
           <div>
             <div>
-              <img src="/images/app-store.png" alt="App Store" />
+              <img src="/images/app-store.png" alt="App Store"/>
             </div>
             <div className="footer-links">
-              <img src="/images/google-store.png" alt="Google Store" />
+              <img src="/images/google-store.png" alt="Google Store"/>
             </div>
           </div>
         </Grid>

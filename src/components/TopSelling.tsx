@@ -81,7 +81,7 @@ const TopSelling: React.FC = () => {
               }}
             >
               {topSell.slice(0, 4).map((prod, index) => (
-                <Grid key={index}>
+                <Grid key={index} size={{ xs: 10, sm: 5, md: 2.8 }}>
                   <Card
                     key={index}
                     title={prod.name}

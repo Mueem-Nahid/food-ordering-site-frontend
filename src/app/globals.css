@@ -6,7 +6,7 @@
 body {
   background-color: #000;
   color: white;
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
 }
 :root {
   --dark-brown: #1c1816;
@@ -39,7 +39,7 @@ body {
 .switch-en,
 .switch-ur-PK {
   color: var(--color-primary);
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -174,7 +174,7 @@ body {
 }
 /* Toast */
 .toast-custom {
-  font-family: "Poppins" !important;
+  font-family: "Poppins", serif !important;
 }
 /* Top Bar Component */
 .top-bar {
@@ -233,7 +233,7 @@ body {
   padding: 15px 15px;
   font-size: 0.875rem;
   border-radius: 8px;
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
 }
 #bucket-btn {
   border: 2px solid white;
@@ -253,7 +253,7 @@ body {
 /* Signout Btn Component */
 .signout-btn {
   background-color: var(--color-red) !important;
-  font-family: "Poppins" !important;
+  font-family: "Poppins", serif !important;
 }
 .menu-item {
   gap: 0.5rem;
@@ -329,7 +329,7 @@ body {
 }
 .view-cart-btn {
   background-color: var(--color-red) !important;
-  font-family: "Poppins" !important;
+  font-family: "Poppins", serif !important;
   border-radius: 8px !important;
   width: 97%;
   padding: 1rem 0 !important;
@@ -425,7 +425,7 @@ body {
   border-radius: 8px;
   font-size: 0.7rem;
   font-weight: bold;
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
 }
 .grid-item .card-footer .add-to-bucket.Mui-disabled {
   background-color: rgba(255, 255, 255, 0.12) !important;
@@ -629,7 +629,7 @@ body {
   border-bottom: 1px solid white;
   outline: none;
   width: 94%;
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
   margin: 1rem 0;
 }
 .location-search-input:hover {
@@ -756,7 +756,7 @@ body {
 }
 .stepper span {
   color: white !important;
-  font-family: "Poppins" !important;
+  font-family: "Poppins", serif !important;
   font-weight: bold !important;
 }
 .stepper .Mui-completed path {
@@ -796,7 +796,7 @@ body {
 .proceed-to-checkout button {
   background-color: var(--color-red) !important;
   border-radius: 8px;
-  font-family: "Poppins";
+  font-family: "Poppins", serif;
   width: 100%;
   padding: 1rem 0;
 }

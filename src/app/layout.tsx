@@ -1,22 +1,22 @@
-import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Layout/Header";
-import Footer from "@/components/Layout/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-const font = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], });
+import React from "react";
+
+export const metadata = {
+  title: "DeshiQ || Food Order and Delivery",
+  description: "Food ordering website.",
+};
+
+import Providers from "./Providers";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${font.className}`}>
-        <Header />
-        {children}
-        <Footer />
-        <ScrollToTop />
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

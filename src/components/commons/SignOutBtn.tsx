@@ -1,21 +1,20 @@
 import * as React from "react";
+import {useContext} from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { PersonOutline, ExitToApp } from "@mui/icons-material";
+import {ExitToApp, PersonOutline} from "@mui/icons-material";
 import Link from "next/link";
 import userContext from "../../context/userContext";
-import { useContext } from "react";
-import { useTranslation } from "react-i18next";
-import {useSession} from "next-auth/react";
-import Image from "next/image";
+import {useTranslation} from "react-i18next";
+import {signOut, useSession} from "next-auth/react";
 
 const AccountMenu: React.FC = () => {
   const context = useContext(userContext);
-  const { setUser } = context;
+  const {setUser} = context;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {data: session} = useSession();
   const open = Boolean(anchorEl);
@@ -26,34 +25,29 @@ const AccountMenu: React.FC = () => {
     setAnchorEl(null);
   };
   const handleSignout = () => {
-    // set the user to null
-    setUser(null);
-    // clear the localStorage
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("user");
-      // navigate to login
-      window.location.href = "/login";
-    }
+    signOut({callbackUrl: "/login"});
   };
 
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   console.log(session?.user)
   return (
     <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <Box sx={{display: "flex", alignItems: "center", textAlign: "center"}}>
         <Tooltip title="My Profile">
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
+            sx={{ml: 2}}
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
             {
-              session?.user?.image ?  <Avatar sx={{ width: { xs: 50, sm: 62 }, height: { xs: 50, sm: 62 } }} className="signout-btn" alt="Profile Image" src={session?.user?.image} /> :
+              session?.user?.image ?
+                <Avatar sx={{width: {xs: 50, sm: 62}, height: {xs: 50, sm: 62}}} className="signout-btn"
+                        alt="Profile Image" src={session?.user?.image}/> :
                 <Avatar
-                  sx={{ width: { xs: 40, sm: 62 }, height: { xs: 40, sm: 62 } }}
+                  sx={{width: {xs: 40, sm: 62}, height: {xs: 40, sm: 62}}}
                   className="signout-btn"
                 >
                   {session?.user?.name?.substring(0, 1)}
@@ -95,23 +89,23 @@ const AccountMenu: React.FC = () => {
             },
           },
         }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        transformOrigin={{horizontal: "right", vertical: "top"}}
+        anchorOrigin={{horizontal: "right", vertical: "bottom"}}
       >
-        <Link href="/my-profile" style={{ textDecoration: "none", color: "white" }}>
+        <Link href="/my-profile" style={{textDecoration: "none", color: "white"}}>
           <MenuItem
             className="menu-item"
-            sx={{ fontFamily: "Poppins !important" }}
+            sx={{fontFamily: "Poppins !important"}}
           >
-            <PersonOutline /> <span>{t("profile")}</span>
+            <PersonOutline/> <span>{t("profile")}</span>
           </MenuItem>
         </Link>
         <div onClick={handleSignout}>
           <MenuItem
             className="menu-item"
-            sx={{ fontFamily: "Poppins !important", color: "white" }}
+            sx={{fontFamily: "Poppins !important", color: "white"}}
           >
-            <ExitToApp /> <span>{t("logout")}</span>
+            <ExitToApp/> <span>{t("logout")}</span>
           </MenuItem>
         </div>
       </Menu>

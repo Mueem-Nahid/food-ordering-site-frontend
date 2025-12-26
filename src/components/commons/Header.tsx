@@ -30,7 +30,7 @@ const Header: React.FC = () => {
       <div className="header-inner">
         <div className="logo">
           <Link href="/">
-            <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{borderRadius: "50%"}}/>
+            <Image className="logo-img" src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{borderRadius: "50%"}}/>
           </Link>
         </div>
         <div className="btn-header">

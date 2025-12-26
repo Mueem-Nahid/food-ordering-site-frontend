@@ -51,9 +51,9 @@ const AccountMenu: React.FC = () => {
             aria-expanded={open ? "true" : undefined}
           >
             {
-              session?.user?.image ?  <Avatar sx={{ width: 62, height: 62 }} className="signout-btn" alt="Profile Image" src={session?.user?.image} /> :
+              session?.user?.image ?  <Avatar sx={{ width: { xs: 50, sm: 62 }, height: { xs: 50, sm: 62 } }} className="signout-btn" alt="Profile Image" src={session?.user?.image} /> :
                 <Avatar
-                  sx={{ width: 62, height: 62 }}
+                  sx={{ width: { xs: 40, sm: 62 }, height: { xs: 40, sm: 62 } }}
                   className="signout-btn"
                 >
                   {session?.user?.name?.substring(0, 1)}

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {Button} from "@mui/material";
+import {Button, Skeleton} from "@mui/material";
 import {MyLocation} from "@mui/icons-material";
 import locationContext from "../../context/locationContext";
 import Drawer from "./Drawer";
@@ -9,9 +9,11 @@ import userContext from "../../context/userContext";
 import {useTranslation} from "react-i18next";
 import cookies from "js-cookie";
 import Image from "next/image";
+import {useSession} from "next-auth/react";
 
 const Header: React.FC = () => {
   const {t} = useTranslation();
+  const {data: session, status} = useSession();
   const context = useContext(locationContext);
   const {getLocation} = context;
   const context2 = useContext(userContext);
@@ -28,7 +30,7 @@ const Header: React.FC = () => {
       <div className="header-inner">
         <div className="logo">
           <Link href="/">
-            <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{ borderRadius: "50%" }}/>
+            <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{borderRadius: "50%"}}/>
           </Link>
         </div>
         <div className="btn-header">
@@ -44,19 +46,24 @@ const Header: React.FC = () => {
             {/*<Modal/>*/}
           </Button>
         </div>
+        {session?.user && (
+          <div style={{marginLeft: "2rem", fontWeight: "bold", fontSize: "1.1rem"}}>
+            {session.user.name}
+          </div>
+        )}
       </div>
       <div className="header-inner">
         <Drawer/>
-        {typeof window !== "undefined" && localStorage.getItem("user") === null ? (
+        {status === 'loading' ? (
+          <Skeleton variant="text" sx={{fontSize: '1rem'}}/>
+        ) : status === 'authenticated' ? (
+          <SignOutBtn/>
+        ) : (
           <Link href="/login" style={{textDecoration: "none"}}>
             <Button variant="contained" className="regLogBtn">
               <strong>{t("registerBtn")} </strong>
             </Button>
           </Link>
-        ) : (
-          <>
-            <SignOutBtn/>
-          </>
         )}
       </div>
     </div>

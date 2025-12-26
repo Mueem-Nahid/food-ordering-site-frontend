@@ -355,7 +355,7 @@ body {
 /* Deals Component */
 .deal-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding: 3rem 0;
   margin: 1rem 0;
   border-bottom: 1px solid var(--light-brown);

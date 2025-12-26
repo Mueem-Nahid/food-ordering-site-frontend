@@ -11,38 +11,32 @@ interface Cat {
 const categories =  [
   {
     "_id": "62f64a5e8383b6a625ff5799",
-    "name": "Everyday Value",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660500830/kfc-clone/zuiwg7m02tnixi5o84bj.jpg",
+    "name": "Meals",
+    "catPic": "/images/meals.png",
     "__v": 0
   },
   {
     "_id": "62f64a828383b6a625ff579b",
-    "name": "Ala-carte & Combos",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660501151/kfc-clone/pyptployrgfpbdoxuayd.jpg",
+    "name": "Snacks",
+    "catPic": "/images/snacks.png",
     "__v": 0
   },
   {
     "_id": "62f64aa88383b6a625ff579d",
-    "name": "Signature Boxes",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660501211/kfc-clone/qqi8ekypfqykdsps3al1.jpg",
+    "name": "Sides",
+    "catPic": "/images/sides.png",
     "__v": 0
   },
   {
     "_id": "62f64ac18383b6a625ff579f",
-    "name": "Sharing",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660501259/kfc-clone/mdmeki1x0nl0ocb4zuhb.jpg",
+    "name": "Desserts",
+    "catPic": "/images/desserts.png",
     "__v": 0
   },
   {
     "_id": "62f64acc8383b6a625ff57a1",
-    "name": "Snacks & Beverages",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660501328/kfc-clone/mxvczfezyuxnznjyc7tf.jpg",
-    "__v": 0
-  },
-  {
-    "_id": "62f64adb8383b6a625ff57a3",
-    "name": "Midnight",
-    "catPic": "https://res.cloudinary.com/digaxe3sc/image/upload/v1660501379/kfc-clone/xve59lsgumjpql2ohkyy.jpg",
+    "name": "Drinks",
+    "catPic": "/images/drinks.png",
     "__v": 0
   }
 ]

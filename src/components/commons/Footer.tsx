@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             }}
           >
             <Box>
-              <Image src="/images/deshi-q.png" height={70} width={70} alt="DeshiQ"/>
+              <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{ borderRadius: "50%" }}/>
             </Box>
           </Grid>
           <Grid className="footer-box-cont" sx={{alignItems: "center"}}>

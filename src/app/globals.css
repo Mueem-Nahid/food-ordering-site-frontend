@@ -11,7 +11,8 @@ body {
 :root {
   --dark-brown: #1c1816;
   --light-brown: #48413e;
-  --color-red: #e4002b;
+  --color-red: #ff741f;
+  /*--color-red: #e4002b; */
 }
 ::-webkit-scrollbar {
   width: 6px;
@@ -354,7 +355,7 @@ body {
 /* Deals Component */
 .deal-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding: 3rem 0;
   margin: 1rem 0;
   border-bottom: 1px solid var(--light-brown);

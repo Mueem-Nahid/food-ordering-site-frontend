@@ -50,8 +50,8 @@ const TemporaryDrawer: React.FC = () => {
               id="bucket-btn"
               variant="outlined"
               sx={{
-                bgcolor: totalItems >= 1 ? "#e4002b !important" : "",
-                borderColor: totalItems >= 1 ? "#e4002b !important" : "",
+                bgcolor: totalItems >= 1 ? "#ff741f !important" : "",
+                borderColor: totalItems >= 1 ? "#ff741f !important" : "",
                 marginRight: "1rem",
               }}
             >
@@ -133,8 +133,8 @@ const TemporaryDrawer: React.FC = () => {
           id="bucket-btn"
           variant="outlined"
           sx={{
-            bgcolor: totalItems >= 1 ? "#e4002b !important" : "",
-            borderColor: totalItems >= 1 ? "#e4002b !important" : "",
+            bgcolor: totalItems >= 1 ? "#ff741f !important" : "",
+            borderColor: totalItems >= 1 ? "#ff741f !important" : "",
           }}
         >
           {totalItems}

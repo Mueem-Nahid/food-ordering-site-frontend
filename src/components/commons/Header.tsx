@@ -1,9 +1,6 @@
 import React, {useContext, useEffect} from "react";
-/* image import removed, use public path */
-import {Button, Stack, Typography} from "@mui/material";
-/* image import removed, use public path */
+import {Button} from "@mui/material";
 import {MyLocation} from "@mui/icons-material";
-import Modal from "./Modal";
 import locationContext from "../../context/locationContext";
 import Drawer from "./Drawer";
 import Link from "next/link";
@@ -31,7 +28,7 @@ const Header: React.FC = () => {
       <div className="header-inner">
         <div className="logo">
           <Link href="/">
-            <Image src="/images/deshi-q.png" height={70} width={70} alt="DeshiQ"/>
+            <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{ borderRadius: "50%" }}/>
           </Link>
         </div>
         <div className="btn-header">

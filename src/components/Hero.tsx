@@ -19,13 +19,13 @@ const Hero: React.FC = () => {
     <Box sx={{ px:1 }}>
       <Slider {...settings}>
         <div>
-          <img src="/images/2.png" alt="Banner" className="banner-img"/>
+          <img src="/images/banner-1.png" alt="Banner" className="banner-img"/>
         </div>
         <div>
-          <img src="/images/3.png" alt="Banner" className="banner-img"/>
+          <img src="/images/banner-2.jpeg" alt="Banner" className="banner-img"/>
         </div>
         <div>
-          <img src="/images/4.png" alt="Banner" className="banner-img"/>
+          <img src="/images/banner-3.jpeg" alt="Banner" className="banner-img"/>
         </div>
       </Slider>
     </Box>

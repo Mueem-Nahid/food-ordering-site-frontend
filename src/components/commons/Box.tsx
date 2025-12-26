@@ -7,7 +7,8 @@ const Boxes: React.FC = () => {
       sx={{
         width: 28,
         height: 14,
-        backgroundColor: "#E4002B",
+        backgroundColor: "#ff741f",
+        // backgroundColor: "#E4002B",
       }}
     />
   );

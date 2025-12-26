@@ -64,7 +64,7 @@ const TopSelling: React.FC = () => {
               : undefined,
         }}
       >
-        Top Selling
+        Featured Items
       </h2>
       <div className="card">
         <div className="cat-cards">

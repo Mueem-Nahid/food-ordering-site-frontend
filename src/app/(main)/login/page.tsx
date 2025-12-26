@@ -1,11 +1,16 @@
 "use client";
+
 import React from "react";
-import { Container } from "@mui/material";
-import { Grid, TextField, Button, Box } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import {Box, Button, Container, Grid, TextField} from "@mui/material";
+import {useTranslation} from "react-i18next";
+import {signIn, useSession} from "../../../utils/auth";
 
 export default function LoginPage() {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
+
+  const handleSignIn = () => {
+    signIn("google", {callbackUrl: "/"});
+  }
 
   return (
     <div id="login-parent">
@@ -17,10 +22,10 @@ export default function LoginPage() {
           rowSpacing={1}
         >
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
-            <img src="/images/login.gif" id="gif" alt="Hello" />
+            <img src="/images/login.gif" id="gif" alt="Hello"/>
           </Grid>
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
-            <h1 style={{ marginBottom: "1rem", textAlign: "left" }}>
+            <h1 style={{marginBottom: "1rem", textAlign: "left"}}>
               {t("welcome")}!
             </h1>
             <form>
@@ -36,7 +41,7 @@ export default function LoginPage() {
                   marginBottom: "1rem",
                   paddingRight: "0",
                 }}
-                inputProps={{ className: "floatingInput" }}
+                inputProps={{className: "floatingInput"}}
                 InputLabelProps={{
                   className: "floatingLabel",
                 }}
@@ -87,10 +92,12 @@ export default function LoginPage() {
                 </div>
               </div>
             </form>
-            {/* Google login placeholder */}
             <div className="login-with-google" id="login-with-google">
-              <Button variant="outlined" disabled>
-                Login with Google (UI only)
+              <Button
+                variant="outlined"
+                onClick={handleSignIn}
+              >
+                Login with Google
               </Button>
             </div>
           </Grid>

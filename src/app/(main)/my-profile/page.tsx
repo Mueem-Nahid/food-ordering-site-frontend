@@ -7,19 +7,17 @@ import PastOrders from "../../../components/MyKFC/PastOrders";
 import Favourites from "../../../components/MyKFC/Favourites";
 import MyKFCSkeleton from "../../../components/MyKFC/MyKFCSkeleton";
 import { useTranslation } from "react-i18next";
+import {useSession} from "next-auth/react";
 
-export default function MyKfcPage() {
+export default function MyProfilePage() {
   // document.title = "My KFC";
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "null")
-      : null;
+  const {data: session, status} = useSession();
   const [loading, setLoading] = useState(true);
   const [favs, setFavs] = useState<any[]>([]);
 
   // For UI-only: simulate fetching favorites
   useEffect(() => {
-    if (!user) {
+    if (!session) {
       setLoading(false);
       return;
     }
@@ -32,7 +30,7 @@ export default function MyKfcPage() {
 
   const { t } = useTranslation();
 
-  if (!user) {
+  if (!session) {
     return (
       <Container>
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
@@ -57,11 +55,11 @@ export default function MyKfcPage() {
                 size={{xs: 12, sm: 12, md: 12}}
               >
                 <h3>{t("hello")} &#128512;</h3>
-                <h3>{user.name}</h3>
+                <h3>{session?.user?.name}</h3>
               </Grid>
             </Grid>
             <Grid size={{xs: 12, sm: 12, md: 12}}>
-              <Accordin />
+              <Accordin userEmail={session?.user?.email} />
             </Grid>
             <Grid size={{xs: 12, sm: 12, md: 12}} marginTop="2rem">
               <PastOrders />

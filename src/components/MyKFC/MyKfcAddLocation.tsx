@@ -1,11 +1,10 @@
 import React from "react";
-import AutoComplete from "../commons/AutoComplete";
-import { TextField, Grid, Button } from "@mui/material";
+import {Button, Grid, TextField} from "@mui/material";
 import Tags from "../commons/Tags";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import locationContext from "../../context/locationContext";
 // import axios from "axios";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const MyKfcAddLocation: React.FC = () => {
   const context = React.useContext(locationContext);
@@ -145,9 +144,29 @@ const MyKfcAddLocation: React.FC = () => {
   return (
     <>
       <Grid sx={{ display: displaySections.first }}>
-        <div style={{ width: "100%" }}>
-          <AutoComplete />
-        </div>
+        <TextField
+          id="filled-basic"
+          label="Address"
+          variant="filled"
+          required
+          sx={{
+            backgroundColor: "rgb(52, 52, 52)",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            fontWeight: "bolder",
+            width: "100%",
+            paddingRight: "0",
+            marginTop: "16px",
+          }}
+          inputProps={{ className: "floatingInput" }}
+          InputLabelProps={{
+            className: "floatingLabel",
+          }}
+          color="error"
+          name="field"
+          value={value}
+          onChange={handleChange}
+        />
       </Grid>
       <Grid sx={{ display: displaySections.first }}>
         <div style={{ width: "100%" }}>
@@ -176,23 +195,7 @@ const MyKfcAddLocation: React.FC = () => {
           />
         </div>
       </Grid>
-      <Grid sx={{ display: displaySections.first }}>
-        <h3>Tags *</h3>
-      </Grid>
-      <Grid sx={{ display: displaySections.first }}>
-        {tags.map((tag, index) => {
-          return (
-            <span key={index}>
-              <Tags
-                handleClick={() => handleClick(index)}
-                variant={index === tagIndex ? "contained" : "outlined"}
-                label={tag.tag}
-                index={index}
-              />
-            </span>
-          );
-        })}
-      </Grid>
+
       <Grid sx={{ display: displaySections.first, justifyContent: "flex-end" }}>
         <Button
           sx={{

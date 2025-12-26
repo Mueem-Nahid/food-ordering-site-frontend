@@ -10,12 +10,14 @@ import Link from "next/link";
 import userContext from "../../context/userContext";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import {useSession} from "next-auth/react";
+import Image from "next/image";
 
 const AccountMenu: React.FC = () => {
   const context = useContext(userContext);
   const { setUser } = context;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const {data: session} = useSession();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,14 +35,13 @@ const AccountMenu: React.FC = () => {
       window.location.href = "/login";
     }
   };
-  const user = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user") || "null") : null;
 
   const { t } = useTranslation();
-
+  console.log(session?.user)
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="My KFC">
+        <Tooltip title="My Profile">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -49,9 +50,15 @@ const AccountMenu: React.FC = () => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 62, height: 62 }} className="signout-btn">
-              {user === null ? "" : user.name.substring(0, 1)}
-            </Avatar>
+            {
+              session?.user?.image ?  <Avatar sx={{ width: 62, height: 62 }} className="signout-btn" alt="Profile Image" src={session?.user?.image} /> :
+                <Avatar
+                  sx={{ width: 62, height: 62 }}
+                  className="signout-btn"
+                >
+                  {session?.user?.name?.substring(0, 1)}
+                </Avatar>
+            }
           </IconButton>
         </Tooltip>
       </Box>
@@ -91,7 +98,7 @@ const AccountMenu: React.FC = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link href="/myKfc" style={{ textDecoration: "none", color: "white" }}>
+        <Link href="/my-profile" style={{ textDecoration: "none", color: "white" }}>
           <MenuItem
             className="menu-item"
             sx={{ fontFamily: "Poppins !important" }}

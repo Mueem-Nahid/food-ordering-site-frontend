@@ -1,30 +1,24 @@
 import * as React from "react";
-import {
-  Grid,
-  AccordionDetails,
-  AccordionSummary,
-  Accordion,
-} from "@mui/material";
-import { ExpandMore, AddCircle } from "@mui/icons-material";
-import Map from "../commons/Map";
-import MyKfcLocations from "../MyKFC/MyKfcLocations";
-import MyKfcAddLocation from "../MyKFC/MyKfcAddLocation";
+import {Accordion, AccordionDetails, AccordionSummary, Grid,} from "@mui/material";
+import {AddCircle, ExpandMore} from "@mui/icons-material";
 import locationContext from "../../context/locationContext";
 import userContext from "../../context/userContext";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
+import MyKfcAddLocation from "@/components/MyKFC/MyKfcAddLocation";
+import MyKfcLocations from "@/components/MyKFC/MyKfcLocations";
 
-const SimpleAccordion: React.FC = () => {
+interface AccordinProps {
+  userEmail?: string | null;
+}
+
+const SimpleAccordion: React.FC<AccordinProps> = ({ userEmail }) => {
   const context = React.useContext(locationContext);
   const user_context = React.useContext(userContext);
-  const { user } = user_context;
+  const {user} = user_context;
   const {
-    getLocations,
     setValue,
     setDisplaySections,
-    setTagIndex,
-    setLocationState,
     displaySections,
-    locations,
   } = context;
   const getUser =
     typeof window !== "undefined"
@@ -32,21 +26,14 @@ const SimpleAccordion: React.FC = () => {
       : {};
 
   const clickSelecDifLoc = () => {
-    setDisplaySections({ first: "flex", second: "none" });
+    setDisplaySections({first: "flex", second: "none"});
     setValue("");
-    setLocationState("Add");
-    setTagIndex(null);
   };
 
-  const { t } = useTranslation();
-
-  React.useEffect(() => {
-    getLocations(getUser.email);
-    //eslint-disable-next-line
-  }, [locations, user]);
+  const {t} = useTranslation();
 
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <div style={{marginTop: "2rem"}}>
       <Accordion
         sx={{
           marginBottom: ".7rem",
@@ -58,7 +45,7 @@ const SimpleAccordion: React.FC = () => {
         }}
       >
         <AccordionSummary
-          expandIcon={<ExpandMore sx={{ color: "red" }} />}
+          expandIcon={<ExpandMore sx={{color: "red"}}/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -66,7 +53,7 @@ const SimpleAccordion: React.FC = () => {
         </AccordionSummary>
         <AccordionDetails>
           <h3>{t("email")}</h3>
-          <span style={{ fontFamily: "Poppins" }}>{getUser.email}</span>
+          <span style={{fontFamily: "Poppins"}}>{userEmail}</span>
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -80,7 +67,7 @@ const SimpleAccordion: React.FC = () => {
         }}
       >
         <AccordionSummary
-          expandIcon={<ExpandMore sx={{ color: "red" }} />}
+          expandIcon={<ExpandMore sx={{color: "red"}}/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -90,12 +77,9 @@ const SimpleAccordion: React.FC = () => {
           <Grid
             container
             marginTop={2}
-            columnSpacing={{ md: 2 }}
-            rowSpacing={{ xs: 1 }}
+            columnSpacing={{md: 2}}
+            rowSpacing={{xs: 1}}
           >
-            <Grid>
-              <Map />
-            </Grid>
             {/* Add User Location To Database */}
             <MyKfcAddLocation />
             {/* Add User Location To Database */}
@@ -122,7 +106,7 @@ const SimpleAccordion: React.FC = () => {
               }}
             >
               <div className="address-icon">
-                <AddCircle />
+                <AddCircle/>
               </div>
               <div className="select-dif-loc" onClick={clickSelecDifLoc}>
                 <span>{t("selectADifLocation")}</span>

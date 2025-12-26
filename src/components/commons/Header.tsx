@@ -13,7 +13,7 @@ import {useSession} from "next-auth/react";
 
 const Header: React.FC = () => {
   const {t} = useTranslation();
-  const {data: session, status} = useSession();
+  const {status} = useSession();
   const context = useContext(locationContext);
   const {getLocation} = context;
   const context2 = useContext(userContext);
@@ -46,18 +46,13 @@ const Header: React.FC = () => {
             {/*<Modal/>*/}
           </Button>
         </div>
-        {session?.user && (
-          <div style={{marginLeft: "2rem", fontWeight: "bold", fontSize: "1.1rem"}}>
-            {session.user.name}
-          </div>
-        )}
       </div>
       <div className="header-inner">
         <Drawer/>
         {status === 'loading' ? (
           <Skeleton variant="text" sx={{fontSize: '1rem'}}/>
         ) : status === 'authenticated' ? (
-          <SignOutBtn/>
+          <SignOutBtn />
         ) : (
           <Link href="/login" style={{textDecoration: "none"}}>
             <Button variant="contained" className="regLogBtn">

@@ -25,7 +25,7 @@ const AccountMenu: React.FC = () => {
     setAnchorEl(null);
   };
   const handleSignout = () => {
-    signOut({callbackUrl: "/login"});
+    signOut({callbackUrl: "/auth/login"});
   };
 
   const {t} = useTranslation();

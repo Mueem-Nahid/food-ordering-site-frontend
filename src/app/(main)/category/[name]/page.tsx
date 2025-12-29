@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -9,13 +9,11 @@ import DealSection from "../../../../components/deals/DealSection";
 import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
 import softDrinkContext from "../../../../context/softDrinkContext";
 import addonContext from "../../../../context/addonContext";
+import { useGetProductsQuery } from "@/redux/features/products/productApi";
 
 export default function CategoryPage() {
   const params = useParams();
   const name = params?.name as string;
-
-  const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<any[]>([]);
 
   const softDrink_context = useContext(softDrinkContext);
   const addon_context = useContext(addonContext);
@@ -23,44 +21,22 @@ export default function CategoryPage() {
   const { setAddonQuantity } = addon_context;
   const { setSoftDrinksQuantity } = softDrink_context;
 
-  // For UI-only: set dummy products
-  const getCatProds = async () => {
-    setProducts([
-      {
-        name: "Sample Product 1",
-        desc: "Description for product 1",
-        price: 100,
-        prodImg: "/images/1.png",
-        _id: "1",
-        catId: { name: name || "Category" },
-      },
-      {
-        name: "Sample Product 2",
-        desc: "Description for product 2",
-        price: 200,
-        prodImg: "/images/2.png",
-        _id: "2",
-        catId: { name: name || "Category" },
-      },
-    ]);
-    setLoading(false);
-  };
+  // Fetch products by category name
+  const { data, isLoading } = useGetProductsQuery({ category: name });
 
   useEffect(() => {
-    setLoading(true);
-    getCatProds();
     setAddonQuantity([]);
     setSoftDrinksQuantity([]);
     //eslint-disable-next-line
   }, [name]);
 
-  // document.title = products[0] === undefined ? "Loading..." : products[0].catId.name;
+  const products = data?.data || [];
 
   return (
     <Container>
       <DealSection />
       <div className="cat-container">
-        {loading ? (
+        {isLoading ? (
           <CategoryPageSkeleton />
         ) : (
           <>
@@ -72,7 +48,7 @@ export default function CategoryPage() {
                     : undefined,
               }}
             >
-              {products[0].catId.name}
+              {products[0]?.catId?.name || name}
             </h2>
             <div className="cat-cards">
               <Box marginTop={6}>
@@ -94,9 +70,9 @@ export default function CategoryPage() {
                         title={prod.name}
                         desc={prod.desc}
                         price={prod.price}
-                        src={prod.prodImg}
+                        src={prod.prodImg || prod.productImage}
                         id={prod._id}
-                        catName={prod.catId.name}
+                        catName={prod.catId?.name || name}
                       />
                     </Grid>
                   ))}

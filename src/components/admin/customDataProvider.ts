@@ -101,13 +101,18 @@ const customDataProvider = {
   },
   create: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
+    // Transform availability to array of strings if needed
+    let data = { ...params.data };
+    if (Array.isArray(data.availability) && data.availability.length > 0 && typeof data.availability[0] === "object" && "value" in data.availability[0]) {
+      data.availability = data.availability.map((item: any) => item.value);
+    }
     return fetch(`${baseUrl}/${resource}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
       },
-      body: JSON.stringify(params.data)
+      body: JSON.stringify(data)
     }).then(response => response.json())
       .then(item => {
         // If backend response is wrapped in { data: ... }, extract it
@@ -117,17 +122,24 @@ const customDataProvider = {
   },
   update: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
+    // Transform availability to array of strings if needed
+    let data = { ...params.data };
+    if (Array.isArray(data.availability) && data.availability.length > 0 && typeof data.availability[0] === "object" && "value" in data.availability[0]) {
+      data.availability = data.availability.map((item: any) => item.value);
+    }
     return fetch(`${baseUrl}/${resource}/${params.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
       },
-      body: JSON.stringify(params.data)
+      body: JSON.stringify(data)
     }).then(response => response.json())
-      .then(item => ({
-        data: mapId(item)
-      }));
+      .then(item => {
+        // If backend response is wrapped in { data: ... }, extract it
+        const actual = item && item.data ? item.data : item;
+        return { data: mapId(actual) };
+      });
   },
   updateMany: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;

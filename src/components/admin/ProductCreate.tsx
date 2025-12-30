@@ -4,6 +4,8 @@ import { Create, SimpleForm, TextInput, NumberInput, ReferenceInput, SelectInput
 const ProductCreate = (props: any) => (
   <Create {...props}>
     <SimpleForm>
+      {/* Hide id field if react-admin tries to infer it */}
+      <TextInput source="id" style={{ display: 'none' }} />
       <TextInput source="name" required />
       <TextInput source="desc" required label="Description" />
       <NumberInput source="price" required />
@@ -13,7 +15,7 @@ const ProductCreate = (props: any) => (
       <TextInput source="productImage" required label="Product Image URL" />
       <ArrayInput source="availability" label="Availability">
         <SimpleFormIterator>
-          <TextInput />
+          <TextInput source="value" />
         </SimpleFormIterator>
       </ArrayInput>
       {/* comment is an array of subdocuments, skipping for now */}

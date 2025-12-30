@@ -14,9 +14,17 @@ function mapId(obj: any): any {
     if (mapped._id && !mapped.id) {
       mapped.id = mapped._id;
     }
+    // Remove _id field after mapping to id
+    if ("_id" in mapped) {
+      delete mapped._id;
+    }
     // Special case: if categoryId is an object with _id, map to categoryId._id
     if (mapped.categoryId && typeof mapped.categoryId === "object" && mapped.categoryId._id) {
       mapped.categoryId = mapped.categoryId._id;
+    }
+    // Remove __v field
+    if ("__v" in mapped) {
+      delete mapped.__v;
     }
     return mapped;
   }
@@ -28,10 +36,6 @@ const customDataProvider = {
   ...simpleProvider,
   getList: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    // TEMP DEBUG: Log the accessToken being sent
-    // Remove this after debugging
-    // eslint-disable-next-line no-console
-    console.log("ReactAdmin customDataProvider accessToken:", accessToken);
     return fetch(`${baseUrl}/${resource}`, {
       headers: {
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
@@ -55,10 +59,9 @@ const customDataProvider = {
       }
     }).then(response => response.json())
       .then(item => {
-        // TEMP DEBUG: Log the raw response from backend for create
-        // eslint-disable-next-line no-console
-        console.log("ReactAdmin create raw response:", item);
-        return { data: mapId(item) };
+        // If backend response is wrapped in { data: ... }, extract it
+        const actual = item && item.data ? item.data : item;
+        return { data: mapId(actual) };
       });
   },
   getMany: (resource: string, params: any) => {
@@ -115,7 +118,7 @@ const customDataProvider = {
   update: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
     return fetch(`${baseUrl}/${resource}/${params.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
@@ -150,24 +153,35 @@ const customDataProvider = {
       headers: {
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
       }
-    }).then(response => response.json())
-      .then(item => ({
-        data: mapId(item)
-      }));
+    }).then(async response => {
+      if (response.status === 204) {
+        // No content, return previousData or empty object
+        return { data: params.previousData || {} };
+      }
+      const item = await response.json();
+      return { data: mapId(item) };
+    });
   },
   deleteMany: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
     return Promise.all(
-      params.ids.map((id: string) =>
+      params.ids.map((id: string, idx: number) =>
         fetch(`${baseUrl}/${resource}/${id}`, {
           method: "DELETE",
           headers: {
             ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
           }
-        }).then(response => response.json())
+        }).then(async response => {
+          if (response.status === 204) {
+            // No content, return previousData or id
+            return params.previousData ? params.previousData[idx] : { id };
+          }
+          const item = await response.json();
+          return mapId(item);
+        })
       )
     ).then(items => ({
-      data: mapId(items)
+      data: items
     }));
   },
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Create, SimpleForm, TextInput } from "react-admin";
+import { Create, SimpleForm, TextInput, ImageInput, ImageField } from "react-admin";
 
 const CategoryCreate = (props: any) => (
   <Create {...props}>
@@ -7,7 +7,13 @@ const CategoryCreate = (props: any) => (
       {/* Hide id field if react-admin tries to infer it */}
       <TextInput source="id" style={{ display: 'none' }} />
       <TextInput source="name" required />
-      <TextInput source="categoryImage" label="Category Image URL" />
+      <ImageInput
+        source="categoryImage"
+        label="Category Image"
+        accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
+      >
+        <ImageField source="src" title="Category Image" />
+      </ImageInput>
     </SimpleForm>
   </Create>
 );

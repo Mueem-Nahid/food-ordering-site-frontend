@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Datagrid, TextField, EditButton, ShowButton, CreateButton, TopToolbar } from "react-admin";
+import {List, Datagrid, TextField, EditButton, ShowButton, CreateButton, TopToolbar, ImageField} from "react-admin";
 
 const ListActions = (props: any) => (
   <TopToolbar>
@@ -12,7 +12,7 @@ const CategoryList = (props: any) => (
     <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
-      <TextField source="categoryImage" label="Category Image" />
+      <ImageField source="categoryImage" label="Category Image" />
       <EditButton />
       <ShowButton />
     </Datagrid>

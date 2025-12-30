@@ -1,5 +1,5 @@
 import React from "react";
-import { Create, SimpleForm, TextInput, NumberInput } from "react-admin";
+import { Create, SimpleForm, TextInput, NumberInput, ImageInput, ImageField } from "react-admin";
 
 const AddonCreate = (props: any) => (
   <Create {...props}>
@@ -8,7 +8,13 @@ const AddonCreate = (props: any) => (
       <TextInput source="id" style={{ display: 'none' }} />
       <TextInput source="name" required />
       <NumberInput source="price" required />
-      <TextInput source="addonImage" label="Addon Image URL" />
+      <ImageInput
+        source="addonImage"
+        label="Addon Image"
+        accept={{ 'image/*': ['.png', '.jpg', '.jpeg', '.webp'] }}
+      >
+        <ImageField source="src" title="Addon Image" />
+      </ImageInput>
     </SimpleForm>
   </Create>
 );

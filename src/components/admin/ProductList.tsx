@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Datagrid, TextField, EditButton, ShowButton, CreateButton, TopToolbar } from "react-admin";
+import { List, Datagrid, TextField, EditButton, ShowButton, CreateButton, TopToolbar, ImageField } from "react-admin";
 
 const ListActions = (props: any) => (
   <TopToolbar>
@@ -18,7 +18,7 @@ const ProductList = (props: any) => (
       {/* TEMP DEBUG: Log categoryId value */}
       {/* eslint-disable-next-line no-console */}
       {props && props.record && console.log("ProductList categoryId:", props.record.categoryId)}
-      <TextField source="productImage" label="Product Image" />
+      <ImageField source="productImage" label="Product Image" className="table-image"/>
       <TextField source="availability" />
       <EditButton />
       <ShowButton />

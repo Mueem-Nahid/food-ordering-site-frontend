@@ -1001,3 +1001,13 @@ body {
     padding: 5px 10px !important;
   }
 }
+
+.RaDatagrid-table .RaImageField-image {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: block;
+  margin: 0 auto;
+}

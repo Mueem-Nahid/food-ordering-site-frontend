@@ -123,44 +123,108 @@ const customDataProvider = {
         };
       });
   },
-  create: (resource: string, params: any) => {
+  create: async (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    // Transform availability to array of strings if needed
     let data = { ...params.data };
-    if (Array.isArray(data.availability) && data.availability.length > 0 && typeof data.availability[0] === "object" && "value" in data.availability[0]) {
+
+    // Handle image upload for react-admin's ImageInput (productImage, categoryImage, addonImage)
+    const imageField =
+      resource === "products"
+        ? "productImage"
+        : resource === "categories"
+        ? "categoryImage"
+        : resource === "addons"
+        ? "addonImage"
+        : null;
+
+    if (imageField && data[imageField] && data[imageField].rawFile instanceof File) {
+      const formData = new FormData();
+      formData.append("file", data[imageField].rawFile);
+      formData.append(
+        "upload_preset",
+        process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || ""
+      );
+      // Optionally set folder
+      if (resource === "products") formData.append("folder", "product");
+      if (resource === "categories") formData.append("folder", "category");
+      if (resource === "addons") formData.append("folder", "addons");
+
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "";
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const cloudinaryData = await res.json();
+      if (cloudinaryData.secure_url) {
+        data[imageField] = cloudinaryData.secure_url;
+      } else {
+        data[imageField] = "";
+      }
+    }
+
+    // Ensure price is a number if present
+    if (typeof data.price !== "undefined") {
+      data.price = Number(data.price);
+      if (isNaN(data.price)) data.price = 0;
+    }
+
+    // Transform availability to array of strings if needed
+    if (
+      Array.isArray(data.availability) &&
+      data.availability.length > 0 &&
+      typeof data.availability[0] === "object" &&
+      "value" in data.availability[0]
+    ) {
       data.availability = data.availability.map((item: any) => item.value);
     }
+
     return fetch(`${baseUrl}/${resource}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
+        ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {}),
       },
-      body: JSON.stringify(data)
-    }).then(response => response.json())
-      .then(item => {
-        // If backend response is wrapped in { data: ... }, extract it
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((item) => {
         const actual = item && item.data ? item.data : item;
         return { data: mapId(actual) };
       });
   },
   update: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    // Transform availability to array of strings if needed
     let data = { ...params.data };
-    if (Array.isArray(data.availability) && data.availability.length > 0 && typeof data.availability[0] === "object" && "value" in data.availability[0]) {
+
+    // Ensure price is a number if present
+    if (typeof data.price !== "undefined") {
+      data.price = Number(data.price);
+      if (isNaN(data.price)) data.price = 0;
+    }
+
+    // Transform availability to array of strings if needed
+    if (
+      Array.isArray(data.availability) &&
+      data.availability.length > 0 &&
+      typeof data.availability[0] === "object" &&
+      "value" in data.availability[0]
+    ) {
       data.availability = data.availability.map((item: any) => item.value);
     }
+
     return fetch(`${baseUrl}/${resource}/${params.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
+        ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {}),
       },
-      body: JSON.stringify(data)
-    }).then(response => response.json())
-      .then(item => {
-        // If backend response is wrapped in { data: ... }, extract it
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((item) => {
         const actual = item && item.data ? item.data : item;
         return { data: mapId(actual) };
       });

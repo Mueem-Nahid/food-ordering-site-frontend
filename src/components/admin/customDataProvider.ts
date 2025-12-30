@@ -36,18 +36,42 @@ const customDataProvider = {
   ...simpleProvider,
   getList: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    return fetch(`${baseUrl}/${resource}`, {
+    // Build query string for pagination, sorting, and filters
+    const { page, perPage } = params.pagination || {};
+    const { field, order } = params.sort || {};
+    const query: any = {
+      page,
+      limit: perPage,
+    };
+    if (field) query.sortBy = field === "id" ? "_id" : field;
+    if (order) query.sortOrder = order === "ASC" ? "asc" : order === "DESC" ? "desc" : order;
+    // Add filters
+    if (params.filter) {
+      Object.entries(params.filter).forEach(([key, value]) => {
+        query[key] = value;
+      });
+    }
+    const queryString = Object.entries(query)
+      .filter(([_, v]) => v !== undefined)
+      .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v as string)}`)
+      .join("&");
+    return fetch(`${baseUrl}/${resource}?${queryString}`, {
       headers: {
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {})
       }
     })
       .then(response => response.json())
       .then(data => {
+        // Support backend response: { meta: { total }, data: [...] }
         const items = Array.isArray(data) ? data : (data.data || []);
         const mappedItems = mapId(items);
+        const total =
+          (data.meta && typeof data.meta.total === "number")
+            ? data.meta.total
+            : (Array.isArray(data) ? data.length : (data.total || items.length || 0));
         return {
           data: mappedItems,
-          total: Array.isArray(data) ? data.length : (data.total || items.length || 0),
+          total,
         };
       });
   },

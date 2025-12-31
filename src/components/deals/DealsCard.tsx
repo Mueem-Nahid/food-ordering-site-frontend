@@ -12,7 +12,7 @@ const DealsCard: React.FC<DealsCardProps> = ({ src, name, classes = "", id }) =>
   return (
     <div className="deals">
       <Link
-        href={`/category/${name}`}
+        href={`/category/${id}`}
         style={{ color: "white", textDecoration: "none" }}
       >
         <div className="deals-inner">

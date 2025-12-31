@@ -56,7 +56,8 @@ i18n.use(initReactI18next).init({
         "total": "Total",
         "back": "Back",
         "confirmOrder": "Confirm Order",
-        "optional": "Optional"
+        "optional": "Optional",
+        "admin": "Admin",
       }
     },
     "ur-PK": {
@@ -112,7 +113,8 @@ i18n.use(initReactI18next).init({
         "total": "کل",
         "back": "پیچھے",
         "confirmOrder": "حکم صادر کریں",
-        "optional": "اختیاری"
+        "optional": "اختیاری",
+        "admin": "منتظم"
       }
     }
   },

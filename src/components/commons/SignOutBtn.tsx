@@ -6,17 +6,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import {ExitToApp, PersonOutline} from "@mui/icons-material";
+import {ExitToApp, PersonOutline, AdminPanelSettingsOutlined} from "@mui/icons-material";
 import Link from "next/link";
-import userContext from "../../context/userContext";
 import {useTranslation} from "react-i18next";
 import {signOut, useSession} from "next-auth/react";
+import {useSelector} from "react-redux";
 
 const AccountMenu: React.FC = () => {
-  const context = useContext(userContext);
-  const {setUser} = context;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {data: session} = useSession();
+  const userInfo = useSelector((state: any) => state.user?.userInfo);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +28,7 @@ const AccountMenu: React.FC = () => {
   };
 
   const {t} = useTranslation();
-  console.log(session?.user)
+
   return (
     <React.Fragment>
       <Box sx={{display: "flex", alignItems: "center", textAlign: "center"}}>
@@ -100,6 +99,17 @@ const AccountMenu: React.FC = () => {
             <PersonOutline/> <span>{t("profile")}</span>
           </MenuItem>
         </Link>
+        {
+          userInfo?.role === 'admin' &&
+          <Link href="/admin" style={{textDecoration: "none", color: "white"}}>
+            <MenuItem
+              className="menu-item"
+              sx={{fontFamily: "Poppins !important"}}
+            >
+              <AdminPanelSettingsOutlined /> <span>{t("admin")}</span>
+            </MenuItem>
+          </Link>
+        }
         <div onClick={handleSignout}>
           <MenuItem
             className="menu-item"

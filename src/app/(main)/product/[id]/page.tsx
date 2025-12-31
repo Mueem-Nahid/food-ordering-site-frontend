@@ -164,7 +164,7 @@ export default function ProductPage() {
                           textAlign="center"
                         >
                           <div className="product-img">
-                            <img src={product?.productImage} width={300} alt="Deal"/>
+                            <img src={product?.productImage} width={300} alt="Product Image"/>
                           </div>
                         </Grid>
                         <Grid size={{xs: 12, sm: 12, md: 6}}>

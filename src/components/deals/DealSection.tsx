@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DealsCard from "./DealsCard";
+import {useParams} from "next/navigation";
 
 interface Cat {
   categoryImage: string;
@@ -12,25 +13,27 @@ interface DealSectionProps {
 }
 
 const DealSection: React.FC<DealSectionProps> = ({ categories }) => {
-  const [active, setActive] = useState<number | "">("");
+  const params = useParams();
+  const name = params?.name as string;
+  const [active, setActive] = useState<string>(name || "");
+
+  useEffect(() => {
+    if (name && categories.some(cat => cat.name === name)) {
+      setActive(name);
+    }
+  }, [name, categories]);
 
   // set a deal as active
-  const handleActive = (i: number) => {
+  const handleActive = (i: string) => {
     setActive(i);
   };
 
   return (
     <div className="deal-container">
       {categories.map((cat, index) => (
-        <div key={cat._id} onClick={() => handleActive(index)}>
+        <div key={cat._id} onClick={() => handleActive(cat?.name)}>
           <DealsCard
-            classes={
-              index === active
-                ? "active"
-                : active === ""
-                ? (handleActive(0), "")
-                : ""
-            }
+            classes={cat?.name === active ? "active" : ""}
             src={cat?.categoryImage}
             name={cat.name}
             id={cat._id}

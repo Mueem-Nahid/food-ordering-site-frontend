@@ -438,6 +438,8 @@ body {
   margin: auto;
   padding: 1rem 0;
   width: 100%;
+  height: 320px;
+  border-radius: 12px;
 }
 .plus-icon {
   display: none !important;
@@ -908,7 +910,7 @@ body {
   .top-sel-img {
     margin: auto;
     padding: 0 0;
-    width: 170px;
+    border-radius: 10px;
   }
   .plus-icon {
     display: block !important;

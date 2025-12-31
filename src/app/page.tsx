@@ -15,6 +15,7 @@ import TopBar from "../components/commons/TopBar";
 import LanguageSwitch from "../components/commons/LanguageSwitch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {useGetProductsQuery} from "@/redux/features/products/productApi";
 
 export default function Home() {
   const context = useContext(dealContext);
@@ -22,6 +23,9 @@ export default function Home() {
 
   const { data, isLoading, isError } = useGetCategoriesQuery(undefined);
   const categories = data?.data || [];
+
+  const { data: productData, isLoading: isProductLoading, isError: isProductError } = useGetProductsQuery(undefined);
+  const products = productData?.data || [];
 
   useEffect(() => {
     getCats();
@@ -50,7 +54,11 @@ export default function Home() {
         ) : (
           <DealSection categories={categories} />
         )}
-        {loading ? <CategoryPageSkeleton /> : <TopSelling />}
+        {loading || isProductLoading ? (
+          <CategoryPageSkeleton />
+        ) : isProductError ? (
+          <div className="deal-container">Failed to load products.</div>
+        ) : <TopSelling products={products} />}
       </Container>
       <Footer />
     </>

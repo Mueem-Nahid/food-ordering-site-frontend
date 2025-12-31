@@ -12,12 +12,9 @@ const ProductList = (props: any) => (
     <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
-      <TextField source="desc" label="Description" />
+      {/*<TextField source="desc" label="Description" />*/}
       <TextField source="price" />
       <TextField source="categoryId" label="Category ID" />
-      {/* TEMP DEBUG: Log categoryId value */}
-      {/* eslint-disable-next-line no-console */}
-      {props && props.record && console.log("ProductList categoryId:", props.record.categoryId)}
       <ImageField source="productImage" label="Product Image" className="table-image"/>
       <TextField source="availability" />
       <EditButton />

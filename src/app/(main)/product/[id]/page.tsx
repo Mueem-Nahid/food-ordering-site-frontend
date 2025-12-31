@@ -132,7 +132,8 @@ export default function ProductPage() {
             {
               isProductError ?
                 <div className="deal-container">Failed to load product.</div> :
-                product ? <div
+                product ?
+                  <div
                     className="product-info"
                     style={{
                       backgroundImage: `url(/images/bg-ellipse.png)`,
@@ -151,7 +152,7 @@ export default function ProductPage() {
                           : "",
                     }}
                   >
-                    <Box sx={{width: "100%", marginBottom: "10rem"}}>
+                    <Box sx={{width: "100%", marginBottom: "5rem"}}>
                       <Grid
                         container
                         rowSpacing={1}
@@ -218,8 +219,9 @@ export default function ProductPage() {
             <Box>
               <Grid
                 container
-                marginBottom={30}
+                marginBottom={10}
                 columnSpacing={{xs: 3, sm: 3, md: 3}}
+                justifyContent="center"
               >
                 <Grid size={{xs: 12, sm: 6, md: 4}}>
                   <AddonCard title={t("addons")} prod_id={id}/>

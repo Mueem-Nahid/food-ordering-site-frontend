@@ -1,7 +1,7 @@
 "use client";
-import React, { useContext, useEffect } from "react";
-import { useParams } from "next/navigation";
-import { Container } from "@mui/material";
+import React, {useContext, useEffect} from "react";
+import {useParams} from "next/navigation";
+import {Container} from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "../../../../components/commons/Card";
@@ -9,7 +9,9 @@ import DealSection from "../../../../components/deals/DealSection";
 import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
 import softDrinkContext from "../../../../context/softDrinkContext";
 import addonContext from "../../../../context/addonContext";
-import { useGetProductsQuery } from "@/redux/features/products/productApi";
+import {useGetProductsQuery} from "@/redux/features/products/productApi";
+import {useGetCategoriesQuery} from "@/redux/features/categories/categoryApi";
+import {IProduct} from "@/types/globalTypes";
 
 export default function CategoryPage() {
   const params = useParams();
@@ -18,11 +20,15 @@ export default function CategoryPage() {
   const softDrink_context = useContext(softDrinkContext);
   const addon_context = useContext(addonContext);
 
-  const { setAddonQuantity } = addon_context;
-  const { setSoftDrinksQuantity } = softDrink_context;
+  const {setAddonQuantity} = addon_context;
+  const {setSoftDrinksQuantity} = softDrink_context;
 
-  // Fetch products by category name
-  const { data, isLoading } = useGetProductsQuery({ category: name });
+  const {data, isLoading, isError} = useGetCategoriesQuery(undefined);
+  const categories = data?.data || [];
+
+  // Fetch products by categoryId (if found), else fallback to name
+  const {data: productData, isLoading: isProductLoading} = useGetProductsQuery({categoryName: name});
+  const products = productData?.data || [];
 
   useEffect(() => {
     setAddonQuantity([]);
@@ -30,14 +36,12 @@ export default function CategoryPage() {
     //eslint-disable-next-line
   }, [name]);
 
-  const products = data?.data || [];
-
   return (
     <Container>
-      <DealSection />
+      <DealSection categories={categories}/>
       <div className="cat-container">
         {isLoading ? (
-          <CategoryPageSkeleton />
+          <CategoryPageSkeleton/>
         ) : (
           <>
             <h2
@@ -55,7 +59,7 @@ export default function CategoryPage() {
                 <Grid
                   className="grid"
                   container
-                  columnGap={{ xs: 0, sm: 4, md: 3 }}
+                  columnGap={{xs: 0, sm: 4, md: 3}}
                   gap={1}
                   justifyContent={{
                     sm: "center",
@@ -63,16 +67,16 @@ export default function CategoryPage() {
                     md: "flex-start",
                   }}
                 >
-                  {products.map((prod, index) => (
-                    <Grid key={index} size={{xs: 10, sm: 5, md: 2.8}}>
+                  {products.map((prod: IProduct) => (
+                    <Grid key={prod._id} size={{xs: 10, sm: 5, md: 2.8}}>
                       <Card
-                        key={index}
+                        key={prod._id}
                         title={prod.name}
                         desc={prod.desc}
                         price={prod.price}
-                        src={prod.prodImg || prod.productImage}
+                        src={prod.productImage}
                         id={prod._id}
-                        catName={prod.catId?.name || name}
+                        catName={prod.category?.name}
                       />
                     </Grid>
                   ))}

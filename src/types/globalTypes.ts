@@ -50,3 +50,18 @@ export interface IPost {
   updatedAt:Date;
   comments: IComment[]
 }
+
+export type IProduct = {
+  _id: string;
+  name: string;
+  productImage: string;
+  desc: string;
+  price: number;
+  categoryId: string;
+  comment?: [];
+  availability?: string[];
+  category: {
+    _id: string;
+    name: string;
+  }
+};

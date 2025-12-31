@@ -54,7 +54,7 @@ const Header: React.FC = () => {
         ) : status === 'authenticated' ? (
           <SignOutBtn />
         ) : (
-          <Link href="/login" style={{textDecoration: "none"}}>
+          <Link href="/auth/login" style={{textDecoration: "none"}}>
             <Button variant="contained" className="regLogBtn">
               <strong>{t("registerBtn")} </strong>
             </Button>

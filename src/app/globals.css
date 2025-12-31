@@ -438,6 +438,8 @@ body {
   margin: auto;
   padding: 1rem 0;
   width: 100%;
+  height: 320px;
+  border-radius: 12px;
 }
 .plus-icon {
   display: none !important;
@@ -908,7 +910,7 @@ body {
   .top-sel-img {
     margin: auto;
     padding: 0 0;
-    width: 170px;
+    border-radius: 10px;
   }
   .plus-icon {
     display: block !important;
@@ -1000,4 +1002,14 @@ body {
     font-size: 10px !important;
     padding: 5px 10px !important;
   }
+}
+
+.RaDatagrid-table .RaImageField-image {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: block;
+  margin: 0 auto;
 }

@@ -3,7 +3,7 @@
 import React from "react";
 import {Box, Button, Container, Grid, TextField} from "@mui/material";
 import {useTranslation} from "react-i18next";
-import {signIn, useSession} from "../../../utils/auth";
+import {signIn} from "@/utils/auth";
 
 export default function LoginPage() {
   const {t} = useTranslation();

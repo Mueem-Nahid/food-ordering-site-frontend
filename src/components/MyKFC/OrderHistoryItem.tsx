@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { TableRow, TableCell } from "@mui/material";
 
 interface OrderHistoryItemProps {
   item: {
@@ -12,25 +12,12 @@ interface OrderHistoryItemProps {
 
 const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({ item }) => {
   return (
-    <Grid
-      container
-      display="flex"
-      justifyContent="space-around"
-      marginTop="1rem"
-    >
-      <div style={{ textAlign: "center" }}>
-        <span>{item.payment_method}</span>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <span>{item.address.substr(0, 30)}...</span>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <span>{item.totalItems}</span>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <span>Rs {item.amount}</span>
-      </div>
-    </Grid>
+    <TableRow>
+      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.payment_method}</TableCell>
+      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.address}</TableCell>
+      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.totalItems}</TableCell>
+      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>Rs {item.amount}</TableCell>
+    </TableRow>
   );
 };
 

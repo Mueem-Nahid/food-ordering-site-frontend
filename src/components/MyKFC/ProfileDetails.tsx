@@ -7,11 +7,7 @@ import {useGetUserQuery, useUpdateUserMutation} from "@/redux/features/users/use
 import {useSelector} from "react-redux";
 import EditableField from "@/components/MyKFC/EditableField";
 
-interface AccordinProps {
-  userEmail?: string | null;
-}
-
-const SimpleAccordion: React.FC<AccordinProps> = ({userEmail}) => {
+const ProfileDetails: React.FC = () => {
   const context = React.useContext(locationContext);
   // Try to get userId from Redux, fallback to localStorage
   const reduxUser = useSelector((state: any) => state.user?.userInfo);
@@ -112,4 +108,4 @@ const SimpleAccordion: React.FC<AccordinProps> = ({userEmail}) => {
   );
 };
 
-export default SimpleAccordion;
+export default ProfileDetails;

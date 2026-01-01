@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Container, Grid } from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Container, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import OrderHistoryItem from "./OrderHistoryItem";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
+import Link from "next/link";
 
 const OrderHistory: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   useEffect(() => {
     // For UI-only: set dummy orders
@@ -23,36 +24,60 @@ const OrderHistory: React.FC = () => {
         totalItems: 1,
         amount: 250,
       },
+      {
+        payment_method: "Paypal",
+        address: "789 Oak St, City",
+        totalItems: 3,
+        amount: 900,
+      },
     ]);
   }, []);
 
+  const showOrders = orders.length > 2 ? orders.slice(0, 2) : orders;
+
   return (
     <Container>
-      <h1>{t("pastOrders")}</h1>
       <div className="order-history">
         {orders.length < 1 ? (
           <span>{t("noOrder")}</span>
         ) : (
           <>
-            <Grid container display="flex" justifyContent="space-around">
-              <Grid sx={{ textAlign: "center" }}>
-                <strong>{t("paymentMethod")}</strong>
-              </Grid>
-              <Grid sx={{ textAlign: "center" }}>
-                <strong>{t("address")}</strong>
-              </Grid>
-              <Grid sx={{ textAlign: "center" }}>
-                <strong>{t("items")}</strong>
-              </Grid>
-              <Grid sx={{ textAlign: "center" }}>
-                <strong>{t("subTotal")}</strong>
-              </Grid>
-            </Grid>
-            <div>
-              {orders.map((item, index) => (
-                <OrderHistoryItem key={index} item={item} />
-              ))}
-            </div>
+            <Table
+              sx={{
+                backgroundColor: "#1c1816",
+                borderRadius: "12px",
+                overflow: "hidden"
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
+                    <strong>{t("paymentMethod")}</strong>
+                  </TableCell>
+                  <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
+                    <strong>{t("address")}</strong>
+                  </TableCell>
+                  <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
+                    <strong>{t("items")}</strong>
+                  </TableCell>
+                  <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
+                    <strong>{t("subTotal")}</strong>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {showOrders.map((item, index) => (
+                  <OrderHistoryItem key={index} item={item}/>
+                ))}
+              </TableBody>
+            </Table>
+            {orders.length > 2 && (
+              <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
+                <Link href="/orderHistory" className="view-all">
+                  {t("viewAll")}
+                </Link>
+              </div>
+            )}
           </>
         )}
       </div>

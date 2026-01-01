@@ -1,10 +1,8 @@
 import React from "react";
-import {Accordion, AccordionDetails, AccordionSummary, Grid,} from "@mui/material";
-import {AddCircle, ExpandMore} from "@mui/icons-material";
+import {Accordion, AccordionDetails, AccordionSummary,} from "@mui/material";
+import {ExpandMore} from "@mui/icons-material";
 import locationContext from "../../context/locationContext";
 import {useTranslation} from "react-i18next";
-import MyKfcAddLocation from "@/components/MyKFC/MyKfcAddLocation";
-import MyKfcLocations from "@/components/MyKFC/MyKfcLocations";
 import {useGetUserQuery, useUpdateUserMutation} from "@/redux/features/users/userApi";
 import {useSelector} from "react-redux";
 import EditableField from "@/components/MyKFC/EditableField";
@@ -108,65 +106,6 @@ const SimpleAccordion: React.FC<AccordinProps> = ({userEmail}) => {
               }
             }}
           />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        sx={{
-          marginBottom: ".7rem",
-          backgroundColor: "#1c1816",
-          color: "white",
-          borderRadius: "12px !important",
-          padding: "1rem 0.4rem",
-          fontFamily: "Poppins",
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMore sx={{color: "red"}}/>}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <h3>{t("myAddresses")}</h3>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Grid
-            container
-            marginTop={2}
-            columnSpacing={{md: 2}}
-            rowSpacing={{xs: 1}}
-          >
-            {/* Add User Location To Database */}
-            <MyKfcAddLocation/>
-            {/* Add User Location To Database */}
-
-            <Grid
-              sx={{
-                display: displaySections.second,
-                gap: 2,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              {/* User current locations available in database */}
-              <MyKfcLocations/>
-              {/* User current locations available in database */}
-            </Grid>
-            <Grid
-              sx={{
-                display: displaySections.second,
-                gap: 2,
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                cursor: "pointer",
-              }}
-            >
-              <div className="address-icon">
-                <AddCircle/>
-              </div>
-              <div className="select-dif-loc" onClick={clickSelecDifLoc}>
-                <span>{t("selectADifLocation")}</span>
-              </div>
-            </Grid>
-          </Grid>
         </AccordionDetails>
       </Accordion>
     </div>

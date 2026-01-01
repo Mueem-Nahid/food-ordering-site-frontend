@@ -1,29 +1,36 @@
 import React from "react";
-import { Grid } from "@mui/material";
-import Link from "next/link";
+import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
 import OrderHistory from "./OrderHistory";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
+import {ExpandMore} from "@mui/icons-material";
 
 const PastOrders: React.FC = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   return (
-    <>
-      <Grid
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between"
-        display="flex"
+    <div style={{marginTop: "2rem"}}>
+      <Accordion
+        sx={{
+          marginBottom: ".7rem",
+          backgroundColor: "#1c1816",
+          color: "white",
+          borderRadius: "12px !important",
+          padding: "1rem 0.4rem",
+          fontFamily: "Poppins",
+        }}
       >
-        <h1>{t("pastOrders")}</h1>
-        <Link href="/orderHistory" className="view-all">
-          {t("viewAll")}
-        </Link>
-      </Grid>
-      <div className="past-orders">
-        <OrderHistory />
-      </div>
-    </>
+        <AccordionSummary
+          expandIcon={<ExpandMore sx={{color: "red"}}/>}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <h3>{t("pastOrders")}</h3>
+        </AccordionSummary>
+        <AccordionDetails>
+          <OrderHistory showAllOrders={false}/>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 };
 

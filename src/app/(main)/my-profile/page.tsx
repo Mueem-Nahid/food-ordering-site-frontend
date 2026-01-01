@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import Accordin from "../../../components/MyKFC/Accordin";
+import ProfileDetails from "../../../components/MyKFC/ProfileDetails";
 import PastOrders from "../../../components/MyKFC/PastOrders";
 import Favourites from "../../../components/MyKFC/Favourites";
 import MyKFCSkeleton from "../../../components/MyKFC/MyKFCSkeleton";
@@ -10,31 +10,15 @@ import { useTranslation } from "react-i18next";
 import {useSession} from "next-auth/react";
 
 export default function MyProfilePage() {
-  // document.title = "My KFC";
   const {data: session, status} = useSession();
-  const [loading, setLoading] = useState(true);
   const [favs, setFavs] = useState<any[]>([]);
-
-  // For UI-only: simulate fetching favorites
-  useEffect(() => {
-    if (!session) {
-      setLoading(false);
-      return;
-    }
-    setTimeout(() => {
-      setFavs([]); // Set dummy favorites
-      setLoading(false);
-    }, 1000);
-    //eslint-disable-next-line
-  }, []);
-
   const { t } = useTranslation();
 
-  if (!session) {
+  if (status === "unauthenticated") {
     return (
       <Container>
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <h2>Please login to view your KFC profile.</h2>
+          <h2>Please login to view your profile.</h2>
         </div>
       </Container>
     );
@@ -42,7 +26,7 @@ export default function MyProfilePage() {
 
   return (
     <Container>
-      {loading ? (
+      {status === "loading" ? (
         <MyKFCSkeleton />
       ) : (
         <div className="my-kfc">
@@ -59,9 +43,9 @@ export default function MyProfilePage() {
               </Grid>
             </Grid>
             <Grid size={{xs: 12, sm: 12, md: 12}}>
-              <Accordin userEmail={session?.user?.email} />
+              <ProfileDetails />
             </Grid>
-            <Grid size={{xs: 12, sm: 12, md: 12}} marginTop="2rem">
+            <Grid size={{xs: 12, sm: 12, md: 12}}>
               <PastOrders />
             </Grid>
             <Grid size={{xs: 12, sm: 12, md: 12}}>

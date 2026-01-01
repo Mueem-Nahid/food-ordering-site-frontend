@@ -1,6 +1,5 @@
 import {api} from "@/redux/api/apiSlice";
 
-
 const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
@@ -25,11 +24,28 @@ const userApi = api.injectEndpoints({
         body: payload
       }),
     }),
+    getUser: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "GET",
+      }),
+      providesTags: ['user'],
+    }),
+    updateUser: builder.mutation({
+      query: ({ id, ...payload }) => ({
+        url: `/users/${id}`,
+        method: "PATCH",
+        body: payload,
+      }),
+      invalidatesTags: ['user'],
+    }),
   })
 });
 
 export const {
   useLoginUserMutation,
   useSignupUserMutation,
-  useGoogleAuthUpsertMutation
+  useGoogleAuthUpsertMutation,
+  useUpdateUserMutation,
+  useGetUserQuery,
 } = userApi;

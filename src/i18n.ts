@@ -58,6 +58,8 @@ i18n.use(initReactI18next).init({
         "confirmOrder": "Confirm Order",
         "optional": "Optional",
         "admin": "Admin",
+        "name": "Name",
+        "phoneNumber": "Phone Number",
       }
     },
     "ur-PK": {
@@ -114,7 +116,9 @@ i18n.use(initReactI18next).init({
         "back": "پیچھے",
         "confirmOrder": "حکم صادر کریں",
         "optional": "اختیاری",
-        "admin": "منتظم"
+        "admin": "منتظم",
+        "name": "نام",
+        "phoneNumber": "فون نمبر"
       }
     }
   },

@@ -5,7 +5,11 @@ import OrderHistoryItem from "./OrderHistoryItem";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 
-const OrderHistory: React.FC = () => {
+interface IProps {
+  showAllOrders: boolean;
+}
+
+const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
   const [orders, setOrders] = useState<any[]>([]);
   const {t} = useTranslation();
 
@@ -37,6 +41,9 @@ const OrderHistory: React.FC = () => {
 
   return (
     <Container>
+      {
+        showAllOrders && <h1 style={{marginBottom: "10px"}}>{t("pastOrders")}</h1>
+      }
       <div className="order-history">
         {orders.length < 1 ? (
           <span>{t("noOrder")}</span>
@@ -66,14 +73,18 @@ const OrderHistory: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {showOrders.map((item, index) => (
-                  <OrderHistoryItem key={index} item={item}/>
-                ))}
+                {!showAllOrders ? showOrders.map((item, index) => (
+                    <OrderHistoryItem key={index} item={item}/>
+                  )) :
+                  orders.map((item, index) => (
+                    <OrderHistoryItem key={index} item={item}/>
+                  ))
+                }
               </TableBody>
             </Table>
-            {orders.length > 2 && (
+            {!showAllOrders && orders.length > 2 && (
               <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
-                <Link href="/orderHistory" className="view-all">
+                <Link href="/my-profile/order-history" className="view-all">
                   {t("viewAll")}
                 </Link>
               </div>

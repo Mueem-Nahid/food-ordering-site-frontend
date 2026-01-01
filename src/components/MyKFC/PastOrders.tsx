@@ -27,7 +27,7 @@ const PastOrders: React.FC = () => {
           <h3>{t("pastOrders")}</h3>
         </AccordionSummary>
         <AccordionDetails>
-          <OrderHistory/>
+          <OrderHistory showAllOrders={false}/>
         </AccordionDetails>
       </Accordion>
     </div>

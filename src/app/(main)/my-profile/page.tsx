@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ProfileDetails from "../../../components/MyKFC/ProfileDetails";
@@ -9,9 +9,9 @@ import MyKFCSkeleton from "../../../components/MyKFC/MyKFCSkeleton";
 import { useTranslation } from "react-i18next";
 import {useSession} from "next-auth/react";
 
-export default function MyProfilePage() {
-  document.title = "DeshiQ || My Profile";
+import Head from "next/head";
 
+export default function MyProfilePage() {
   const {data: session, status} = useSession();
   const [favs, setFavs] = useState<any[]>([]);
   const { t } = useTranslation();
@@ -28,6 +28,9 @@ export default function MyProfilePage() {
 
   return (
     <Container>
+      <Head>
+        <title>DeshiQ || My Profile</title>
+      </Head>
       {status === "loading" ? (
         <MyKFCSkeleton />
       ) : (

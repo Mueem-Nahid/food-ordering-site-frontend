@@ -9,8 +9,6 @@ import MyKFCSkeleton from "../../../components/MyKFC/MyKFCSkeleton";
 import { useTranslation } from "react-i18next";
 import {useSession} from "next-auth/react";
 
-import Head from "next/head";
-
 export default function MyProfilePage() {
   const {data: session, status} = useSession();
   const [favs, setFavs] = useState<any[]>([]);
@@ -28,9 +26,6 @@ export default function MyProfilePage() {
 
   return (
     <Container>
-      <Head>
-        <title>DeshiQ || My Profile</title>
-      </Head>
       {status === "loading" ? (
         <MyKFCSkeleton />
       ) : (

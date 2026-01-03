@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   reactStrictMode: true,
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

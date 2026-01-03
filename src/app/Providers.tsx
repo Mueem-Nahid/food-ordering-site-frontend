@@ -10,10 +10,21 @@ import LocationState from "../context/locationState";
 import UserState from "../context/userState";
 import {SessionProvider} from "next-auth/react";
 import store from "@/redux/store";
-
 import AuthSync from "./AuthSync";
 
 export default function Providers({children}: { children: React.ReactNode }) {
+  React.useEffect(() => {
+    if (typeof window !== "undefined" && process.env.NODE_ENV === "production") {
+      const disableContextMenu = (e: MouseEvent) => {
+        e.preventDefault();
+      };
+      window.addEventListener("contextmenu", disableContextMenu);
+      return () => {
+        window.removeEventListener("contextmenu", disableContextMenu);
+      };
+    }
+  }, []);
+
   return (
     <SessionProvider>
       <Provider store={store}>

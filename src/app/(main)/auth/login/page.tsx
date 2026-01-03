@@ -22,79 +22,17 @@ export default function LoginPage() {
           rowSpacing={1}
         >
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
-            <img src="/images/login.gif" id="gif" alt="Hello"/>
+            <img src="/images/login.png" id="gif" alt="Login"/>
           </Grid>
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
-            <h1 style={{marginBottom: "1rem", textAlign: "left"}}>
+            <h1 style={{marginBottom: "1rem", textAlign: "center"}}>
               {t("welcome")}!
             </h1>
-            <form>
-              <TextField
-                id="filled-basic"
-                label="Name"
-                variant="filled"
-                sx={{
-                  backgroundColor: "#343434",
-                  borderTopLeftRadius: "8px",
-                  borderTopRightRadius: "8px",
-                  fontWeight: "bolder",
-                  marginBottom: "1rem",
-                  paddingRight: "0",
-                }}
-                inputProps={{className: "floatingInput"}}
-                InputLabelProps={{
-                  className: "floatingLabel",
-                }}
-                color="error"
-              />
-              <TextField
-                id="filled-basic"
-                label="Phone Number"
-                variant="filled"
-                sx={{
-                  backgroundColor: "#343434",
-                  borderTopLeftRadius: "8px",
-                  borderTopRightRadius: "8px",
-                  fontWeight: "bolder",
-                  marginBottom: "1rem",
-                  paddingRight: "0",
-                }}
-                inputProps={{
-                  className: "floatingInput",
-                }}
-                InputLabelProps={{
-                  className: "floatingLabel",
-                }}
-                color="error"
-              />
-              <Button variant="contained" id="login-btn" disabled>
-                Login
-              </Button>
-              <div className="or-login-with">
-                <div>
-                  <Box
-                    className="lines"
-                    sx={{
-                      backgroundColor: "#48413e",
-                    }}
-                  />
-                </div>
-                <div>
-                  <h5>Or</h5>
-                </div>
-                <div>
-                  <Box
-                    className="lines"
-                    sx={{
-                      backgroundColor: "#48413e",
-                    }}
-                  />
-                </div>
-              </div>
-            </form>
+
             <div className="login-with-google" id="login-with-google">
               <Button
-                variant="outlined"
+                sx={{backgroundColor: '#ff741f'}}
+                variant="contained"
                 onClick={handleSignIn}
               >
                 Login with Google

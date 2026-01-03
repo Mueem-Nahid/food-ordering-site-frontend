@@ -457,7 +457,7 @@ body {
   padding: 3rem 1rem;
 }
 #footer #footer-box {
-  height: 50px;
+  height: 70px;
   border-right: 2px solid white;
 }
 #footer .footer-icons {
@@ -593,7 +593,7 @@ body {
 }
 #login-parent {
   background-image: url("/images/bg.png");
-  padding: 130px 0;
+  padding: 0 0 20px 0;
 }
 .login .or-login-with {
   display: flex;
@@ -603,7 +603,7 @@ body {
   gap: 1rem;
 }
 .login #gif {
-  width: 20rem;
+  width: 30rem;
 }
 .login form {
   display: flex;
@@ -935,7 +935,7 @@ body {
     font-size: 14px;
   }
   .login #gif {
-    width: 10rem;
+    width: 15rem;
   }
   .grid-item h4,
   .grid-item h5 {
@@ -995,9 +995,9 @@ body {
   }
 }
 @media (max-width: 385px) {
-  .footer-box-cont {
+  /*.footer-box-cont {
     display: none;
-  }
+  }*/
   .tags {
     font-size: 10px !important;
     padding: 5px 10px !important;

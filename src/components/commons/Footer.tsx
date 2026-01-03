@@ -1,12 +1,9 @@
 import React from "react";
 import {Container} from "@mui/system";
 import {Box, Grid} from "@mui/material";
-/* image import removed, use public path */
-import {Facebook, Instagram, YouTube} from "@mui/icons-material";
+import {Facebook, Instagram} from "@mui/icons-material";
 import Link from "next/link";
 import Image from "next/image";
-/* image import removed, use public path */
-/* image import removed, use public path */
 
 const Footer: React.FC = () => {
   return (
@@ -38,17 +35,12 @@ const Footer: React.FC = () => {
             <span>Find Us On</span>
             <div className="footer-icons" style={{marginTop: "1rem"}}>
               <div className="icon-item">
-                <Link href="/" className="youtube">
-                  <YouTube fontSize="large"/>
-                </Link>
-              </div>
-              <div className="icon-item">
-                <Link href="/" className="insta">
+                <Link target="_blank" href="https://www.instagram.com/deshiq__/" className="insta">
                   <Instagram fontSize="large"/>
                 </Link>
               </div>
               <div className="icon-item">
-                <Link href="/" className="fb">
+                <Link target="_blank" href="https://www.facebook.com/profile.php?id=61585522453607" className="fb">
                   <Facebook fontSize="large"/>
                 </Link>
               </div>
@@ -69,13 +61,7 @@ const Footer: React.FC = () => {
               <Link href="/">About Us</Link>
             </div>
             <div className="footer-links">
-              <Link href="/">Mitao Bhook</Link>
-            </div>
-            <div className="footer-links">
               <Link href="/">Privacy</Link>
-            </div>
-            <div className="footer-links">
-              <Link href="/">Careers</Link>
             </div>
           </div>
           <div>
@@ -92,14 +78,6 @@ const Footer: React.FC = () => {
             </div>
             <div className="footer-links">
               <Link href="/">Terms & Conditions</Link>
-            </div>
-          </div>
-          <div>
-            <div>
-              <img src="/images/app-store.png" alt="App Store"/>
-            </div>
-            <div className="footer-links">
-              <img src="/images/google-store.png" alt="Google Store"/>
             </div>
           </div>
         </Grid>

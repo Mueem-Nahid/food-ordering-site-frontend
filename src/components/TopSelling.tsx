@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "./commons/Card";
@@ -18,8 +17,6 @@ interface IProductSectionProps {
 }
 
 const TopSelling: React.FC <IProductSectionProps> = ({ products }) => {
-  const [topSell, setTopSell] = useState<IProduct[]>([]);
-  console.log("products", products);
   return (
     <div className="top-selling">
       <h2
@@ -46,7 +43,7 @@ const TopSelling: React.FC <IProductSectionProps> = ({ products }) => {
                 md: "flex-start",
               }}
             >
-              {products.slice(0, 4).map((prod, index) => (
+              {products.map((prod, index) => (
                 <Grid key={index} size={{ xs: 10, sm: 5, md: 2.8 }}>
                   <Card
                     key={index}

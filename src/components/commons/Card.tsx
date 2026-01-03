@@ -1,12 +1,11 @@
-import React, { useContext, useState, useEffect, MouseEvent } from "react";
-import { Grid, Button } from "@mui/material";
-import { Add, Edit, FavoriteBorder, Favorite } from "@mui/icons-material";
+import React, {MouseEvent, useContext, useEffect, useState} from "react";
+import {Button} from "@mui/material";
+import {Add, Edit} from "@mui/icons-material";
 import Link from "next/link";
 import userContext from "../../context/userContext";
-// import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/cart/cartSlice";
-import { useTranslation } from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {addToCart} from "@/redux/cart/cartSlice";
+import {useTranslation} from "react-i18next";
 
 interface CardProps {
   src: string;
@@ -19,6 +18,7 @@ interface CardProps {
 
 interface CartItem {
   prod_id: string;
+
   [key: string]: any;
 }
 
@@ -28,13 +28,13 @@ interface RootState {
   };
 }
 
-const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => {
+const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
   const hour = new Date().getHours();
   const dispatch = useDispatch();
 
   const [addIcon, setAddIcon] = useState<boolean | undefined>(undefined);
 
-  const { cartItems } = useSelector((store: RootState) => store.cart);
+  const {cartItems} = useSelector((store: RootState) => store.cart);
 
   // use below state to make button disable to check if it is midnight deal or not
   const [btn, setBtn] = useState<boolean | null>(null);
@@ -42,7 +42,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
   // use below state to make link disable to check if it is midnight deal or not
   const [link, setLink] = useState<string>("");
   const context = useContext(userContext);
-  const { user } = context;
+  const {user} = context;
   // use below state to mark or unmark product as favourite
   const [isFav, setIsFav] = useState(false);
 
@@ -50,7 +50,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
   const getUser = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user") || "{}") : {};
 
   // translation
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   // check the time if it is midnight or not
   const checkMidnight = () => {
@@ -117,7 +117,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
 
     dispatch(
       addToCart({
-        product: { price, title, id, src },
+        product: {price, title, id, src},
         quantity: 1,
         addons: [],
         softDrinks: [],
@@ -144,7 +144,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
   return (
     <div className="grid-item">
       <Link href={link} className="card-link">
-        <div className="add-to-fav" style={{ textAlign: "right" }}>
+        <div className="add-to-fav" style={{textAlign: "right"}}>
           {/* {typeof window !== "undefined" && localStorage.getItem("user") &&
             (isFav === true ? (
               <Favorite
@@ -159,13 +159,15 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
             ))} */}
         </div>
         <div className="card-img">
-          <img className="top-sel-img" src={src} alt="Top Selling" />
+          <img className="top-sel-img" src={src} alt="Top Selling"/>
         </div>
-        <h4>{title}</h4>
+        <h4>
+          {title.length > 20 ? title.substring(0, 20) + "..." : title}
+        </h4>
         <h5>{desc.substring(0, 50)} ...</h5>
         <div className="card-footer">
           <h2>
-            <strong>Rs {price}</strong>
+            <strong>$ {price}</strong>
           </h2>
           <strong>
             {addIcon === true ? (
@@ -178,7 +180,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
                 ""
               )
             ) : (
-              <Edit className="plus-icon" sx={{ color: "#e4002b" }} />
+              <Edit className="plus-icon" sx={{color: "#e4002b"}}/>
             )}
           </strong>
 
@@ -192,7 +194,7 @@ const Card: React.FC<CardProps> = ({ src, title, desc, price, id, catName }) => 
               <strong>{t("addToBucket")}</strong>
             </Button>
           ) : (
-            <Edit className="edit-icon" sx={{ color: "#e4002b" }} />
+            <Edit className="edit-icon" sx={{color: "#e4002b"}}/>
           )}
         </div>
       </Link>

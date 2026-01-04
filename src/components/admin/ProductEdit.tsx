@@ -1,5 +1,5 @@
 import React from "react";
-import { Create, SimpleForm, TextInput, NumberInput, ReferenceInput, SelectInput, ImageInput, ImageField, SelectArrayInput } from "react-admin";
+import { Edit, SimpleForm, TextInput, NumberInput, ReferenceInput, SelectInput, ImageInput, ImageField, SelectArrayInput } from "react-admin";
 import { daysOfWeek } from "@/constants/constants";
 
 // Map daysOfWeek to SelectArrayInput format
@@ -8,10 +8,9 @@ const dayChoices = daysOfWeek.map(day => ({
   name: day
 }));
 
-const ProductCreate = (props: any) => (
-  <Create {...props}>
+const ProductEdit = (props: any) => (
+  <Edit {...props}>
     <SimpleForm>
-      {/* Hide id field if react-admin tries to infer it */}
       <TextInput source="id" style={{ display: 'none' }} />
       <TextInput source="name" required />
       <TextInput source="desc" required label="Description" />
@@ -33,9 +32,8 @@ const ProductCreate = (props: any) => (
         optionText="name"
         optionValue="id"
       />
-      {/* comment is an array of subdocuments, skipping for now */}
     </SimpleForm>
-  </Create>
+  </Edit>
 );
 
-export default ProductCreate;
+export default ProductEdit;

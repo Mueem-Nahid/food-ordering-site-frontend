@@ -28,11 +28,11 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
       <div className="order-item">
         <strong>{item.product.title}</strong>
         <span>
-          Rs {item.product.price} x {item.quantity}
+          $ {item.product.price} x {item.quantity}
         </span>
       </div>
       <div className="order-price">
-        <strong>Rs {item.product.price * item.quantity}</strong>
+        <strong>$ {item.product.price * item.quantity}</strong>
       </div>
     </Grid>
   );

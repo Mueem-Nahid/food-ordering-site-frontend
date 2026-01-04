@@ -60,6 +60,7 @@ i18n.use(initReactI18next).init({
         "admin": "Admin",
         "name": "Name",
         "phoneNumber": "Phone Number",
+        "deliveryAddress": "Delivery Address",
       }
     },
     "ur-PK": {
@@ -118,7 +119,8 @@ i18n.use(initReactI18next).init({
         "optional": "اختیاری",
         "admin": "منتظم",
         "name": "نام",
-        "phoneNumber": "فون نمبر"
+        "phoneNumber": "فون نمبر",
+        "deliveryAddress": "ترسیل کا پتہ"
       }
     }
   },

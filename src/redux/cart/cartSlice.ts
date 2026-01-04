@@ -43,7 +43,16 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }: PayloadAction<CartItem>) => {
-      state.cartItems = state.cartItems.concat(payload);
+      // Ensure deliveryDay is set in product
+      const cartItem = {
+        ...payload,
+        product: {
+          ...payload.product,
+          deliveryDay: payload.product.deliveryDay || null,
+        },
+      };
+      console.log("Cart item being added:", cartItem);
+      state.cartItems = state.cartItems.concat(cartItem);
       state.totalItems += 1;
       payload.addons.forEach((element) => {
         state.amount += element.quantity * element.addon.price;
@@ -105,7 +114,16 @@ const cartSlice = createSlice({
       state.amount -= find.quantity * payload.product.price;
       state.cartItems = filter;
       state.totalItems -= 1;
-      state.cartItems = state.cartItems.concat(payload);
+      // Ensure deliveryDay is set in product
+      const cartItem = {
+        ...payload,
+        product: {
+          ...payload.product,
+          deliveryDay: payload.product.deliveryDay || null,
+        },
+      };
+      console.log("Cart item being updated:", cartItem);
+      state.cartItems = state.cartItems.concat(cartItem);
       state.totalItems += 1;
       payload.addons.forEach((element) => {
         state.amount += element.quantity * element.addon.price;

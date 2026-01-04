@@ -23,9 +23,17 @@ import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import {daysOfWeek} from "@/constants/constants";
 import {isSelectable} from "@/utils/utils";
 
-function ProductAvailabilitySelector({ availability }: { availability: string[] }) {
-  const [selectedDay, setSelectedDay] = useState("");
-
+function ProductAvailabilitySelector({
+  availability,
+  selectedDay,
+  setSelectedDay,
+  onChangeDeliveryDay,
+}: {
+  availability: string[];
+  selectedDay: string;
+  setSelectedDay: (day: string) => void;
+  onChangeDeliveryDay: (day: string) => void;
+}) {
   const availableDays = daysOfWeek.filter(day => availability.includes(day));
 
   return (
@@ -57,7 +65,10 @@ function ProductAvailabilitySelector({ availability }: { availability: string[] 
         labelId="availability-label"
         value={selectedDay}
         label="Select Day"
-        onChange={e => setSelectedDay(e.target.value)}
+        onChange={e => {
+          setSelectedDay(e.target.value);
+          onChangeDeliveryDay(e.target.value);
+        }}
       >
         {availableDays.map((day) => (
           <MenuItem
@@ -101,6 +112,30 @@ export default function ProductPage() {
   const product: IProduct = productData?.data;
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedDay, setSelectedDay] = useState("");
+
+  function updateDeliveryDayInRedux(newDay: string) {
+    const cartItem = cartItems.find((item: any) => item.prod_id === id);
+    if (cartItem) {
+      dispatch(
+        updateCartItem({
+          ...cartItem,
+          product: {
+            ...cartItem.product,
+            deliveryDay: newDay,
+          },
+        })
+      );
+    }
+  }
+
+  // On mount or cartItems change, initialize selectedDay from Redux if present
+  useEffect(() => {
+    const cartItem = cartItems.find((item: any) => item.prod_id === id);
+    if (cartItem && cartItem.product && cartItem.product.deliveryDay) {
+      setSelectedDay(cartItem.product.deliveryDay);
+    }
+  }, [cartItems, id]);
 
   //handle when clicked on red button + or -
   const handleClick = (condition: "+" | "-") => {
@@ -118,6 +153,10 @@ export default function ProductPage() {
 
   // handle When clicked on add to bucket button
   const handleAddToCart = () => {
+    if (!selectedDay) {
+      alert("Please select a delivery day.");
+      return;
+    }
     if (text === "محفوظ کریں" || text === "save") {
       dispatch(
         updateCartItem({
@@ -126,6 +165,7 @@ export default function ProductPage() {
             title: product?.name,
             id,
             src: product?.productImage,
+            deliveryDay: selectedDay,
           },
           quantity: quantity,
           addons: addonQuantity,
@@ -141,6 +181,7 @@ export default function ProductPage() {
             title: product?.name,
             id,
             src: product?.productImage,
+            deliveryDay: selectedDay,
           },
           quantity: quantity,
           addons: addonQuantity,
@@ -232,7 +273,12 @@ export default function ProductPage() {
                                 <div style={{ fontWeight: 500, marginBottom: "1rem", color: "#ff741f" }}>
                                   When do you need the food to be delivered?
                                 </div>
-                                <ProductAvailabilitySelector availability={product?.availability || []} />
+                                <ProductAvailabilitySelector
+                                  availability={product?.availability || []}
+                                  selectedDay={selectedDay}
+                                  setSelectedDay={setSelectedDay}
+                                  onChangeDeliveryDay={updateDeliveryDayInRedux}
+                                />
                               </div>
                               <h2>
                                 <strong>$ {product?.price}</strong>

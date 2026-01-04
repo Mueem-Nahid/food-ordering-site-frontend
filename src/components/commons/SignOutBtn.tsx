@@ -1,5 +1,4 @@
-import * as React from "react";
-import {useContext} from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -10,20 +9,26 @@ import {ExitToApp, PersonOutline, AdminPanelSettingsOutlined} from "@mui/icons-m
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 import {signOut, useSession} from "next-auth/react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {logOutUser} from "@/redux/features/users/userSlice";
 
 const AccountMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {data: session} = useSession();
   const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const dispatch = useDispatch();
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleSignout = () => {
+    dispatch(logOutUser());
     signOut({callbackUrl: "/auth/login"});
   };
 

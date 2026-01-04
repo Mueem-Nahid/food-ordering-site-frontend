@@ -1,89 +1,79 @@
 "use client";
-import React, { useContext, useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Stepper from "../../../components/commons/Stepper";
-import { Container, Grid } from "@mui/material";
-import DeliveryDetails from "../../../components/checkout/DeliveryDetails";
+import {Container, Grid} from "@mui/material";
 import OrderSummary from "../../../components/checkout/OrderSummary";
-import locationContext from "../../../context/locationContext";
 import PaymentMethod from "../../../components/checkout/PaymentMethod";
 import PhoneNumber from "../../../components/checkout/PhoneNumber";
+import DeliveryAddress from "../../../components/checkout/DeliveryAddress";
 import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import {useSelector} from "react-redux";
+import {useRouter} from "next/navigation";
 
 export default function DeliveryPage() {
-  const context = useContext(locationContext);
-  const { getLocations } = context;
-  const { cartItems } = useSelector((store: any) => store.cart);
-
+  const {cartItems} = useSelector((store: any) => store.cart);
+  const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
-
-  const getUser =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "null")
-      : null;
+  const [addressValue, setAddressValue] = useState("");
 
   useEffect(() => {
-    // In Next.js, we can't use useNavigate, so just show empty cart or login prompt if needed
+    if (!userInfo) {
+      router.replace("/");
+      return;
+    }
     if (cartItems.length === 0) {
-      // Optionally, show a message or redirect using next/navigation
+      router.replace("/cart");
       return;
     }
-    if (getUser === null) {
-      toast.error("Please Login To Checkout!");
-      // Optionally, show a message or redirect using next/navigation
-      return;
-    }
-
-    getLocations(getUser.email);
-    //eslint-disable-next-line
   }, [cartItems]);
 
   useEffect(() => {
-    if (getUser !== null) {
+    if (userInfo !== null) {
       cartItems.forEach((item: any) => {
-        item.email = getUser.email;
+        item.email = userInfo.email;
       });
     }
-    //eslint-disable-next-line
   }, []);
-
-  // document.title = "Checkout";
 
   return (
     <Container>
       <div className="cart">
-        <Stepper step={2} />
-        <Grid container display="flex" gap={{ md: 4 }}>
+        <Stepper step={2}/>
+        <Grid container display="flex" gap={{md: 4}}>
           <Grid
             display="flex"
             flexDirection="column"
-            size={{xs: 12, sm: 12, md: 7}}
-            columnSpacing={{ xs: 3, sm: 3, md: 3 }}
-            gap={{ md: 3, sm: 3, xs: 3 }}
+            size={{xs: 12, sm: 12, md: 6}}
+            columnSpacing={{xs: 3, sm: 3, md: 3}}
+            gap={{md: 3, sm: 3, xs: 3}}
           >
-            <DeliveryDetails />
-            <PaymentMethod />
+            {/*<DeliveryDetails />*/}
+            <DeliveryAddress
+              addressValue={addressValue}
+              setAddressValue={setAddressValue}
+            />
+            <PaymentMethod/>
             <PhoneNumber
               phoneValue={phoneValue}
               setPhoneValue={setPhoneValue}
             />
           </Grid>
           <Grid
-            size={{xs: 12, sm: 12, md: 4}}
+            size={{xs: 12, sm: 12, md: 5}}
             display="flex"
             flexDirection="column"
-            gap={{ md: 4, sm: 4, xs: 3 }}
+            gap={{md: 4, sm: 4, xs: 3}}
           >
             <Grid className="checkout-item">
-              <OrderSummary />
+              <OrderSummary/>
             </Grid>
             <Grid className="checkout-item">
-              <OrderTotal />
+              <OrderTotal/>
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue} />
+              <ConfirmOrder phoneValue={phoneValue}/>
             </Grid>
           </Grid>
         </Grid>

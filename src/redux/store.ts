@@ -11,11 +11,20 @@ if (typeof window !== "undefined") {
   }
 }
 
+let cart;
+if (typeof window !== "undefined") {
+  const cartString: string | null = localStorage.getItem('cart');
+  if (cartString) {
+    cart = JSON.parse(cartString);
+  }
+}
+
 const initialState = {
   user: {
     userInfo: user?.userInfo || null,
     accessToken: user?.accessToken || null,
   },
+  cart: cart || undefined,
 };
 
 const store = configureStore({
@@ -31,5 +40,12 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+if (typeof window !== "undefined") {
+  store.subscribe(() => {
+    const state = store.getState();
+    localStorage.setItem('cart', JSON.stringify(state.cart));
+  });
+}
 
 export default store

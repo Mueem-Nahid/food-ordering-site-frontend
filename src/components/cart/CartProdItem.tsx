@@ -7,7 +7,7 @@ import {
   increaseItemQuantity,
   decreaseItemQuantity,
   delCartItem,
-} from "../../redux/cart/cartSlice";
+} from "@/redux/cart/cartSlice";
 
 interface CartProdItemProps {
   item: any; // TODO: Replace 'any' with a specific type for item
@@ -39,7 +39,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
   };
   return (
     <div style={{ margin: "1rem 0" }} className="cart-prod-item">
-      <Grid container>
+      <Grid container sx={{justifyContent: "space-between"}}>
         <Grid
           sx={{
             textAlign: "center",
@@ -48,7 +48,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
             gap: 2,
           }}
         >
-          <img src={item.product.src} width={100} alt="" />
+          <img src={item.product.src} width={100} alt="Product-Image" />
           <Grid
             sx={{
               display: "flex",
@@ -59,7 +59,8 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
             }}
           >
             <strong>{item.product.title}</strong>
-            <span>Rs {item.product.price}</span>
+            <span>$ {item.product.price}</span>
+            <span>Delivery day: {item.product.deliveryDay}</span>
             <div className="cart-prod-item-quan" style={{ display: "flex" }}>
               {del ? (
                 <DeleteOutlined
@@ -140,7 +141,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
           }}
         >
           <h3 className="cart-item-price">
-            Rs {item.quantity * item.product.price}
+            $ {item.quantity * item.product.price}
           </h3>
           <div className="cart-item-icons">
             <Link

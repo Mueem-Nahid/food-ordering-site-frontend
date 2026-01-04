@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import {deliveryFee} from "@/constants/constants";
 
 interface RootState {
   cart: {
@@ -18,15 +19,15 @@ const OrderTotal: React.FC = () => {
     <div className="order-total">
       <div className="total">
         <strong>{t("deliveryBtn")}</strong>
-        <span>Rs 50</span>
+        <span>$ {deliveryFee}</span>
       </div>
       <div className="total order-items">
         <strong>{t("items")}</strong>
-        <span>Rs {amount}</span>
+        <span>$ {amount}</span>
       </div>
       <div className="total subtotal">
         <strong>{t("total")}</strong>
-        <span>Rs {amount + 50}</span>
+        <span>$ {amount + deliveryFee}</span>
       </div>
     </div>
   );

@@ -19,6 +19,71 @@ import {useTranslation} from "react-i18next";
 import {useGetCategoriesQuery} from "@/redux/features/categories/categoryApi";
 import {useGetProductQuery} from "@/redux/features/products/productApi";
 import {IProduct} from "@/types/globalTypes";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {daysOfWeek} from "@/constants/constants";
+import {isSelectable} from "@/utils/utils";
+
+function ProductAvailabilitySelector({
+  availability,
+  selectedDay,
+  setSelectedDay,
+  onChangeDeliveryDay,
+}: {
+  availability: string[];
+  selectedDay: string;
+  setSelectedDay: (day: string) => void;
+  onChangeDeliveryDay: (day: string) => void;
+}) {
+  const availableDays = daysOfWeek.filter(day => availability.includes(day));
+
+  return (
+    <FormControl size="medium" fullWidth sx={{
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#ff741f"
+        },
+        "&:hover fieldset": {
+          borderColor: "#ff741f"
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "#ff741f"
+        },
+      },
+    }}>
+      <InputLabel
+        sx={{
+          color: "#ff741f",
+          "&.Mui-focused": { color: "#ff741f" },
+          "&.MuiInputLabel-shrink": { color: "#ff741f" }
+        }}
+        id="availability-label"
+      >
+        Select Day
+      </InputLabel>
+      <Select
+        sx={{color:"white"}}
+        labelId="availability-label"
+        value={selectedDay}
+        label="Select Day"
+        onChange={e => {
+          setSelectedDay(e.target.value);
+          onChangeDeliveryDay(e.target.value);
+        }}
+      >
+        {availableDays.map((day) => (
+          <MenuItem
+            key={day}
+            value={day}
+            disabled={!isSelectable(day)}
+            style={{ textTransform: "capitalize" }}
+          >
+            {day.charAt(0).toUpperCase() + day.slice(1)}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+}
 
 export default function ProductPage() {
   const params = useParams();
@@ -47,6 +112,30 @@ export default function ProductPage() {
   const product: IProduct = productData?.data;
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedDay, setSelectedDay] = useState("");
+
+  function updateDeliveryDayInRedux(newDay: string) {
+    const cartItem = cartItems.find((item: any) => item.prod_id === id);
+    if (cartItem) {
+      dispatch(
+        updateCartItem({
+          ...cartItem,
+          product: {
+            ...cartItem.product,
+            deliveryDay: newDay,
+          },
+        })
+      );
+    }
+  }
+
+  // On mount or cartItems change, initialize selectedDay from Redux if present
+  useEffect(() => {
+    const cartItem = cartItems.find((item: any) => item.prod_id === id);
+    if (cartItem && cartItem.product && cartItem.product.deliveryDay) {
+      setSelectedDay(cartItem.product.deliveryDay);
+    }
+  }, [cartItems, id]);
 
   //handle when clicked on red button + or -
   const handleClick = (condition: "+" | "-") => {
@@ -64,6 +153,10 @@ export default function ProductPage() {
 
   // handle When clicked on add to bucket button
   const handleAddToCart = () => {
+    if (!selectedDay) {
+      alert("Please select a delivery day.");
+      return;
+    }
     if (text === "محفوظ کریں" || text === "save") {
       dispatch(
         updateCartItem({
@@ -72,6 +165,7 @@ export default function ProductPage() {
             title: product?.name,
             id,
             src: product?.productImage,
+            deliveryDay: selectedDay,
           },
           quantity: quantity,
           addons: addonQuantity,
@@ -87,6 +181,7 @@ export default function ProductPage() {
             title: product?.name,
             id,
             src: product?.productImage,
+            deliveryDay: selectedDay,
           },
           quantity: quantity,
           addons: addonQuantity,
@@ -173,8 +268,20 @@ export default function ProductPage() {
                             <div className="info">
                               <h1>{product?.name}</h1>
                               <span>{product?.desc}</span>
+                              {/* product availability  */}
+                              <div style={{ margin: "1rem 0" }}>
+                                <div style={{ fontWeight: 500, marginBottom: "1rem", color: "#ff741f" }}>
+                                  When do you need the food to be delivered?
+                                </div>
+                                <ProductAvailabilitySelector
+                                  availability={product?.availability || []}
+                                  selectedDay={selectedDay}
+                                  setSelectedDay={setSelectedDay}
+                                  onChangeDeliveryDay={updateDeliveryDayInRedux}
+                                />
+                              </div>
                               <h2>
-                                <strong>Rs {product?.price}</strong>
+                                <strong>$ {product?.price}</strong>
                               </h2>
                               <div className="input-div">
                                 <div

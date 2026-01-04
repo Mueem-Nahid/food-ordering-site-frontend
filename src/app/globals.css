@@ -818,6 +818,7 @@ body {
 .order-summary .order-item {
   display: flex;
   flex-direction: column;
+  padding: 1rem 1rem;
 }
 .order-summary .order-item span {
   color: #979797;

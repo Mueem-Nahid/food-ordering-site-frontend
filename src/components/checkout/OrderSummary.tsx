@@ -24,6 +24,7 @@ const OrderSummary: React.FC = () => {
   // to fetch cart items
   const { cartItems } = useSelector((store: RootState) => store.cart);
   const { t } = useTranslation();
+
   return (
     <div className="order-summary">
       <strong>{t("orderSummary")}</strong>

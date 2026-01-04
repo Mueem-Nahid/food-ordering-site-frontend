@@ -1,15 +1,18 @@
 "use client";
 
-import React from "react";
-import {Box, Button, Container, Grid, TextField} from "@mui/material";
+import React, {Suspense} from "react";
+import {Button, Container, Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {signIn} from "@/utils/auth";
+import {useSearchParams} from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const {t} = useTranslation();
+  const searchParams = useSearchParams();
+  const redirect = searchParams?.get("redirect") || "/";
 
   const handleSignIn = () => {
-    signIn("google", {callbackUrl: "/"});
+    signIn("google", {callbackUrl: redirect});
   }
 
   return (
@@ -42,5 +45,13 @@ export default function LoginPage() {
         </Grid>
       </Container>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm/>
+    </Suspense>
   );
 }

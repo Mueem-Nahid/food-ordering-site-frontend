@@ -4,12 +4,15 @@ import React from "react";
 import {Box, Button, Container, Grid, TextField} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {signIn} from "@/utils/auth";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const {t} = useTranslation();
+  const searchParams = useSearchParams();
+  const redirect = searchParams?.get("redirect") || "/";
 
   const handleSignIn = () => {
-    signIn("google", {callbackUrl: "/"});
+    signIn("google", {callbackUrl: redirect});
   }
 
   return (

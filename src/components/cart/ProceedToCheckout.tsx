@@ -1,18 +1,32 @@
+"use client";
 import React from "react";
 import { Button } from "@mui/material";
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/navigation";
 
 interface RootState {
   cart: {
     amount: number;
+  };
+  user: {
+    userInfo: any;
   };
 }
 
 const ProceedToCheckout: React.FC = () => {
   const { t } = useTranslation();
   const amount = useSelector((store: RootState) => store.cart.amount);
+  const userInfo = useSelector((store: RootState) => store.user.userInfo);
+  const router = useRouter();
+
+  const handleProceed = () => {
+    if (userInfo) {
+      router.push("/delivery");
+    } else {
+      router.push("/auth/login?redirect=/delivery");
+    }
+  };
 
   return (
     <div className="proceed-to-checkout">
@@ -20,9 +34,9 @@ const ProceedToCheckout: React.FC = () => {
         <span>{t("subTotal")}</span>
         <strong className="subtotal">Rs {amount}</strong>
       </div>
-      <Link href="/delivery" style={{ textDecoration: "none" }}>
-        <Button variant="contained">{t("proceedToCheckout")}</Button>
-      </Link>
+      <Button variant="contained" onClick={handleProceed}>
+        {t("proceedToCheckout")}
+      </Button>
     </div>
   );
 };

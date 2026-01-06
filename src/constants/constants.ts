@@ -14,3 +14,14 @@ export const pickupAddresses = [
   "Lakemba, Sydney, Australia",
   "Auburn, Sydney, Australia"
 ];
+
+export const methods = [
+  {
+    value: "COD",
+    disabled: false,
+  },
+  {
+    value: "Credit/Debit Card",
+    disabled: true,
+  },
+];

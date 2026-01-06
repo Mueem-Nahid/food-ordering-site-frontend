@@ -2,7 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import PaymentMethAvailable from "./PaymentMethAvailable";
 
-const PaymentMethod: React.FC = () => {
+interface PaymentMethodObj {
+  value: string;
+  index: number;
+}
+interface PaymentMethodProps {
+  paymentMethod: PaymentMethodObj;
+  setPaymentMethod: (value: PaymentMethodObj) => void;
+}
+
+const PaymentMethod: React.FC<PaymentMethodProps> = ({ paymentMethod, setPaymentMethod }) => {
   const { t } = useTranslation();
   return (
     <div className="checkout-item">
@@ -16,7 +25,10 @@ const PaymentMethod: React.FC = () => {
       >
         <strong>{t("paymentMethod")}</strong>
       </div>
-      <PaymentMethAvailable />
+      <PaymentMethAvailable
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+      />
     </div>
   );
 };

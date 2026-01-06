@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 
 interface ConfirmOrderProps {
   phoneValue: string;
+  addressValue: string;
 }
 
 interface CartItem {
@@ -32,16 +33,12 @@ interface RootState {
   };
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue, addressValue }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const router = useRouter();
 
   const { cartItems, totalItems, amount } = useSelector((store: RootState) => store.cart);
-
-  // get logged in user locations and check whether it is added or not
-  const location_context = useContext(locationContext);
-  const { locations, radioValue } = location_context;
 
   // get payment method and check whether it is selected or not
   const payment_context = useContext(paymentContext);
@@ -57,11 +54,8 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
 
   // handle when clicked on confirm order
   const handleConfirm = async (stripeData: any[]) => {
-    if (locations.length < 1) {
-      toast.error("Please Add Location To Continue!");
-      return;
-    } else if (radioValue.value === "") {
-      toast.error("Please Choose Location To Continue!");
+    if (!addressValue || addressValue.trim() === "") {
+      toast.error("Please enter or select a delivery/pickup address!");
       return;
     } else if (paymentMethod.value === "") {
       toast.error("Please Choose Payment Method To Continue!");
@@ -69,8 +63,20 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
     } else if (phoneValue === "") {
       toast.error("Please Enter Your Phone Number!");
       return;
-    } else if (phoneValue.length !== 11) {
-      toast.error("Phone Number Must Contain 11 Digits!");
+    }
+    // Australian phone validation (same as PhoneNumber component)
+    const cleaned = phoneValue.replace(/[\s\-()]/g, "");
+    const isMobile = /^04\d{8}$/.test(cleaned);
+    const isLandline = /^(02|03|07|08)\d{8}$/.test(cleaned);
+    const isIntlMobile = /^\+614\d{8}$/.test(cleaned);
+    const isIntlLandline = /^\+61([2378])\d{8}$/.test(cleaned);
+    if (
+      !isMobile &&
+      !isLandline &&
+      !isIntlMobile &&
+      !isIntlLandline
+    ) {
+      toast.error("Please enter a valid Australian phone number!");
       return;
     }
 
@@ -89,11 +95,11 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
       totalItems,
       stripeData,
       payment_method: paymentMethod.value,
-      address: radioValue.value,
+      address: addressValue,
       phone_no: phoneValue,
     };
     // calling api
-    await axios
+    /*await axios
       .post(process.env.NEXT_PUBLIC_BACKEND + "/api/order/addOrder", data)
       .then((res) => {
         if (res.data.error === false) {
@@ -105,56 +111,8 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
           dispatch(clearCart());
           toast.success("Order Placed!");
         }
-      });
+      });*/
   };
-
-  useEffect(() => {
-    setStripeData([]);
-    // custom object for stripe payment
-    cartItems.forEach((cart) => {
-      setStripeData((stripeData) => [
-        ...stripeData,
-        {
-          title: cart.product.title,
-          src: cart.product.src,
-          price: cart.product.price,
-          quantity: cart.quantity,
-        },
-      ]);
-      cart.addons.forEach((addon) => {
-        setStripeData((stripeData) => [
-          ...stripeData,
-          {
-            title: addon.addon.name,
-            src: addon.addon.pic,
-            price: addon.addon.price,
-            quantity: addon.quantity,
-          },
-        ]);
-      });
-      cart.softDrinks.forEach((soft) => {
-        setStripeData((stripeData) => [
-          ...stripeData,
-          {
-            title: soft.softDrink.name,
-            src: soft.softDrink.pic,
-            price: soft.softDrink.price,
-            quantity: soft.quantity,
-          },
-        ]);
-      });
-    });
-    setStripeData((stripeData) => [
-      ...stripeData,
-      {
-        title: "Delivery Charges",
-        src: "https://res.cloudinary.com/digaxe3sc/image/upload/v1661757053/kfc-clone/1_gpe30o.png",
-        price: 50,
-        quantity: 1,
-      },
-    ]);
-    //eslint-disable-next-line
-  }, [cartItems]);
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>

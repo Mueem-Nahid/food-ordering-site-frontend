@@ -4,8 +4,12 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 
+interface PaymentMethodObj {
+  value: string;
+  index: number;
+}
 interface RadioBtnProps {
-  value: { value: string; index: number };
+  value: PaymentMethodObj;
   handleClick: (index: number) => void;
   index: number;
   disabled?: boolean;
@@ -20,7 +24,7 @@ const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index, disabled
         name="radio-buttons-group"
       >
         <FormControlLabel
-          value={value.value === "" ? "" : value.value}
+          value={index}
           label=""
           disabled={disabled}
           control={

@@ -1,17 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-import locationContext from "../../context/locationContext";
-import paymentContext from "../../context/paymentContext";
-import { toast } from "react-toastify";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { clearCart } from "../../redux/cart/cartSlice";
-import { useTranslation } from "react-i18next";
+import React, {useState} from "react";
+import {Button} from "@mui/material";
+import {useRouter} from "next/navigation";
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
+import {deliveryFee} from "@/constants/constants";
 
 interface ConfirmOrderProps {
   phoneValue: string;
   addressValue: string;
+  paymentMethod: string
 }
 
 interface CartItem {
@@ -33,16 +31,13 @@ interface RootState {
   };
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue, addressValue }) => {
-  const { t } = useTranslation();
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod}) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
+  const userInfo = useSelector((state: any) => state.user?.userInfo);
   const router = useRouter();
 
-  const { cartItems, totalItems, amount } = useSelector((store: RootState) => store.cart);
-
-  // get payment method and check whether it is selected or not
-  const payment_context = useContext(paymentContext);
-  const { paymentMethod } = payment_context;
+  const {cartItems, totalItems, amount} = useSelector((store: RootState) => store.cart);
 
   // use the below state for stripe payment data
   const [stripeData, setStripeData] = useState<any[]>([]);
@@ -57,7 +52,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue, addressValue })
     if (!addressValue || addressValue.trim() === "") {
       toast.error("Please enter or select a delivery/pickup address!");
       return;
-    } else if (paymentMethod.value === "") {
+    } else if (paymentMethod === "") {
       toast.error("Please Choose Payment Method To Continue!");
       return;
     } else if (phoneValue === "") {
@@ -82,22 +77,25 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue, addressValue })
 
     toast.warning("Please Wait....");
 
-    const getUser = JSON.parse(localStorage.getItem("user") || "{}");
-
     //add delivery charges in amount
-    let total = amount + 50;
+    let total = amount + deliveryFee;
 
     // call the api and save the order in mongodb
     const data = {
+      // Only send product ObjectIds
       product: cartItems,
-      email: getUser.email,
-      amount: total,
-      totalItems,
-      stripeData,
-      payment_method: paymentMethod.value,
-      address: addressValue,
+      user: userInfo._id, // assuming userInfo._id is the ObjectId
+      email: userInfo.email,
+      payment_status: "pending", // or set as appropriate
+      amount: String(total),
+      total_items: String(totalItems),
+      payment_method: paymentMethod,
+      delivery_address: addressValue,
       phone_no: phoneValue,
+      // order_status is set server-side (default: PENDING)
     };
+
+    console.log("order data: ", data);
     // calling api
     /*await axios
       .post(process.env.NEXT_PUBLIC_BACKEND + "/api/order/addOrder", data)
@@ -115,7 +113,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue, addressValue })
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{display: "flex", justifyContent: "center"}}>
       <Button
         sx={{
           borderColor: "white !important",

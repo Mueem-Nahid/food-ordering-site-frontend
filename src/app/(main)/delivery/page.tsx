@@ -69,7 +69,7 @@ export default function DeliveryPage() {
               <OrderTotal/>
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} />
+              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value}/>
             </Grid>
           </Grid>
         </Grid>

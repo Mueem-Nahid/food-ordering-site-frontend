@@ -14,13 +14,16 @@ const PaymentMethAvailable: React.FC = () => {
   const methods = [
     {
       value: "COD",
+      disabled: false,
     },
     {
       value: "Credit/Debit Card",
+      disabled: true,
     },
   ];
   // handle when clicked on radio button in payment method section
   const handleClick = (index: number) => {
+    if (methods[index].disabled) return;
     setPaymentMethod({ value: methods[index].value, index: index });
   };
 
@@ -33,8 +36,9 @@ const PaymentMethAvailable: React.FC = () => {
               value={paymentMethod}
               handleClick={handleClick}
               index={index}
+              disabled={method.disabled}
             />
-            <span>{method.value}</span>
+            <span style={method.disabled ? { color: "#aaa" } : {}}>{method.value}</span>
           </div>
         );
       })}

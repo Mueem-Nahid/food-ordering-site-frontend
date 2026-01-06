@@ -8,9 +8,10 @@ interface RadioBtnProps {
   value: { value: string; index: number };
   handleClick: (index: number) => void;
   index: number;
+  disabled?: boolean;
 }
 
-const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index }) => {
+const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index, disabled }) => {
   return (
     <FormControl>
       <RadioGroup
@@ -21,11 +22,13 @@ const RadioBtn: React.FC<RadioBtnProps> = ({ value, handleClick, index }) => {
         <FormControlLabel
           value={value.value === "" ? "" : value.value}
           label=""
+          disabled={disabled}
           control={
             <Radio
               onClick={() => handleClick(index)}
               checked={value.index === index}
               sx={{ color: "#e4002b !important" }}
+              disabled={disabled}
             />
           }
         />

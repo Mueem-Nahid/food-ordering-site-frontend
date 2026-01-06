@@ -29,14 +29,6 @@ export default function DeliveryPage() {
     }
   }, [cartItems]);
 
-  useEffect(() => {
-    if (userInfo !== null) {
-      cartItems.forEach((item: any) => {
-        item.email = userInfo.email;
-      });
-    }
-  }, []);
-
   return (
     <Container>
       <div className="cart">

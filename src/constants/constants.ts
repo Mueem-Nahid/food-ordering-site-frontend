@@ -9,3 +9,8 @@ export const daysOfWeek = [
 ];
 
 export const deliveryFee = 10;
+
+export const pickupAddresses = [
+  "Lakemba, Sydney, Australia",
+  "Auburn, Sydney, Australia"
+];

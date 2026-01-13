@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {deliveryFee} from "@/constants/constants";
+import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
 
 interface ConfirmOrderProps {
   phoneValue: string;
@@ -41,6 +42,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
 
   // use the below state for stripe payment data
   const [stripeData, setStripeData] = useState<any[]>([]);
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   // handle when clicked on back
   const handleBack = () => {
@@ -82,34 +84,33 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
 
     // call the api and save the order in mongodb
     const data = {
-      // Only send product ObjectIds
-      product: cartItems,
-      user: userInfo._id, // assuming userInfo._id is the ObjectId
+      product: cartItems.map((item: any) => ({
+        product: {
+          ...item.product,
+        },
+        quantity: item.quantity,
+        addons: item.addons,
+        prod_id: item.prod_id,
+      })),
+      user: userInfo._id,
       email: userInfo.email,
-      payment_status: "pending", // or set as appropriate
-      amount: String(total),
-      total_items: String(totalItems),
+      payment_status: "pending",
+      amount: total,
+      total_items: totalItems,
       payment_method: paymentMethod,
       delivery_address: addressValue,
       phone_no: phoneValue,
       // order_status is set server-side (default: PENDING)
     };
 
-    console.log("order data: ", data);
-    // calling api
-    /*await axios
-      .post(process.env.NEXT_PUBLIC_BACKEND + "/api/order/addOrder", data)
-      .then((res) => {
-        if (res.data.error === false) {
-          if (res.data.url) {
-            localStorage.setItem("payment", JSON.stringify(res.data.data));
-            window.open(res.data.url, "_self");
-            return;
-          }
-          dispatch(clearCart());
-          toast.success("Order Placed!");
-        }
-      });*/
+    try {
+      const res = await createOrder(data).unwrap();
+      dispatch({ type: "cart/clearCart" });
+      toast.success("Order Placed!");
+      // Optionally redirect or show order details
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Order failed. Please try again.");
+    }
   };
 
   return (

@@ -3,16 +3,14 @@ import React from "react";
 import {
   Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Table,
   TableBody,
-  TableCell, TableContainer,
+  TableCell,
   TableHead,
-  TableRow
+  TableRow,
+  TableContainer
 } from "@mui/material";
+import OrderInvoiceDialog from "./OrderInvoiceDialog";
 import OrderHistoryItem from "./OrderHistoryItem";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
@@ -124,59 +122,12 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
               </div>
             )}
             {/* Invoice Modal */}
-
-            <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="md" fullWidth>
-              <DialogTitle>
-                {t("invoice") || "Invoice"} {selectedOrder ? `#${selectedOrder._id}` : ""}
-              </DialogTitle>
-              <DialogContent>
-                {selectedOrder && (
-                  <div style={{padding: 16}}>
-                    <h2>{t("orderDetails") || "Order Details"}</h2>
-                    <div>
-                      <strong>{t("status") || "Status"}:</strong> {selectedOrder.order_status}
-                    </div>
-                    <div>
-                      <strong>{t("date") || "Date"}:</strong> {new Date(selectedOrder.createdAt).toLocaleString()}
-                    </div>
-                    <div>
-                      <strong>{t("paymentMethod")}</strong>: {selectedOrder.payment_method}
-                    </div>
-                    <div>
-                      <strong>{t("address")}</strong>: {selectedOrder.delivery_address}
-                    </div>
-                    <div>
-                      <strong>{t("phone")}</strong>: {selectedOrder.phone_no}
-                    </div>
-                    <div>
-                      <strong>{t("email")}</strong>: {selectedOrder.email}
-                    </div>
-                    <div>
-                      <strong>{t("subTotal")}</strong>: Rs {selectedOrder.amount}
-                    </div>
-                    <div>
-                      <strong>{t("items")}</strong>:
-                      <ul>
-                        {selectedOrder.product.map((prod: any, idx: number) => (
-                          <li key={idx}>
-                            {prod.product.title} (x{prod.quantity}) - Rs {prod.product.price} | Delivery
-                            Day: {prod.product.deliveryDay}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleDownload} variant="outlined">
-                  {t("download") || "Download"}
-                </Button>
-                <Button onClick={() => setModalOpen(false)} variant="contained" color="error">
-                  {t("close") || "Close"}
-                </Button>
-              </DialogActions>
-            </Dialog>
+            <OrderInvoiceDialog
+              open={modalOpen}
+              onClose={() => setModalOpen(false)}
+              order={selectedOrder}
+              onDownload={handleDownload}
+            />
           </>
         )}
       </div>

@@ -1,7 +1,9 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {Order} from "@/types/globalTypes";
-import {deliveryFee} from "@/constants/constants";
+import { deliveryFee } from "@/constants/constants";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 interface OrderInvoiceDialogProps {
   open: boolean;
@@ -17,6 +19,26 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                                                                  onDownload
                                                                }) => {
 
+  // Download invoice as PDF with default filename using jsPDF/html2canvas
+  const handleDownload = async () => {
+    if (!order) return;
+    const element = document.getElementById("invoice-content");
+    if (!element) return;
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "pt",
+      format: "a4"
+    });
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 40;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    pdf.addImage(imgData, "PNG", 20, 20, imgWidth, imgHeight);
+    pdf.save(`invoice-${order._id}.pdf`);
+  };
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
@@ -25,6 +47,7 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
       <DialogContent>
         {order && (
           <div
+            id="invoice-content"
             style={{
               padding: 0,
               margin: 0,
@@ -42,12 +65,13 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
               style={{
                 background: "#ff741f",
                 color: "#fff",
-                borderTopLeftRadius: 12,
-                borderTopRightRadius: 12,
+                borderTopLeftRadius: 0,
+                borderTopRightRadius: 0,
                 padding: "1.5rem 1rem 1rem 1rem",
                 textAlign: "center"
               }}
             >
+
               <h2 style={{margin: 0, fontWeight: 700, fontSize: 28}}>
                 Invoice
               </h2>
@@ -143,11 +167,23 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                 </div>
               </div>
             </div>
+            {/* Footer: Site name and URL */}
+            <div
+              style={{
+                textAlign: "center",
+                fontSize: 12,
+                color: "#888",
+                marginTop: 24,
+                paddingBottom: 8
+              }}
+            >
+              DeshiQ &mdash; {process.env.NEXT_PUBLIC_SITE_URL}
+            </div>
           </div>
         )}
       </DialogContent>
       <DialogActions className="no-print">
-        <Button onClick={onDownload} variant="outlined">
+        <Button onClick={handleDownload} variant="outlined">
           Download
         </Button>
         <Button onClick={onClose} variant="contained" color="error">

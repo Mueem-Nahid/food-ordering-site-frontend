@@ -66,6 +66,7 @@ i18n.use(initReactI18next).init({
         "pickup": "Pickup",
         "pickupAddress": "Pickup Address",
         "details": "Details",
+        "myOrders": "My Orders",
       }
     },
     "ur-PK": {
@@ -131,6 +132,7 @@ i18n.use(initReactI18next).init({
         "pickup": "اٹھاؤ",
         "pickupAddress": "اٹھانے کا پتہ",
         "details": "تفصیلات",
+        "myOrders": "میرے احکامات",
       }
     }
   },

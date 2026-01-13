@@ -107,7 +107,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
       const res = await createOrder(data).unwrap();
       dispatch({ type: "cart/clearCart" });
       toast.success("Order Placed!");
-      // Optionally redirect or show order details
+      router.push("/order-history");
     } catch (error: any) {
       toast.error(error?.data?.message || "Order failed. Please try again.");
     }

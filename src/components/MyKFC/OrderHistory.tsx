@@ -35,12 +35,6 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
 
   const showOrders: Order[] = orders.length > 2 ? orders.slice(0, 2) : orders;
 
-  // Download invoice as PDF or print
-  const handleDownload = () => {
-    if (!selectedOrder) return;
-    window.print(); // For simplicity, use print dialog. For PDF, use jsPDF or html2pdf.
-  };
-
   return (
     <Container>
       {showAllOrders && <h1 style={{marginBottom: "10px"}}>{t("pastOrders")}</h1>}
@@ -115,7 +109,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
             </TableContainer>
             {!showAllOrders && orders.length > 2 && (
               <div style={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
-                <Link href="/my-profile/order-history" className="view-all">
+                <Link href="/order-history" className="view-all">
                   {t("viewAll")}
                 </Link>
               </div>
@@ -125,7 +119,6 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
               open={modalOpen}
               onClose={() => setModalOpen(false)}
               order={selectedOrder}
-              onDownload={handleDownload}
             />
           </>
         )}

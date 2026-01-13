@@ -25,3 +25,10 @@ export const methods = [
     disabled: true,
   },
 ];
+
+export const orderStatusChoices = [
+  { id: "PENDING", name: "Pending" },
+  { id: "CONFIRMED", name: "Confirmed" },
+  { id: "PREPARING", name: "Preparing" },
+  { id: "WAITING_FOR_DELIVERY", name: "Waiting for Delivery" }
+];

@@ -33,12 +33,12 @@ const Header: React.FC = () => {
             <Image className="logo-img" src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{borderRadius: "50%"}}/>
           </Link>
         </div>
-        <div className="btn-header">
+        <Link href="/order-history" className="btn-header">
           <Button variant="contained" disableElevation>
             <img src="/images/1.png" alt="Rider"/>
-            <strong style={{marginLeft: "10px"}}> {t("deliveryBtn")}</strong>
+            <strong style={{marginLeft: "10px"}}> {t("myOrders")}</strong>
           </Button>
-        </div>
+        </Link>
         <div className="select-location-header">
           <Button variant="contained" disableElevation>
             <MyLocation/>

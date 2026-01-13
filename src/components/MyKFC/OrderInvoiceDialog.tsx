@@ -9,14 +9,12 @@ interface OrderInvoiceDialogProps {
   open: boolean;
   onClose: () => void;
   order: Order | null;
-  onDownload: () => void;
 }
 
 const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                                                                  open,
                                                                  onClose,
-                                                                 order,
-                                                                 onDownload
+                                                                 order
                                                                }) => {
 
   // Download invoice as PDF with default filename using jsPDF/html2canvas

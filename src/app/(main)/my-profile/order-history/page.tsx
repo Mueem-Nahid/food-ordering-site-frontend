@@ -1,12 +1,15 @@
 "use client";
 
 import OrderHistory from "@/components/MyKFC/OrderHistory";
-import Box from "@mui/material/Box";
+import { Container } from "@mui/material";
+
 
 export default function OrderHistoryPage() {
   return (
-    <Box style={{ marginBottom: "10rem" }}>
-      <OrderHistory showAllOrders/>
-    </Box>
+    <Container>
+      <div className="order-history" style={{ marginBottom: "8rem" }}>
+        <OrderHistory showAllOrders/>
+      </div>
+    </Container>
   );
 }

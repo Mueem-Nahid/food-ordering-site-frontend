@@ -1,16 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-import locationContext from "../../context/locationContext";
-import paymentContext from "../../context/paymentContext";
-import { toast } from "react-toastify";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import { clearCart } from "../../redux/cart/cartSlice";
-import { useTranslation } from "react-i18next";
+import React, {useState} from "react";
+import {Button} from "@mui/material";
+import {useRouter} from "next/navigation";
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
+import {deliveryFee} from "@/constants/constants";
+import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
 
 interface ConfirmOrderProps {
   phoneValue: string;
+  addressValue: string;
+  paymentMethod: string
 }
 
 interface CartItem {
@@ -32,23 +32,17 @@ interface RootState {
   };
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
-  const { t } = useTranslation();
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod}) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
+  const userInfo = useSelector((state: any) => state.user?.userInfo);
   const router = useRouter();
 
-  const { cartItems, totalItems, amount } = useSelector((store: RootState) => store.cart);
-
-  // get logged in user locations and check whether it is added or not
-  const location_context = useContext(locationContext);
-  const { locations, radioValue } = location_context;
-
-  // get payment method and check whether it is selected or not
-  const payment_context = useContext(paymentContext);
-  const { paymentMethod } = payment_context;
+  const {cartItems, totalItems, amount} = useSelector((store: RootState) => store.cart);
 
   // use the below state for stripe payment data
   const [stripeData, setStripeData] = useState<any[]>([]);
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   // handle when clicked on back
   const handleBack = () => {
@@ -57,107 +51,70 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({ phoneValue }) => {
 
   // handle when clicked on confirm order
   const handleConfirm = async (stripeData: any[]) => {
-    if (locations.length < 1) {
-      toast.error("Please Add Location To Continue!");
+    if (!addressValue || addressValue.trim() === "") {
+      toast.error("Please enter or select a delivery/pickup address!");
       return;
-    } else if (radioValue.value === "") {
-      toast.error("Please Choose Location To Continue!");
-      return;
-    } else if (paymentMethod.value === "") {
+    } else if (paymentMethod === "") {
       toast.error("Please Choose Payment Method To Continue!");
       return;
     } else if (phoneValue === "") {
       toast.error("Please Enter Your Phone Number!");
       return;
-    } else if (phoneValue.length !== 11) {
-      toast.error("Phone Number Must Contain 11 Digits!");
+    }
+    // Australian phone validation (same as PhoneNumber component)
+    const cleaned = phoneValue.replace(/[\s\-()]/g, "");
+    const isMobile = /^04\d{8}$/.test(cleaned);
+    const isLandline = /^(02|03|07|08)\d{8}$/.test(cleaned);
+    const isIntlMobile = /^\+614\d{8}$/.test(cleaned);
+    const isIntlLandline = /^\+61([2378])\d{8}$/.test(cleaned);
+    if (
+      !isMobile &&
+      !isLandline &&
+      !isIntlMobile &&
+      !isIntlLandline
+    ) {
+      toast.error("Please enter a valid Australian phone number!");
       return;
     }
 
     toast.warning("Please Wait....");
 
-    const getUser = JSON.parse(localStorage.getItem("user") || "{}");
-
     //add delivery charges in amount
-    let total = amount + 50;
+    let total = amount + deliveryFee;
 
     // call the api and save the order in mongodb
     const data = {
-      product: cartItems,
-      email: getUser.email,
+      product: cartItems.map((item: any) => ({
+        product: {
+          ...item.product,
+        },
+        quantity: item.quantity,
+        addons: item.addons,
+        prod_id: item.prod_id,
+      })),
+      user: userInfo._id,
+      email: userInfo.email,
+      payment_status: "pending",
       amount: total,
-      totalItems,
-      stripeData,
-      payment_method: paymentMethod.value,
-      address: radioValue.value,
+      total_items: totalItems,
+      payment_method: paymentMethod,
+      delivery_address: addressValue,
       phone_no: phoneValue,
+      // order_status is set server-side (default: PENDING)
     };
-    // calling api
-    await axios
-      .post(process.env.NEXT_PUBLIC_BACKEND + "/api/order/addOrder", data)
-      .then((res) => {
-        if (res.data.error === false) {
-          if (res.data.url) {
-            localStorage.setItem("payment", JSON.stringify(res.data.data));
-            window.open(res.data.url, "_self");
-            return;
-          }
-          dispatch(clearCart());
-          toast.success("Order Placed!");
-        }
-      });
+
+    try {
+      const res = await createOrder(data).unwrap();
+      dispatch({ type: "cart/clearCart" });
+      toast.success("Order Placed!");
+      // Optionally redirect or show order details
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Order failed. Please try again.");
+    }
   };
 
-  useEffect(() => {
-    setStripeData([]);
-    // custom object for stripe payment
-    cartItems.forEach((cart) => {
-      setStripeData((stripeData) => [
-        ...stripeData,
-        {
-          title: cart.product.title,
-          src: cart.product.src,
-          price: cart.product.price,
-          quantity: cart.quantity,
-        },
-      ]);
-      cart.addons.forEach((addon) => {
-        setStripeData((stripeData) => [
-          ...stripeData,
-          {
-            title: addon.addon.name,
-            src: addon.addon.pic,
-            price: addon.addon.price,
-            quantity: addon.quantity,
-          },
-        ]);
-      });
-      cart.softDrinks.forEach((soft) => {
-        setStripeData((stripeData) => [
-          ...stripeData,
-          {
-            title: soft.softDrink.name,
-            src: soft.softDrink.pic,
-            price: soft.softDrink.price,
-            quantity: soft.quantity,
-          },
-        ]);
-      });
-    });
-    setStripeData((stripeData) => [
-      ...stripeData,
-      {
-        title: "Delivery Charges",
-        src: "https://res.cloudinary.com/digaxe3sc/image/upload/v1661757053/kfc-clone/1_gpe30o.png",
-        price: 50,
-        quantity: 1,
-      },
-    ]);
-    //eslint-disable-next-line
-  }, [cartItems]);
-
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{display: "flex", justifyContent: "center"}}>
       <Button
         sx={{
           borderColor: "white !important",

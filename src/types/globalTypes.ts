@@ -65,3 +65,19 @@ export type IProduct = {
     name: string;
   }
 };
+
+export type Order = {
+  _id: string;
+  product: any[];
+  user: any;
+  email: string;
+  payment_status: string;
+  amount: number;
+  total_items: number;
+  payment_method: string;
+  delivery_address: string;
+  phone_no: string;
+  order_status: string;
+  createdAt: string;
+  updatedAt: string;
+};

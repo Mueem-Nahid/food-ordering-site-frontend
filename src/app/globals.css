@@ -1014,3 +1014,9 @@ body {
   display: block;
   margin: 0 auto;
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

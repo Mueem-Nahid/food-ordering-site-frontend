@@ -61,6 +61,11 @@ i18n.use(initReactI18next).init({
         "name": "Name",
         "phoneNumber": "Phone Number",
         "deliveryAddress": "Delivery Address",
+        "chooseAddressType": "Choose Address Type",
+        "delivery": "Delivery",
+        "pickup": "Pickup",
+        "pickupAddress": "Pickup Address",
+        "details": "Details",
       }
     },
     "ur-PK": {
@@ -120,7 +125,12 @@ i18n.use(initReactI18next).init({
         "admin": "منتظم",
         "name": "نام",
         "phoneNumber": "فون نمبر",
-        "deliveryAddress": "ترسیل کا پتہ"
+        "deliveryAddress": "ترسیل کا پتہ",
+        "chooseAddressType": "ایڈریس کی قسم منتخب کریں۔",
+        "delivery": "ڈیلیوری",
+        "pickup": "اٹھاؤ",
+        "pickupAddress": "اٹھانے کا پتہ",
+        "details": "تفصیلات",
       }
     }
   },

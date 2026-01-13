@@ -17,6 +17,7 @@ export default function DeliveryPage() {
   const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
 
   useEffect(() => {
     if (!userInfo) {
@@ -28,14 +29,6 @@ export default function DeliveryPage() {
       return;
     }
   }, [cartItems]);
-
-  useEffect(() => {
-    if (userInfo !== null) {
-      cartItems.forEach((item: any) => {
-        item.email = userInfo.email;
-      });
-    }
-  }, []);
 
   return (
     <Container>
@@ -54,7 +47,10 @@ export default function DeliveryPage() {
               addressValue={addressValue}
               setAddressValue={setAddressValue}
             />
-            <PaymentMethod/>
+            <PaymentMethod
+              paymentMethod={paymentMethod}
+              setPaymentMethod={setPaymentMethod}
+            />
             <PhoneNumber
               phoneValue={phoneValue}
               setPhoneValue={setPhoneValue}
@@ -73,7 +69,7 @@ export default function DeliveryPage() {
               <OrderTotal/>
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue}/>
+              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value}/>
             </Grid>
           </Grid>
         </Grid>

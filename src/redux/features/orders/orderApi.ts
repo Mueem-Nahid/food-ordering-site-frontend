@@ -17,6 +17,13 @@ const orderApi = api.injectEndpoints({
       }),
       providesTags: (_result, _error, id) => [{ type: "orders", id }],
     }),
+    getMyOrders: builder.query({
+      query: () => ({
+        url: `/orders/my-orders`,
+        method: "GET",
+      }),
+      providesTags: ["orders"],
+    }),
     createOrder: builder.mutation({
       query: (payload) => ({
         url: "/orders",
@@ -46,6 +53,7 @@ const orderApi = api.injectEndpoints({
 export const {
   useGetOrdersQuery,
   useGetOrderQuery,
+  useGetMyOrdersQuery,
   useCreateOrderMutation,
   useUpdateOrderMutation,
   useDeleteOrderMutation,

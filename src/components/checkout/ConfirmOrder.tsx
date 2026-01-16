@@ -77,8 +77,6 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
       return;
     }
 
-    toast.warning("Please Wait....");
-
     //add delivery charges in amount
     let total = amount + deliveryFee;
 
@@ -139,6 +137,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
         }}
         variant="contained"
         onClick={() => handleConfirm(stripeData)}
+        disabled={isLoading}
       >
         {t("confirmOrder")}
       </Button>

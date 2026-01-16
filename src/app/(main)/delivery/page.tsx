@@ -28,7 +28,7 @@ export default function DeliveryPage() {
       router.replace("/cart");
       return;
     }
-  }, [cartItems]);
+  }, []);
 
   return (
     <Container>

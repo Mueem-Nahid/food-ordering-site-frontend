@@ -144,20 +144,7 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
   return (
     <div className="grid-item">
       <Link href={link} className="card-link">
-        <div className="add-to-fav" style={{textAlign: "right"}}>
-          {/* {typeof window !== "undefined" && localStorage.getItem("user") &&
-            (isFav === true ? (
-              <Favorite
-                sx={{ color: "#e4002b" }}
-                onClick={(e) => handleRemoveFav(e, id)}
-              />
-            ) : (
-              <FavoriteBorder
-                sx={{ color: "#e4002b" }}
-                onClick={(e) => handleAddFav(e, id)}
-              />
-            ))} */}
-        </div>
+
         <div className="card-img">
           <img className="top-sel-img" src={src} alt="Top Selling"/>
         </div>
@@ -189,7 +176,7 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
               variant="contained"
               className="add-to-bucket"
               disabled={btn ?? undefined}
-              onClick={(e) => handleAddToCart(id, e)}
+              // onClick={(e) => handleAddToCart(id, e)}
             >
               <strong>{t("addToBucket")}</strong>
             </Button>

@@ -263,6 +263,10 @@ body {
 .menu-item svg {
   color: var(--color-red);
 }
+.my-orders-menu-item {
+  display: none;
+}
+
 /* Map Component */
 .map-h2 {
   text-transform: uppercase;
@@ -958,6 +962,9 @@ body {
   .quantity {
     text-align: center;
     width: 7vw;
+  }
+  .my-orders-menu-item {
+    display: block;
   }
 }
 @media (max-width: 464px) {

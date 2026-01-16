@@ -2,15 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "./commons/Card";
-
-interface IProduct {
-  name: string;
-  desc: string;
-  price: number;
-  productImage: string;
-  _id: string;
-  category: { name: string, id: string };
-}
+import {IProduct} from "@/types/globalTypes";
 
 interface IProductSectionProps {
   products: IProduct[];

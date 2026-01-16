@@ -5,7 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import {ExitToApp, PersonOutline, AdminPanelSettingsOutlined} from "@mui/icons-material";
+import {ExitToApp, PersonOutline, AdminPanelSettingsOutlined, RestaurantOutlined} from "@mui/icons-material";
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 import {signOut, useSession} from "next-auth/react";
@@ -102,6 +102,14 @@ const AccountMenu: React.FC = () => {
             sx={{fontFamily: "Poppins !important"}}
           >
             <PersonOutline/> <span>{t("profile")}</span>
+          </MenuItem>
+        </Link>
+        <Link href="/order-history" className="my-orders-menu-item" style={{textDecoration: "none", color: "white"}}>
+          <MenuItem
+            className="menu-item"
+            sx={{fontFamily: "Poppins !important"}}
+          >
+            <RestaurantOutlined/> <span>{t("myOrders")}</span>
           </MenuItem>
         </Link>
         {

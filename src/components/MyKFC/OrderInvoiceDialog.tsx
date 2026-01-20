@@ -129,7 +129,7 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                     <tr key={idx} style={{borderBottom: "1px solid #eee"}}>
                       <td style={{padding: 8, fontSize: 15}}>{prod.product.title}</td>
                       <td style={{padding: 8, fontSize: 15, textAlign: "center"}}>{prod.quantity}</td>
-                      <td style={{padding: 8, fontSize: 15, textAlign: "center"}}>Rs {prod.product.price}</td>
+                      <td style={{padding: 8, fontSize: 15, textAlign: "center"}}>$ {prod.product.price}</td>
                       <td style={{padding: 8, fontSize: 15, textAlign: "center"}}>{prod.product.deliveryDay}</td>
                     </tr>
                   ))}

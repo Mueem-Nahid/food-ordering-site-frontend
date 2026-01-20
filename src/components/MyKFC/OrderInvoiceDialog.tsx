@@ -1,7 +1,6 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {Order} from "@/types/globalTypes";
-import { deliveryFee } from "@/constants/constants";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -157,7 +156,7 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", marginBottom: 8}}>
                   <span style={{fontWeight: 500}}>Delivery Charge:</span>
-                  <span>$ {deliveryFee}</span>
+                  <span>$ {order.delivery_fee}</span>
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: 18}}>
                   <span>Total:</span>

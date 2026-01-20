@@ -10,6 +10,7 @@ import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
 import {useSelector} from "react-redux";
 import {useRouter} from "next/navigation";
+import {deliveryFeeConst} from "@/constants/constants";
 
 export default function DeliveryPage() {
   const {cartItems} = useSelector((store: any) => store.cart);
@@ -17,6 +18,7 @@ export default function DeliveryPage() {
   const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
+  const [deliveryFee, setDeliveryFee] = useState(deliveryFeeConst);
   const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function DeliveryPage() {
             <DeliveryAddress
               addressValue={addressValue}
               setAddressValue={setAddressValue}
+              setDeliveryFee={setDeliveryFee}
             />
             <PaymentMethod
               paymentMethod={paymentMethod}
@@ -66,10 +69,10 @@ export default function DeliveryPage() {
               <OrderSummary/>
             </Grid>
             <Grid className="checkout-item">
-              <OrderTotal/>
+              <OrderTotal deliveryFee={deliveryFee}/>
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value}/>
+              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value} deliveryFee={deliveryFee} />
             </Grid>
           </Grid>
         </Grid>

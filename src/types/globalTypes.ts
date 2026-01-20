@@ -76,6 +76,7 @@ export type Order = {
   total_items: number;
   payment_method: string;
   delivery_address: string;
+  delivery_fee: number;
   phone_no: string;
   order_status: string;
   createdAt: string;

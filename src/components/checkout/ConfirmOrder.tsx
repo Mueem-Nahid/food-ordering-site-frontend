@@ -4,13 +4,13 @@ import {useRouter} from "next/navigation";
 import {toast} from "react-toastify";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {deliveryFee} from "@/constants/constants";
 import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
 
 interface ConfirmOrderProps {
   phoneValue: string;
   addressValue: string;
-  paymentMethod: string
+  paymentMethod: string;
+  deliveryFee: number;
 }
 
 interface CartItem {
@@ -32,7 +32,7 @@ interface RootState {
   };
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod}) => {
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod, deliveryFee}) => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector((state: any) => state.user?.userInfo);
@@ -97,6 +97,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
       total_items: totalItems,
       payment_method: paymentMethod,
       delivery_address: addressValue,
+      delivery_fee: deliveryFee,
       phone_no: phoneValue,
       // order_status is set server-side (default: PENDING)
     };

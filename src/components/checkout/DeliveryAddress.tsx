@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { TextField, RadioGroup, FormControlLabel, Radio, FormControl, FormLabel } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import {pickupAddresses} from "@/constants/constants";
+import {deliveryFeeConst, pickupAddresses} from "@/constants/constants";
 
 interface DeliveryAddressProps {
   addressValue: string;
   setAddressValue: (value: string) => void;
+  setDeliveryFee: (fee: number) => void;
 }
 
-const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ addressValue, setAddressValue }) => {
+const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ addressValue, setAddressValue, setDeliveryFee }) => {
   const [mode, setMode] = useState<"delivery" | "pickup">("delivery");
   const [pickup, setPickup] = useState(pickupAddresses[0]);
   const { t } = useTranslation();
@@ -22,8 +23,10 @@ const DeliveryAddress: React.FC<DeliveryAddressProps> = ({ addressValue, setAddr
     setMode(value);
     if (value === "pickup") {
       setAddressValue(pickup);
+      if (setDeliveryFee) setDeliveryFee(0);
     } else {
       setAddressValue("");
+      if (setDeliveryFee) setDeliveryFee(deliveryFeeConst);
     }
   };
 

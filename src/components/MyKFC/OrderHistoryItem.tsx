@@ -17,7 +17,7 @@ const OrderHistoryItem: React.FC<OrderHistoryItemProps> = ({ item, orderStatus, 
       <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.payment_method}</TableCell>
       <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.delivery_address}</TableCell>
       <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{item.total_items}</TableCell>
-      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>Rs {item.amount}</TableCell>
+      <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>$ {item.amount}</TableCell>
       <TableCell align="center" sx={{ color: "white", backgroundColor: "#1c1816" }}>{orderStatus}</TableCell>
       <TableCell
         align="center"

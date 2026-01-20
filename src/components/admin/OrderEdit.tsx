@@ -5,7 +5,7 @@ import {
   TextInput,
   SelectInput,
   ArrayInput,
-  SimpleFormIterator
+  SimpleFormIterator, NumberInput
 } from "react-admin";
 import {orderStatusChoices} from "@/constants/constants";
 
@@ -23,6 +23,7 @@ const OrderEdit = (props: any) => (
       <SelectInput source="payment_status" label="Payment Status" choices={paymentStatusChoices} />
       <TextInput source="payment_method" label="Payment Method" />
       <TextInput source="delivery_address" label="Delivery Address" />
+      <NumberInput source="delivery_fee" label="Delivery Fee" />
       <TextInput source="amount" label="Total" />
       <TextInput source="email" label="Email" />
       <TextInput source="phone_no" label="Phone" />

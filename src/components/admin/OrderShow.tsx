@@ -19,6 +19,7 @@ const Orde$how = (props: any) => (
       <DateField source="createdAt" label="Created" showTime />
       <TextField source="payment_method" label="Payment Method" />
       <TextField source="delivery_address" label="Delivery Address" />
+      <TextField source="delivery_fee" label="Delivery Fee" />
       <TextField source="amount" label="Total" />
       <EmailField source="email" label="Email" />
       <FunctionField

@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import {deliveryFee} from "@/constants/constants";
 
 interface RootState {
   cart: {
@@ -9,7 +8,11 @@ interface RootState {
   };
 }
 
-const OrderTotal: React.FC = () => {
+interface OrderTotalProps {
+  deliveryFee: number;
+}
+
+const OrderTotal: React.FC<OrderTotalProps> = ({deliveryFee}) => {
   //to fetch total amount
   const { amount } = useSelector((store: RootState) => store.cart);
 

@@ -197,22 +197,39 @@ const customDataProvider = {
   },
   update: (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    let data = { ...params.data };
+    const data = { ...params.data };
+
+    // Only send changed fields
+    const diff: any = {};
+    if (params.previousData) {
+      Object.keys(data).forEach((key) => {
+        if (JSON.stringify(data[key]) !== JSON.stringify(params.previousData[key])) {
+          // If product is being updated, always send the full previousData.product array
+          if (key === "product" && params.previousData.product) {
+            diff.product = params.previousData.product;
+          } else {
+            diff[key] = data[key];
+          }
+        }
+      });
+    } else {
+      Object.assign(diff, data);
+    }
 
     // Ensure price is a number if present
-    if (typeof data.price !== "undefined") {
-      data.price = Number(data.price);
-      if (isNaN(data.price)) data.price = 0;
+    if (typeof diff.price !== "undefined") {
+      diff.price = Number(diff.price);
+      if (isNaN(diff.price)) diff.price = 0;
     }
 
     // Transform availability to array of strings if needed
     if (
-      Array.isArray(data.availability) &&
-      data.availability.length > 0 &&
-      typeof data.availability[0] === "object" &&
-      "value" in data.availability[0]
+      Array.isArray(diff.availability) &&
+      diff.availability.length > 0 &&
+      typeof diff.availability[0] === "object" &&
+      "value" in diff.availability[0]
     ) {
-      data.availability = data.availability.map((item: any) => item.value);
+      diff.availability = diff.availability.map((item: any) => item.value);
     }
 
     return fetch(`${baseUrl}/${resource}/${params.id}`, {
@@ -221,7 +238,7 @@ const customDataProvider = {
         "Content-Type": "application/json",
         ...(accessToken ? { authorization: `Bearer ${accessToken}` } : {}),
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(diff),
     })
       .then((response) => response.json())
       .then((item) => {

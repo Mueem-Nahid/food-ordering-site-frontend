@@ -14,7 +14,7 @@ interface DealSectionProps {
 
 const DealSection: React.FC<DealSectionProps> = ({ categories }) => {
   const params = useParams();
-  const name = params?.name as string;
+  const name = decodeURIComponent(params?.name as string);
   const [active, setActive] = useState<string>(name || "");
 
   useEffect(() => {

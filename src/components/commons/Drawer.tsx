@@ -67,7 +67,7 @@ const TemporaryDrawer: React.FC = () => {
                 gap: ".5rem",
               }}
             >
-              {totalItems >= 1 ? <h3>Rs {amount}</h3> : ""}
+              {totalItems >= 1 ? <h3>$ {amount}</h3> : ""}
               <Close
                 sx={{
                   cursor: "pointer",

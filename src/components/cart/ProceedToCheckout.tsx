@@ -32,7 +32,7 @@ const ProceedToCheckout: React.FC = () => {
     <div className="proceed-to-checkout">
       <div className="subtotal-parent">
         <span>{t("subTotal")}</span>
-        <strong className="subtotal">Rs {amount}</strong>
+        <strong className="subtotal">$ {amount}</strong>
       </div>
       <Button variant="contained" onClick={handleProceed}>
         {t("proceedToCheckout")}

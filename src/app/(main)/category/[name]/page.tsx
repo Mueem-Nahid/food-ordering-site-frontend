@@ -15,7 +15,7 @@ import {IProduct} from "@/types/globalTypes";
 
 export default function CategoryPage() {
   const params = useParams();
-  const name = params?.name as string;
+  const name = decodeURIComponent(params?.name as string);
 
   const softDrink_context = useContext(softDrinkContext);
   const addon_context = useContext(addonContext);

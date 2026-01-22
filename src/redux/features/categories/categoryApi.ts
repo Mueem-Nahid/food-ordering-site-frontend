@@ -3,11 +3,15 @@ import { api } from "@/redux/api/apiSlice";
 const categoryApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query({
-      query: (params) => ({
-        url: "/categories",
-        method: "GET",
-        params,
-      }),
+      query: (params = {}) => {
+        // Always send a high limit unless explicitly overridden
+        const finalParams = { limit: 20, ...params };
+        return {
+          url: "/categories",
+          method: "GET",
+          params: finalParams,
+        };
+      },
       providesTags: ["categories"],
     }),
     getCategory: builder.query({

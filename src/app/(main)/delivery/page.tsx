@@ -10,11 +10,6 @@ import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
 import {useSelector, useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
-import {deliveryFeeConst} from "@/constants/constants";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
-import Alert from "@mui/material/Alert";
 import CouponInput from "../../../components/checkout/CouponInput";
 
 export default function DeliveryPage() {

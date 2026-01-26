@@ -10,7 +10,6 @@ import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
 import {useSelector} from "react-redux";
 import {useRouter} from "next/navigation";
-import {deliveryFeeConst} from "@/constants/constants";
 
 export default function DeliveryPage() {
   const {cartItems} = useSelector((store: any) => store.cart);
@@ -18,7 +17,7 @@ export default function DeliveryPage() {
   const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(deliveryFeeConst);
+  const [deliveryFee, setDeliveryFee] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
 
   useEffect(() => {

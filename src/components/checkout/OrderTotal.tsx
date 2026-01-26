@@ -10,13 +10,19 @@ interface RootState {
 
 interface OrderTotalProps {
   deliveryFee: number;
+  total?: number;
+  discount?: number;
 }
 
-const OrderTotal: React.FC<OrderTotalProps> = ({deliveryFee}) => {
+const OrderTotal: React.FC<OrderTotalProps> = ({ deliveryFee, total, discount }) => {
   //to fetch total amount
   const { amount } = useSelector((store: RootState) => store.cart);
 
   const { t } = useTranslation();
+
+  // If total is provided, use it; otherwise, fallback to amount + deliveryFee
+  const finalTotal = typeof total === "number" ? total : amount + deliveryFee;
+  const showDiscount = typeof discount === "number" && discount > 0;
 
   return (
     <div className="order-total">
@@ -28,9 +34,15 @@ const OrderTotal: React.FC<OrderTotalProps> = ({deliveryFee}) => {
         <strong>{t("items")}</strong>
         <span>$ {amount}</span>
       </div>
+      {showDiscount && (
+        <div className="total discount">
+          <strong>{t("Discount") || "Discount"}</strong>
+          <span style={{ color: "#e53935" }}>- $ {discount}</span>
+        </div>
+      )}
       <div className="total subtotal">
         <strong>{t("total")}</strong>
-        <span>$ {amount + deliveryFee}</span>
+        <span>$ {finalTotal}</span>
       </div>
     </div>
   );

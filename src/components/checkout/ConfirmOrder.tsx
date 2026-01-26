@@ -11,6 +11,8 @@ interface ConfirmOrderProps {
   addressValue: string;
   paymentMethod: string;
   deliveryFee: number;
+  coupon?: any;
+  discount?: number;
 }
 
 interface CartItem {
@@ -32,7 +34,14 @@ interface RootState {
   };
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod, deliveryFee}) => {
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({
+  phoneValue,
+  addressValue,
+  paymentMethod,
+  deliveryFee,
+  coupon,
+  discount,
+}) => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const userInfo = useSelector((state: any) => state.user?.userInfo);

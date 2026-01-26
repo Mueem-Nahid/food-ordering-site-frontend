@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {api} from "@/redux/api/apiSlice";
 import userReducer from "./features/users/userSlice";
 import cartReducer from "./cart/cartSlice";
+import couponReducer from "./features/coupons/couponSlice";
 
 let user;
 if (typeof window !== "undefined") {
@@ -31,6 +32,7 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     cart: cartReducer,
+    coupon: couponReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

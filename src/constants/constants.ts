@@ -20,7 +20,7 @@ export const deliveryLocations = [
 
 export const pickupAddresses = [
   "Lakemba, Sydney, Australia",
-  "Auburn, Sydney, Australia"
+  "Punchbowl, Sydney, Australia"
 ];
 
 export const methods = [

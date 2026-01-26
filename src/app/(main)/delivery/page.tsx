@@ -26,7 +26,7 @@ export default function DeliveryPage() {
   const [couponInput, setCouponInput] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(deliveryFeeConst);
+  const [deliveryFee, setDeliveryFee] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
 
   // Calculate order amount (excluding delivery fee)

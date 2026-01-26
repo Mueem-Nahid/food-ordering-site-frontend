@@ -8,19 +8,39 @@ import PhoneNumber from "../../../components/checkout/PhoneNumber";
 import DeliveryAddress from "../../../components/checkout/DeliveryAddress";
 import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
 import {deliveryFeeConst} from "@/constants/constants";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import CouponInput from "../../../components/checkout/CouponInput";
 
 export default function DeliveryPage() {
   const {cartItems} = useSelector((store: any) => store.cart);
   const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const couponState = useSelector((state: any) => state.coupon);
+  const dispatch = useDispatch();
   const router = useRouter();
+  const [couponInput, setCouponInput] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
   const [deliveryFee, setDeliveryFee] = useState(deliveryFeeConst);
   const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
 
+  // Calculate order amount (excluding delivery fee)
+  const orderAmount = cartItems.reduce(
+    (sum: number, item: any) => sum + (item.price * item.quantity),
+    0
+  );
+
+  // Calculate total after discount and delivery
+  // Discount applies only to subtotal, not delivery fee
+  const subtotalAfterDiscount = couponState.discountedAmount > 0
+    ? couponState.discountedAmount
+    : orderAmount;
+  const totalAfterDiscount = subtotalAfterDiscount + deliveryFee;
   useEffect(() => {
     if (!userInfo) {
       router.replace("/");
@@ -68,11 +88,20 @@ export default function DeliveryPage() {
             <Grid className="checkout-item">
               <OrderSummary/>
             </Grid>
+            {/* Coupon input and feedback */}
+            <CouponInput orderAmount={orderAmount} />
             <Grid className="checkout-item">
-              <OrderTotal deliveryFee={deliveryFee}/>
+              <OrderTotal deliveryFee={deliveryFee} total={totalAfterDiscount} discount={couponState.discount} />
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value} deliveryFee={deliveryFee} />
+              <ConfirmOrder
+                phoneValue={phoneValue}
+                addressValue={addressValue}
+                paymentMethod={paymentMethod.value}
+                deliveryFee={deliveryFee}
+                coupon={couponState.coupon}
+                discount={couponState.discount}
+              />
             </Grid>
           </Grid>
         </Grid>

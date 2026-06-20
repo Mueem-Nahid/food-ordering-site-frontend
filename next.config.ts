@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
-const backendUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8080";
+const backendUrl = process.env.NEXT_PUBLIC_BASE_URL
+  ? new URL(process.env.NEXT_PUBLIC_BASE_URL).origin
+  : "http://localhost:8080";
 
 const securityHeaders = [
   {

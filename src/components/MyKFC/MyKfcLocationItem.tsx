@@ -6,9 +6,8 @@ import {
   Apartment,
   BusinessCenterOutlined,
 } from "@mui/icons-material";
-// import axios from "axios";
 import locationContext from "../../context/locationContext";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import RadioBtn from "../commons/RadioBtn";
 import { useTranslation } from "react-i18next";
 
@@ -27,7 +26,7 @@ interface MyKfcLocationItemProps {
 
 const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }) => {
   const [address, setAddress] = useState("");
-  const router = useRouter();
+  const pathname = usePathname();
 
   const context = useContext(locationContext);
   const {
@@ -45,21 +44,6 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
   } = context;
   // handle when clicked on delete buttom
   const handleDelete = async (id: string) => {
-    // try {
-    //   await axios
-    //     .post(process.env.NEXT_PUBLIC_BACKEND + "/api/location/delLocation/" + id)
-    //     .then((res) => {
-    //       if (res.data.error === false) {
-    //         const newLocations = locations.filter((location) => {
-    //           return location._id !== id;
-    //         });
-    //         setLocations(newLocations);
-    //       }
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    // For UI only: remove from locations
     const newLocations = locations.filter((loc: Location) => loc._id !== id);
     setLocations(newLocations);
   };
@@ -76,15 +60,6 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
   };
   // get address of locations
   const getAddress = async (lat: number, lng: number) => {
-    // await axios
-    //   .get(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=` +
-    //       process.env.NEXT_PUBLIC_MAP_API_KEY
-    //   )
-    //   .then((res) => {
-    //     setAddress(res.data.results[1].formatted_address);
-    //   });
-    // For UI only: set dummy address
     setAddress("Sample Address");
   };
   // handle when clicked on radio button
@@ -101,7 +76,7 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
   }, [location.lat, location.lng]);
   return (
     <>
-      {router.pathname === "/delivery" ? (
+      {pathname === "/delivery" ? (
         <RadioBtn
           value={radioValue}
           index={index}
@@ -122,7 +97,7 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
           {location.street}, {address.length < 1 ? "Not Available" : address}
         </span>
       </div>
-      {router.pathname === "/delivery" ? (
+      {pathname === "/delivery" ? (
         ""
       ) : (
         <div className="edit-address">

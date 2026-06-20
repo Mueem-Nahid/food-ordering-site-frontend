@@ -4,10 +4,10 @@ import CartProdItem from "../../../components/cart/CartProdItem";
 import Stepper from "../../../components/commons/Stepper";
 import { Container, Grid } from "@mui/material";
 import ProceedToCheckout from "../../../components/cart/ProceedToCheckout";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 
 export default function CartPage() {
-  const { cartItems } = useSelector((store: any) => store.cart);
+  const { cartItems } = useAppSelector((store) => store.cart);
 
   // In Next.js, we can't use useNavigate, so just show empty cart UI if needed
   useEffect(() => {

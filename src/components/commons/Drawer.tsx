@@ -5,19 +5,11 @@ import CartItem from "../cart/CartItem";
 import Link from "next/link";
 import { useEffect, useContext } from "react";
 import userContext from "../../context/userContext";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
 
-interface RootState {
-  cart: {
-    cartItems: any[];
-    totalItems: number;
-    amount: number;
-  };
-}
-
 const TemporaryDrawer: React.FC = () => {
-  const { cartItems, totalItems, amount } = useSelector((state: RootState) => state.cart);
+  const { cartItems, totalItems, amount } = useAppSelector((state) => state.cart);
 
   // get user state information
   const user_context = useContext(userContext);

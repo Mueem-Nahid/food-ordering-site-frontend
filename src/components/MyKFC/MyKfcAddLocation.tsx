@@ -3,7 +3,6 @@ import {Button, Grid, TextField} from "@mui/material";
 import Tags from "../commons/Tags";
 import {toast} from "react-toastify";
 import locationContext from "../../context/locationContext";
-// import axios from "axios";
 import {useTranslation} from "react-i18next";
 
 const MyKfcAddLocation: React.FC = () => {
@@ -23,10 +22,18 @@ const MyKfcAddLocation: React.FC = () => {
     locationState,
     locationId,
   } = context;
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "{}")
-      : {};
+  const [userEmail, setUserEmail] = React.useState<string>("");
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const u = JSON.parse(localStorage.getItem("user") || "{}");
+        setUserEmail(u?.userInfo?.email || "");
+      } catch {
+        setUserEmail("");
+      }
+    }
+  }, []);
 
   // handle when clicked on cancel button
   const handleCancel = () => {
@@ -48,61 +55,6 @@ const MyKfcAddLocation: React.FC = () => {
       toast.warning("Please Type House No.");
       return;
     }
-    // if (locationState === "Add") {
-    //   await axios
-    //     .post(process.env.NEXT_PUBLIC_BACKEND + "/api/location/addLocation", {
-    //       lat: latitude,
-    //       lng: longitude,
-    //       email: user.email,
-    //       tag: tagIndex,
-    //       street: value,
-    //     })
-    //     .then((res) => {
-    //       if (res.data.error === false) {
-    //         setDisplaySections({
-    //           first: "none",
-    //           second: "flex",
-    //         });
-    //         setLocations(
-    //           locations.concat({
-    //             lat: latitude,
-    //             lng: longitude,
-    //             email: user.email,
-    //             tag: tagIndex,
-    //             street: value,
-    //           })
-    //         );
-    //         setValue("");
-    //         setTagIndex(null);
-    //       }
-    //     });
-    // } else {
-    //   await axios
-    //     .post(process.env.NEXT_PUBLIC_BACKEND + "/api/location/editLocation", {
-    //       id: locationId,
-    //       lat: latitude,
-    //       lng: longitude,
-    //       tag: tagIndex,
-    //       street: value,
-    //     })
-    //     .then((res) => {
-    //       if (res.data.error === false) {
-    //         setDisplaySections({
-    //           first: "none",
-    //           second: "flex",
-    //         });
-    //         setValue("");
-    //         setTagIndex(null);
-    //         // edit the location info realtime so it doesnot requires to refresh browser
-    //         const setLocation = locations.filter((loc) => {
-    //           return loc._id === locationId;
-    //         });
-    //         setLocation[0].lat = latitude;
-    //         setLocation[0].lng = longitude;
-    //       }
-    //     });
-    // }
-    // For UI only: just close the modal and reset fields
     setDisplaySections({
       first: "none",
       second: "flex",
@@ -111,7 +63,7 @@ const MyKfcAddLocation: React.FC = () => {
       locations.concat({
         lat: latitude,
         lng: longitude,
-        email: user.email,
+        email: userEmail,
         tag: tagIndex,
         street: value,
       })

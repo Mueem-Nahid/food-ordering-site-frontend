@@ -8,12 +8,12 @@ import PhoneNumber from "../../../components/checkout/PhoneNumber";
 import DeliveryAddress from "../../../components/checkout/DeliveryAddress";
 import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/redux/hook";
 import {useRouter} from "next/navigation";
 
 export default function DeliveryPage() {
-  const {cartItems} = useSelector((store: any) => store.cart);
-  const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const {cartItems} = useAppSelector((store) => store.cart);
+  const userInfo = useAppSelector((state) => state.user?.userInfo);
   const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
@@ -43,7 +43,6 @@ export default function DeliveryPage() {
             columnSpacing={{xs: 3, sm: 3, md: 3}}
             gap={{md: 3, sm: 3, xs: 3}}
           >
-            {/*<DeliveryDetails />*/}
             <DeliveryAddress
               addressValue={addressValue}
               setAddressValue={setAddressValue}

@@ -10,10 +10,7 @@ export const metadata = {
 
 // Configure Poppins font with desired weights and subsets
 const poppins = Poppins({
-  weight: [
-    "100", "200", "300", "400", "500", "600", "700", "800", "900"
-  ],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 });

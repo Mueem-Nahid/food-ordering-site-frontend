@@ -2,7 +2,6 @@ import simpleRestProvider from "ra-data-simple-rest";
 import store from "../../redux/store";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8080/api/v1";
-
 const simpleProvider = simpleRestProvider(baseUrl);
 
 function mapId(obj: any): any {
@@ -10,7 +9,7 @@ function mapId(obj: any): any {
     return obj.map(mapId);
   }
   if (obj && typeof obj === "object") {
-    let mapped = { ...obj };
+    const mapped = { ...obj };
     if (mapped._id && !mapped.id) {
       mapped.id = mapped._id;
     }
@@ -89,9 +88,6 @@ const customDataProvider = {
       });
   },
   getMany: (resource: string, params: any) => {
-    // TEMP DEBUG: Log resource and params for getMany
-    // eslint-disable-next-line no-console
-    console.log("ReactAdmin getMany resource:", resource, "params:", params);
     const accessToken = store.getState().user?.accessToken;
     const ids = params.ids.join(",");
     return fetch(`${baseUrl}/${resource}?ids=${ids}`, {
@@ -125,7 +121,7 @@ const customDataProvider = {
   },
   create: async (resource: string, params: any) => {
     const accessToken = store.getState().user?.accessToken;
-    let data = { ...params.data };
+    const data = { ...params.data };
 
     // Handle image upload for react-admin's ImageInput (productImage, categoryImage, addonImage)
     const imageField =

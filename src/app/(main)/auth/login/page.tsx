@@ -9,10 +9,13 @@ import {useSearchParams} from "next/navigation";
 function LoginForm() {
   const {t} = useTranslation();
   const searchParams = useSearchParams();
-  const redirect = searchParams?.get("redirect") || "/";
+  const rawRedirect = searchParams?.get("redirect") || "/";
+  const safeRedirect = rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
+    ? rawRedirect
+    : "/";
 
   const handleSignIn = () => {
-    signIn("google", {callbackUrl: redirect});
+    signIn("google", {callbackUrl: safeRedirect});
   }
 
   return (

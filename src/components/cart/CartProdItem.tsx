@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { DeleteOutlined, Add, Remove, Edit } from "@mui/icons-material";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/redux/hook";
 import {
   increaseItemQuantity,
   decreaseItemQuantity,
@@ -10,13 +10,24 @@ import {
 } from "@/redux/cart/cartSlice";
 
 interface CartProdItemProps {
-  item: any; // TODO: Replace 'any' with a specific type for item
+  item: {
+    product: {
+      src: string;
+      title: string;
+      price: number;
+      deliveryDay?: string | null;
+    };
+    quantity: number;
+    prod_id: string;
+    softDrinks: { softDrink: { name: string }; quantity: number }[];
+    addons: unknown[];
+  };
 }
 
 const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
   const [del, setDel] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // handle when clicked on plus or minus icon
   const handleQuantity = (condition: "+" | "-") => {
@@ -116,7 +127,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
             {item.softDrinks.length > 0 ? (
               <>
                 <h4>Drinks</h4>
-                {item.softDrinks.map((drink: any, index: number) => {
+                {item.softDrinks.map((drink, index) => {
                   return (
                     <div key={index} style={{ textAlign: "left" }}>
                       <span>

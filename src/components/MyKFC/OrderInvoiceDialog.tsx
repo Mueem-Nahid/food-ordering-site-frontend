@@ -1,8 +1,6 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {Order} from "@/types/globalTypes";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 interface OrderInvoiceDialogProps {
   open: boolean;
@@ -11,16 +9,20 @@ interface OrderInvoiceDialogProps {
 }
 
 const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
-                                                                 open,
-                                                                 onClose,
-                                                                 order
-                                                               }) => {
+                                                                  open,
+                                                                  onClose,
+                                                                  order
+                                                                }) => {
 
   // Download invoice as PDF with default filename using jsPDF/html2canvas
   const handleDownload = async () => {
     if (!order) return;
     const element = document.getElementById("invoice-content");
     if (!element) return;
+    const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
+      import("html2canvas"),
+      import("jspdf"),
+    ]);
     const canvas = await html2canvas(element, { scale: 2 });
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF({

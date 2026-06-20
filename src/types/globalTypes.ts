@@ -1,7 +1,10 @@
 export interface IUserInfo {
-  id: string,
-  email: string,
-  name: string
+  _id: string;
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+  address?: string;
 }
 
 export interface IUser {
@@ -66,10 +69,27 @@ export type IProduct = {
   }
 };
 
+export interface IOrderProductItem {
+  product: {
+    _id: string;
+    title: string;
+    name: string;
+    price: number;
+    deliveryDay: string;
+  };
+  quantity: number;
+}
+
+export interface IOrderUser {
+  _id: string;
+  name: string;
+  email: string;
+}
+
 export type Order = {
   _id: string;
-  product: any[];
-  user: any;
+  product: IOrderProductItem[];
+  user: IOrderUser;
   email: string;
   payment_status: string;
   amount: number;

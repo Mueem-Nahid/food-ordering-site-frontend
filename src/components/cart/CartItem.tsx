@@ -9,7 +9,7 @@ import {
 import SoftDrinkCard from "../commons/SoftDrinkCard";
 import AddonCard from "../commons/AddonCard";
 import { Grid, Collapse, Box } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/redux/hook";
 import {
   delCartItem,
   increaseItemQuantity,
@@ -18,12 +18,24 @@ import {
 import { useTranslation } from "react-i18next";
 
 interface CartItemProps {
-  item: any; // TODO: Replace 'any' with a specific type for item
+  item: {
+    product: {
+      id: string;
+      title: string;
+      src: string;
+      price: number;
+      deliveryDay?: string | null;
+    };
+    quantity: number;
+    prod_id: string;
+    addons: unknown[];
+    softDrinks: unknown[];
+  };
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const ref = useRef<SVGSVGElement | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   const [open, setOpen] = useState(false);
@@ -64,8 +76,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       setIsDelete(true);
       return;
     }
-    //eslint-disable-next-line
-  }, []);
+  }, [item.quantity]);
 
   return (
     <>

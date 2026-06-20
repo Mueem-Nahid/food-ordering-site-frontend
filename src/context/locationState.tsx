@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, ReactNode } from "react";
 import locationContext from "./locationContext";
-// import axios from "axios";
 
 interface LocationStateProps {
   children: ReactNode;
@@ -26,20 +25,18 @@ interface RadioValue {
 }
 
 const LocationState: React.FC<LocationStateProps> = ({ children }) => {
-  const [longitude, setLongitude] = useState(69.3451);
-  const [latitude, setLatitude] = useState(30.3753);
+  const [longitude, setLongitude] = useState(151.2093);
+  const [latitude, setLatitude] = useState(-33.8688);
   const [displaySections, setDisplaySections] = useState<DisplaySections>({
     first: "none",
     second: "flex",
   });
   const [value, setValue] = useState("");
   const [locations, setLocations] = useState<Location[]>([]);
-  // handle tag index to make on active on add location component
   const [tagIndex, setTagIndex] = useState<number | null>(null);
   const [locationState, setLocationState] = useState<string>("");
 
   const [locationId, setLocationId] = useState<string | null>(null);
-  // handle radios values for checout
   const [radioValue, setRadioValue] = useState<RadioValue>({ value: "", index: "" });
 
   const getLocation = () => {
@@ -51,20 +48,7 @@ const LocationState: React.FC<LocationStateProps> = ({ children }) => {
     }
   };
 
-  // get all locations of logged in user
-  const getLocations = async (email: string) => {
-    // try {
-    //   await axios
-    //     .get(
-    //       process.env.NEXT_PUBLIC_BACKEND + "/api/location/getLocations/" + email
-    //     )
-    //     .then((res) => {
-    //       setLocations(res.data);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // For UI only: set dummy locations
+  const getLocations = async () => {
     setLocations([]);
   };
 

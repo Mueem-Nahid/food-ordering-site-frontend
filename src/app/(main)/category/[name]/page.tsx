@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useParams} from "next/navigation";
 import {Container} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -12,10 +12,20 @@ import addonContext from "../../../../context/addonContext";
 import {useGetProductsQuery} from "@/redux/features/products/productApi";
 import {useGetCategoriesQuery} from "@/redux/features/categories/categoryApi";
 import {IProduct} from "@/types/globalTypes";
+import {safeDecodeURIComponent} from "@/utils/utils";
 
 export default function CategoryPage() {
   const params = useParams();
-  const name = decodeURIComponent(params?.name as string);
+  const name = safeDecodeURIComponent(params?.name as string);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const softDrink_context = useContext(softDrinkContext);
   const addon_context = useContext(addonContext);
@@ -26,15 +36,13 @@ export default function CategoryPage() {
   const {data, isLoading, isError} = useGetCategoriesQuery(undefined);
   const categories = data?.data || [];
 
-  // Fetch products by categoryId (if found), else fallback to name
   const {data: productData, isLoading: isProductLoading} = useGetProductsQuery({categoryName: name});
   const products = productData?.data || [];
 
   useEffect(() => {
     setAddonQuantity([]);
     setSoftDrinksQuantity([]);
-    //eslint-disable-next-line
-  }, [name]);
+  }, [name, setAddonQuantity, setSoftDrinksQuantity]);
 
   return (
     <Container>
@@ -46,10 +54,7 @@ export default function CategoryPage() {
           <>
             <h2
               style={{
-                textAlign:
-                  typeof window !== "undefined" && window.innerWidth < 768
-                    ? ("center" as React.CSSProperties["textAlign"])
-                    : undefined,
+                textAlign: isMobile ? ("center" as React.CSSProperties["textAlign"]) : undefined,
               }}
             >
               {products[0]?.catId?.name || name}

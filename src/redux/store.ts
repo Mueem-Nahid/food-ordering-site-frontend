@@ -7,7 +7,11 @@ let user;
 if (typeof window !== "undefined") {
   const userString: string | null = localStorage.getItem('user');
   if (userString) {
-    user = JSON.parse(userString);
+    try {
+      user = JSON.parse(userString);
+    } catch {
+      user = undefined;
+    }
   }
 }
 
@@ -15,7 +19,11 @@ let cart;
 if (typeof window !== "undefined") {
   const cartString: string | null = localStorage.getItem('cart');
   if (cartString) {
-    cart = JSON.parse(cartString);
+    try {
+      cart = JSON.parse(cartString);
+    } catch {
+      cart = undefined;
+    }
   }
 }
 
@@ -42,9 +50,13 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 if (typeof window !== "undefined") {
+  let prevCartJson = JSON.stringify(store.getState().cart);
   store.subscribe(() => {
-    const state = store.getState();
-    localStorage.setItem('cart', JSON.stringify(state.cart));
+    const cartJson = JSON.stringify(store.getState().cart);
+    if (cartJson !== prevCartJson) {
+      prevCartJson = cartJson;
+      localStorage.setItem('cart', cartJson);
+    }
   });
 }
 

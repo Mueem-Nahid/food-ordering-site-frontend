@@ -1,20 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
-
-interface RootState {
-  cart: {
-    amount: number;
-  };
-}
 
 interface OrderTotalProps {
   deliveryFee: number;
 }
 
 const OrderTotal: React.FC<OrderTotalProps> = ({deliveryFee}) => {
-  //to fetch total amount
-  const { amount } = useSelector((store: RootState) => store.cart);
+  const { amount } = useAppSelector((store) => store.cart);
 
   const { t } = useTranslation();
 

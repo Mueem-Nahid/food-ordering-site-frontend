@@ -1,14 +1,13 @@
 "use client";
 import React, { useState, ReactNode } from "react";
 import dealContext from "./dealContext";
-// import axios from "axios";
 
 interface DealStateProps {
   children: ReactNode;
 }
 
 interface Cat {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface DealContextValue {
@@ -21,17 +20,6 @@ const DealState: React.FC<DealStateProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [cats, setCats] = useState<Cat[]>([]);
   const getCats = async () => {
-    // try {
-    //   await axios
-    //     .get(process.env.NEXT_PUBLIC_BACKEND + "/api/cat/getCat")
-    //     .then((res) => {
-    //       setCats(res.data.getCategories);
-    //       setLoading(false);
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    // For UI only: set dummy categories
     setCats([]);
     setLoading(false);
   };

@@ -16,9 +16,39 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/users/google-auth`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: user.email,
+                name: user.name,
+                address: "",
+              }),
+            }
+          );
+          const data = await res.json();
+          if (data?.data?.accessToken && data?.data?.user) {
+            token.role = data.data.user.role;
+            token.accessToken = data.data.accessToken;
+            token.backendUserId = data.data.user._id;
+          }
+        } catch {
+          // Fail closed: no role assigned if backend is unreachable
+        }
+      }
+      return token;
+    },
     async session({ session, token }) {
       session.user = session.user || {};
-      (session.user as any).id = token.sub;
+      session.user.id = token.sub;
+      session.user.role = token.role;
+      session.user.accessToken = token.accessToken;
+      session.user.backendUserId = token.backendUserId;
       return session;
     },
   },

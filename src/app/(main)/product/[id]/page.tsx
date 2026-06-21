@@ -13,7 +13,7 @@ import DealSkeleton from "../../../../components/deals/DealSkeleton";
 import addonContext from "../../../../context/addonContext";
 import SoftDrinkCard from "../../../../components/commons/SoftDrinkCard";
 import softDrinkContext from "../../../../context/softDrinkContext";
-import {useDispatch, useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {addToCart, decreaseItemQuantity, increaseItemQuantity, updateCartItem,} from "@/redux/cart/cartSlice";
 import {useTranslation} from "react-i18next";
 import {useGetCategoriesQuery} from "@/redux/features/categories/categoryApi";
@@ -22,6 +22,7 @@ import {IProduct} from "@/types/globalTypes";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import {daysOfWeek} from "@/constants/constants";
 import {isSelectable} from "@/utils/utils";
+import {toast} from "react-toastify";
 
 function ProductAvailabilitySelector({
   availability,
@@ -88,11 +89,19 @@ function ProductAvailabilitySelector({
 export default function ProductPage() {
   const params = useParams();
   const id = params?.id as string;
-  const {cartItems} = useSelector((store: any) => store.cart);
+  const {cartItems} = useAppSelector((store) => store.cart);
   const context = useContext(dealContext);
   const {getCats} = context;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {t} = useTranslation();
+
+  const [windowWidth, setWindowWidth] = useState(0);
+  useEffect(() => {
+    const updateWidth = () => setWindowWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   // add to bucket text
   const [text, setText] = useState("Add To Bucket");
@@ -153,10 +162,10 @@ export default function ProductPage() {
 
   // handle When clicked on add to bucket button
   const handleAddToCart = () => {
-    if (!selectedDay) {
-      alert("Please select a delivery day.");
-      return;
-    }
+      if (!selectedDay) {
+        toast.error("Please select a delivery day.");
+        return;
+      }
     if (text === "محفوظ کریں" || text === "save") {
       dispatch(
         updateCartItem({
@@ -234,15 +243,17 @@ export default function ProductPage() {
                       backgroundImage: `url(/images/bg-ellipse.png)`,
                       backgroundRepeat: "no-repeat",
                       backgroundPosition:
-                        typeof window !== "undefined" && window.innerWidth <= 991
+                        windowWidth <= 991 && windowWidth > 0
                           ? "-65% -115px"
+                          : windowWidth === 0
+                          ? "-6% -117px"
                           : "-6% -117px",
                       marginBottom:
-                        typeof window !== "undefined" && window.innerWidth <= 768
+                        windowWidth <= 768 && windowWidth > 0
                           ? "32px"
                           : "",
                       backgroundSize:
-                        typeof window !== "undefined" && window.innerWidth <= 768
+                        windowWidth <= 768 && windowWidth > 0
                           ? "contain"
                           : "",
                     }}

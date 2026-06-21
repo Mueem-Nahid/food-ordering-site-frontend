@@ -21,9 +21,7 @@ const Header: React.FC = () => {
   const currentLangCode = cookies.get("i18next") || "en";
   useEffect(() => {
     getLocation();
-    // getCartInfo();
-    //eslint-disable-next-line
-  }, [user, typeof window !== "undefined" ? localStorage.getItem("user") : null, currentLangCode]);
+  }, [user, currentLangCode, getLocation]);
 
   return (
     <div className="header">

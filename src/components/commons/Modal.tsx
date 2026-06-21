@@ -1,32 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { LocationSearching, ArrowDropDown } from "@mui/icons-material";
 import { Modal, Typography, Box, Button } from "@mui/material";
-import Map from "./Map";
 import AutoComplete from "./AutoComplete";
 import locationContext from "../../context/locationContext";
 import { useTranslation } from "react-i18next";
 
-const getModalStyle = () => ({
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "auto",
-  bgcolor: "#1C1816",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: ".4rem",
-  height:
-    typeof window !== "undefined" && window.innerWidth < 768
-      ? "85vh"
-      : "90vh",
-});
+const Map = dynamic(() => import("./Map"), { ssr: false });
 
 const ModalFunc: React.FC = () => {
   const { t } = useTranslation();
   const context = useContext(locationContext);
   const { getLocation } = context;
   const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const getModalStyle = () => ({
+    position: "absolute" as const,
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "auto",
+    bgcolor: "#1C1816",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: ".4rem",
+    height: isMobile ? "85vh" : "90vh",
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

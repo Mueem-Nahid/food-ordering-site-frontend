@@ -4,18 +4,25 @@ import {ExpandMore} from "@mui/icons-material";
 import locationContext from "../../context/locationContext";
 import {useTranslation} from "react-i18next";
 import {useGetUserQuery, useUpdateUserMutation} from "@/redux/features/users/userApi";
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/redux/hook";
 import EditableField from "@/components/MyKFC/EditableField";
 
 const ProfileDetails: React.FC = () => {
   const context = React.useContext(locationContext);
-  // Try to get userId from Redux, fallback to localStorage
-  const reduxUser = useSelector((state: any) => state.user?.userInfo);
-  const userId =
-    reduxUser?._id ||
-    (typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "{}")?._id
-      : undefined);
+  const reduxUser = useAppSelector((state) => state.user?.userInfo);
+  const [userId, setUserId] = React.useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    let id = reduxUser?._id;
+    if (!id && typeof window !== "undefined") {
+      try {
+        id = JSON.parse(localStorage.getItem("user") || "{}")?.userInfo?._id;
+      } catch {
+        id = undefined;
+      }
+    }
+    setUserId(id);
+  }, [reduxUser]);
 
   const {data: userInfo, isLoading, isError, refetch} = useGetUserQuery(userId, {skip: !userId});
   const [updateUser] = useUpdateUserMutation();

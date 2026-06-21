@@ -2,19 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 interface Addon {
+  _id?: string;
+  name?: string;
+  price: number;
   quantity: number;
-  addon: { price: number };
+  addon: { price: number; _id?: string; name?: string };
 }
 
 interface SoftDrink {
   quantity: number;
-  softDrink: { price: number };
+  softDrink: { price: number; _id?: string; name?: string };
 }
 
 interface Product {
   price: number;
   id: string;
-  [key: string]: any;
+  title: string;
+  src: string;
+  deliveryDay?: string | null;
+  [key: string]: unknown;
 }
 
 interface CartItem {
@@ -23,7 +29,7 @@ interface CartItem {
   addons: Addon[];
   softDrinks: SoftDrink[];
   prod_id: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface CartState {
@@ -51,7 +57,6 @@ const cartSlice = createSlice({
           deliveryDay: payload.product.deliveryDay || null,
         },
       };
-      console.log("Cart item being added:", cartItem);
       state.cartItems = state.cartItems.concat(cartItem);
       state.totalItems += 1;
       payload.addons.forEach((element) => {
@@ -122,7 +127,6 @@ const cartSlice = createSlice({
           deliveryDay: payload.product.deliveryDay || null,
         },
       };
-      console.log("Cart item being updated:", cartItem);
       state.cartItems = state.cartItems.concat(cartItem);
       state.totalItems += 1;
       payload.addons.forEach((element) => {

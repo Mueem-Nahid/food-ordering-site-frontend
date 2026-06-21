@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import FavouritesCard from "./FavouritesCard";
-// import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 interface ProdId {
@@ -22,33 +21,9 @@ interface FavouritesProps {
 }
 
 const Favourites: React.FC<FavouritesProps> = ({ favs, setFavs }) => {
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "{}")
-      : {};
-
   // handle when clicked on filled heart
   const handleRemoveFav = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    // try {
-    //   // removing the product from favourites of logged in user
-    //   await axios
-    //     .post(process.env.NEXT_PUBLIC_BACKEND + "/api/fav/delFav", {
-    //       prod_id: id,
-    //       email: user.email,
-    //     })
-    //     .then((res) => {
-    //       if (res.data.error === false) {
-    //         const newFavs = favs.filter((fav) => {
-    //           return fav.prod_id._id !== id;
-    //         });
-    //         setFavs(newFavs);
-    //       }
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // For UI only: remove from favs
     const newFavs = favs.filter((fav) => fav.prod_id._id !== id);
     setFavs(newFavs);
   };

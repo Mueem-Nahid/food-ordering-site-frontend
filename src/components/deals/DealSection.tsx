@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DealsCard from "./DealsCard";
 import {useParams} from "next/navigation";
+import {safeDecodeURIComponent} from "@/utils/utils";
 
 interface Cat {
   categoryImage: string;
@@ -14,7 +15,7 @@ interface DealSectionProps {
 
 const DealSection: React.FC<DealSectionProps> = ({ categories }) => {
   const params = useParams();
-  const name = decodeURIComponent(params?.name as string);
+  const name = safeDecodeURIComponent(params?.name as string);
   const [active, setActive] = useState<string>(name || "");
 
   useEffect(() => {

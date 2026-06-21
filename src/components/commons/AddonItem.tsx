@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { Add, DeleteOutline, Remove } from "@mui/icons-material";
 import addonContext from "../../context/addonContext";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
 
 interface Addon {
@@ -18,21 +18,9 @@ interface AddonItemProps {
   prod_id: string;
 }
 
-interface CartItem {
-  prod_id: string;
-  addons: { addon: Addon; quantity: number }[];
-  [key: string]: any;
-}
-
-interface RootState {
-  cart: {
-    cartItems: CartItem[];
-  };
-}
-
 const AddonItem: React.FC<AddonItemProps> = ({ addon, index, prod_id }) => {
   const ref = useRef<HTMLSpanElement | null>(null);
-  const { cartItems } = useSelector((store: RootState) => store.cart);
+  const { cartItems } = useAppSelector((store) => store.cart);
   const context = useContext(addonContext);
   // delete icon trigger
   const [del, setDel] = useState(false);

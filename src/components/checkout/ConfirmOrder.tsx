@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Button} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {toast} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {useTranslation} from "react-i18next";
 import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
 
@@ -13,32 +13,13 @@ interface ConfirmOrderProps {
   deliveryFee: number;
 }
 
-interface CartItem {
-  product: {
-    title: string;
-    src: string;
-    price: number;
-  };
-  quantity: number;
-  addons: any[];
-  softDrinks: any[];
-}
-
-interface RootState {
-  cart: {
-    cartItems: CartItem[];
-    totalItems: number;
-    amount: number;
-  };
-}
-
 const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod, deliveryFee}) => {
   const {t} = useTranslation();
-  const dispatch = useDispatch();
-  const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const dispatch = useAppDispatch();
+  const userInfo = useAppSelector((state) => state.user?.userInfo);
   const router = useRouter();
 
-  const {cartItems, totalItems, amount} = useSelector((store: RootState) => store.cart);
+  const {cartItems, totalItems, amount} = useAppSelector((store) => store.cart);
 
   // use the below state for stripe payment data
   const [stripeData, setStripeData] = useState<any[]>([]);
@@ -90,8 +71,8 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
         addons: item.addons,
         prod_id: item.prod_id,
       })),
-      user: userInfo._id,
-      email: userInfo.email,
+      user: userInfo?._id,
+      email: userInfo?.email,
       payment_status: "pending",
       amount: total,
       total_items: totalItems,

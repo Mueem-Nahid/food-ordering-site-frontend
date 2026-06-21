@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Add, Remove, DeleteOutline } from "@mui/icons-material";
 import softDrinkContext from "../../context/softDrinkContext";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
 
 interface SoftDrink {
@@ -18,18 +18,6 @@ interface SoftDrinkItemProps {
   prod_id: string;
 }
 
-interface CartItem {
-  prod_id: string;
-  softDrinks: { softDrink: SoftDrink; quantity: number }[];
-  [key: string]: any;
-}
-
-interface RootState {
-  cart: {
-    cartItems: CartItem[];
-  };
-}
-
 const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id }) => {
   const context = useContext(softDrinkContext);
   const ref = useRef<HTMLSpanElement | null>(null);
@@ -37,7 +25,7 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
   // delete icon trigger
   const [del, setDel] = useState(false);
 
-  const { cartItems } = useSelector((store: RootState) => store.cart);
+  const { cartItems } = useAppSelector((store) => store.cart);
   const { softDrinksQuantity, setSoftDrinksQuantity } = context;
   const [quantity, setQuantity] = useState<{ softDrink: SoftDrink | string; quantity: number | string }>({
     softDrink: "",

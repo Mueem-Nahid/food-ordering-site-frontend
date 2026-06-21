@@ -14,7 +14,7 @@ import OrderHistoryItem from "./OrderHistoryItem";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import {useGetMyOrdersQuery} from "@/redux/features/orders/orderApi";
-import {useSelector} from "react-redux";
+import {useAppSelector} from "@/redux/hook";
 import {Order} from "@/types/globalTypes";
 
 interface IProps {
@@ -23,7 +23,7 @@ interface IProps {
 
 const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
   const {t} = useTranslation();
-  const userInfo = useSelector((state: any) => state.user?.userInfo);
+  const userInfo = useAppSelector((state) => state.user?.userInfo);
 
   // Modal state for invoice
   const [modalOpen, setModalOpen] = React.useState(false);

@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Favorite, AddCircle, Edit } from "@mui/icons-material";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { addToCart } from "../../redux/cart/cartSlice";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,17 +18,6 @@ interface FavouritesCardProps {
   handleRemoveFav: (e: React.MouseEvent, id: string) => void;
 }
 
-interface CartItem {
-  prod_id: string;
-  [key: string]: any;
-}
-
-interface RootState {
-  cart: {
-    cartItems: CartItem[];
-  };
-}
-
 const FavouritesCard: React.FC<FavouritesCardProps> = ({
   src,
   title,
@@ -37,12 +26,21 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
   id,
   handleRemoveFav,
 }) => {
-  const { cartItems } = useSelector((store: RootState) => store.cart);
-  const dispatch = useDispatch();
-  const getUser =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("user") || "{}")
-      : {};
+  const { cartItems } = useAppSelector((store) => store.cart);
+  const dispatch = useAppDispatch();
+  const [userEmail, setUserEmail] = useState<string | undefined>(undefined);
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const u = JSON.parse(localStorage.getItem("user") || "{}");
+        setUserEmail(u?.userInfo?.email);
+      } catch {
+        setUserEmail(undefined);
+      }
+    }
+  }, []);
+
   const [edit, setEdit] = useState(false);
   const { t } = useTranslation();
   const handleAdd = (e: React.MouseEvent) => {
@@ -52,7 +50,7 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
       addToCart({
         product: { price, title, id, src },
         quantity: 1,
-        email: getUser.email,
+        email: userEmail,
         addons: [],
         softDrinks: [],
         prod_id: id,
@@ -61,7 +59,6 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
     setEdit(true);
   };
   useEffect(() => {
-    // check if item already available in card than show edit button instead of add
     const find = cartItems.find((item) => item.prod_id === id);
 
     if (find !== undefined) {
@@ -69,8 +66,7 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
     } else {
       setEdit(false);
     }
-    //eslint-disable-next-line
-  }, [cartItems]);
+  }, [cartItems, id]);
   return (
     <Link href={`/product/${id}`} style={{ textDecoration: "none" }}>
       <Card

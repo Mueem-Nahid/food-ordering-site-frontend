@@ -1,23 +1,14 @@
 "use client";
 import React from "react";
 import { Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 
-interface RootState {
-  cart: {
-    amount: number;
-  };
-  user: {
-    userInfo: any;
-  };
-}
-
 const ProceedToCheckout: React.FC = () => {
   const { t } = useTranslation();
-  const amount = useSelector((store: RootState) => store.cart.amount);
-  const userInfo = useSelector((store: RootState) => store.user.userInfo);
+  const amount = useAppSelector((store) => store.cart.amount);
+  const userInfo = useAppSelector((store) => store.user.userInfo);
   const router = useRouter();
 
   const handleProceed = () => {

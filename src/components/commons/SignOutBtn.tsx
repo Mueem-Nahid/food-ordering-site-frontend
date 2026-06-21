@@ -9,14 +9,14 @@ import {ExitToApp, PersonOutline, AdminPanelSettingsOutlined, RestaurantOutlined
 import Link from "next/link";
 import {useTranslation} from "react-i18next";
 import {signOut, useSession} from "next-auth/react";
-import {useSelector, useDispatch} from "react-redux";
+import {useAppSelector, useAppDispatch} from "@/redux/hook";
 import {logOutUser} from "@/redux/features/users/userSlice";
 
 const AccountMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const {data: session} = useSession();
-  const userInfo = useSelector((state: any) => state.user?.userInfo);
-  const dispatch = useDispatch();
+  const userInfo = useAppSelector((state) => state.user?.userInfo);
+  const dispatch = useAppDispatch();
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -29,6 +29,9 @@ const AccountMenu: React.FC = () => {
 
   const handleSignout = () => {
     dispatch(logOutUser());
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+    }
     signOut({callbackUrl: "/auth/login"});
   };
 

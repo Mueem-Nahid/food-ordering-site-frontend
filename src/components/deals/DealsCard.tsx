@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import OptimizedImage from "../commons/OptimizedImage";
 
 interface DealsCardProps {
   src: string;
@@ -22,7 +23,7 @@ const DealsCard: React.FC<DealsCardProps> = ({ src, name, classes = "", id }) =>
 border: src === "/images/deal1.png" ? "2px solid white" : "",
             }}
           >
-            <img src={src} width={70} alt="Deal" />
+            <OptimizedImage src={src} alt="Deal" width={70} height={70} sizes="70px" />
           </div>
           <strong>{name}</strong>
         </div>

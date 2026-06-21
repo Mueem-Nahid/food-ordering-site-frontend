@@ -3,6 +3,7 @@ import { Add, Remove, DeleteOutline } from "@mui/icons-material";
 import softDrinkContext from "../../context/softDrinkContext";
 import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
+import OptimizedImage from "./OptimizedImage";
 
 interface SoftDrink {
   _id: string;
@@ -161,7 +162,7 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
   return (
     <>
       <div className="img">
-        <img src={softDrink.pic} alt="Addon" width={30} />
+        <OptimizedImage src={softDrink.pic} alt="Soft Drink" width={30} height={30} sizes="30px" />
       </div>
       <div className="addon-name">
         <span>{softDrink.name}</span>

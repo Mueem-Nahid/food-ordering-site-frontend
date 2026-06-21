@@ -12,5 +12,6 @@ export const api = createApi({
     }
   }),
   tagTypes: ['newPost', 'fetchAfterDelete', 'comments', 'login', 'fetchAfterReact', 'products', 'categories', 'orders', 'addons', 'user'],
+  keepUnusedDataFor: 300,
   endpoints: () => ({}),
 });

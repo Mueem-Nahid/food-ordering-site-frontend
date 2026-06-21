@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
+import OptimizedImage from "../commons/OptimizedImage";
 
 interface Product {
   src: string;
@@ -23,7 +24,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ item }) => {
       marginTop={2}
     >
       <div className="order-img">
-        <img src={item.product.src} width={100} alt="Order" />
+        <OptimizedImage src={item.product.src} alt="Order" fill width={100} sizes="100px" />
       </div>
       <div className="order-item">
         <strong>{item.product.title}</strong>

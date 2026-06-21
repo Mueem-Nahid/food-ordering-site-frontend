@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import { DeleteOutlined, Add, Remove, Edit } from "@mui/icons-material";
 import Link from "next/link";
 import { useAppDispatch } from "@/redux/hook";
+import OptimizedImage from "../commons/OptimizedImage";
 import {
   increaseItemQuantity,
   decreaseItemQuantity,
@@ -59,7 +60,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
             gap: 2,
           }}
         >
-          <img src={item.product.src} width={100} alt="Product-Image" />
+          <OptimizedImage src={item.product.src} alt="Product-Image" width={100} height={100} sizes="100px" />
           <Grid
             sx={{
               display: "flex",

@@ -23,6 +23,7 @@ import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import {daysOfWeek} from "@/constants/constants";
 import {isSelectable} from "@/utils/utils";
 import {toast} from "react-toastify";
+import OptimizedImage from "../../../../components/commons/OptimizedImage";
 
 function ProductAvailabilitySelector({
   availability,
@@ -271,7 +272,14 @@ export default function ProductPage() {
                           textAlign="center"
                         >
                           <div className="product-img">
-                            <img src={product?.productImage} width={300} alt="Product Image"/>
+                            <OptimizedImage
+                              src={product?.productImage}
+                              alt="Product Image"
+                              fill
+                              width={300}
+                              priority
+                              sizes="300px"
+                            />
                           </div>
                         </Grid>
                         <Grid size={{xs: 12, sm: 12, md: 6}}>

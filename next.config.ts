@@ -51,10 +51,31 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 31536000,
+    deviceSizes: [360, 768, 1024, 1280, 1920],
+    imageSizes: [16, 32, 48, 70, 100, 300],
     remotePatterns: [
       {
         protocol: "https",

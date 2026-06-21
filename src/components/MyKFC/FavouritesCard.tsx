@@ -6,6 +6,7 @@ import { Favorite, AddCircle, Edit } from "@mui/icons-material";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { addToCart } from "../../redux/cart/cartSlice";
+import OptimizedImage from "../commons/OptimizedImage";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -80,7 +81,7 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
           </div>
 
           <div className="fav-img">
-            <img src={src} width={100} alt="Favourite" />
+            <OptimizedImage src={src} alt="Favourite" fill width={100} sizes="100px" />
           </div>
           <Typography
             variant="h6"

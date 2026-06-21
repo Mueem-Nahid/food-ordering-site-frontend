@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import SoftDrinkCard from "../commons/SoftDrinkCard";
 import AddonCard from "../commons/AddonCard";
+import OptimizedImage from "../commons/OptimizedImage";
 import { Grid, Collapse, Box } from "@mui/material";
 import { useAppDispatch } from "@/redux/hook";
 import {
@@ -91,11 +92,13 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
       >
         <div className="cart-item-inner">
           <div style={{ display: "flex", alignItems: "center", gap: "1.3rem" }}>
-            <img
+            <OptimizedImage
               src={item.product.src}
-              style={{ marginLeft: "-20px" }}
-              width={100}
               alt="Cart Item"
+              width={100}
+              height={100}
+              sizes="100px"
+              style={{ marginLeft: "-20px" }}
             />
             <div style={{ display: "flex", flexDirection: "column" }}>
               <strong>{item.product.title}</strong>

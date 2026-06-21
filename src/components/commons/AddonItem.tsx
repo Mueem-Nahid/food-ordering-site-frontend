@@ -3,6 +3,7 @@ import { Add, DeleteOutline, Remove } from "@mui/icons-material";
 import addonContext from "../../context/addonContext";
 import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
+import OptimizedImage from "./OptimizedImage";
 
 interface Addon {
   _id: string;
@@ -150,7 +151,7 @@ const AddonItem: React.FC<AddonItemProps> = ({ addon, index, prod_id }) => {
   return (
     <>
       <div className="img">
-        <img src={addon.pic} alt="Addon" width={30} />
+        <OptimizedImage src={addon.pic} alt="Addon" width={30} height={30} sizes="30px" />
       </div>
       <div className="addon-name">
         <span>{addon.name}</span>

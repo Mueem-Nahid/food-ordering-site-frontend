@@ -5,6 +5,7 @@ import {Button, Container, Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
 import {signIn} from "@/utils/auth";
 import {useSearchParams} from "next/navigation";
+import OptimizedImage from "../../../../components/commons/OptimizedImage";
 
 function LoginForm() {
   const {t} = useTranslation();
@@ -28,7 +29,16 @@ function LoginForm() {
           rowSpacing={1}
         >
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
-            <img src="/images/login.png" id="gif" alt="Login"/>
+            <OptimizedImage
+              src="/images/login.png"
+              alt="Login"
+              width={500}
+              height={500}
+              priority
+              sizes="(max-width: 768px) 100vw, 500px"
+              className="login-img"
+              style={{ width: "30rem", height: "auto" }}
+            />
           </Grid>
           <Grid size={{xs: 12, sm: 6, md: 6}} textAlign="center">
             <h1 style={{marginBottom: "1rem", textAlign: "center"}}>

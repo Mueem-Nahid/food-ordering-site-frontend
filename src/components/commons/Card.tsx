@@ -6,6 +6,7 @@ import userContext from "../../context/userContext";
 import {useAppDispatch, useAppSelector} from "@/redux/hook";
 import {addToCart} from "@/redux/cart/cartSlice";
 import {useTranslation} from "react-i18next";
+import OptimizedImage from "./OptimizedImage";
 
 interface CardProps {
   src: string;
@@ -70,7 +71,14 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
       <Link href={link} className="card-link">
 
         <div className="card-img">
-          <img className="top-sel-img" src={src} alt="Top Selling"/>
+          <OptimizedImage
+            src={src}
+            alt={title}
+            fill
+            width={300}
+            sizes="(max-width: 768px) 45vw, 22vw"
+            className="top-sel-img"
+          />
         </div>
         <h4>
           {title.length > 20 ? title.substring(0, 20) + "..." : title}

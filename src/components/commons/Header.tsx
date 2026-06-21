@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import cookies from "js-cookie";
 import Image from "next/image";
 import {useSession} from "next-auth/react";
+import OptimizedImage from "./OptimizedImage";
 
 const Header: React.FC = () => {
   const {t} = useTranslation();
@@ -38,7 +39,7 @@ const Header: React.FC = () => {
         </Link>
         <Link href="/order-history" className="btn-header">
           <Button variant="contained" disableElevation>
-            <img src="/images/1.png" alt="Rider"/>
+            <OptimizedImage src="/images/1.png" alt="Rider" width={20} height={20} sizes="20px" />
             <strong style={{marginLeft: "10px"}}> {t("myOrders")}</strong>
           </Button>
         </Link>

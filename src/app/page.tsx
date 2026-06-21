@@ -24,7 +24,7 @@ export default function Home() {
   const { data, isLoading, isError } = useGetCategoriesQuery(undefined);
   const categories = data?.data || [];
 
-  const { data: productData, isLoading: isProductLoading, isError: isProductError } = useGetProductsQuery(undefined);
+  const { data: productData, isLoading: isProductLoading, isError: isProductError } = useGetProductsQuery({ limit: 8 });
   const products = productData?.data || [];
 
   useEffect(() => {

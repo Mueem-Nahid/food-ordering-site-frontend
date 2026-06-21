@@ -113,4 +113,4 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

@@ -68,6 +68,10 @@ i18n.use(initReactI18next).init({
         "details": "Details",
         "myOrders": "My Orders",
         "suburb": "Suburb",
+        "featuredItems": "Featured Items",
+        "allProducts": "All Products",
+        "loadingMore": "Loading more...",
+        "noMoreProducts": "You've reached the end.",
       }
     },
     "ur-PK": {
@@ -134,7 +138,11 @@ i18n.use(initReactI18next).init({
         "pickupAddress": "اٹھانے کا پتہ",
         "details": "تفصیلات",
         "myOrders": "میرے احکامات",
-        "suburb": "مضافاتی"
+        "suburb": "مضافاتی",
+        "featuredItems": "نمایاں اشیاء",
+        "allProducts": "تمام مصنوعات",
+        "loadingMore": "مزید لوڈ ہو رہا ہے...",
+        "noMoreProducts": "آپ آخری حصے تک پہنچ گئے ہیں۔"
       }
     }
   },

@@ -31,6 +31,11 @@ const Header: React.FC = () => {
             <Image className="logo-img" src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{borderRadius: "50%"}}/>
           </Link>
         </div>
+        <Link href="/products" className="btn-header">
+          <Button variant="contained" disableElevation>
+            <strong style={{ marginLeft: "0" }}>{t("menu")}</strong>
+          </Button>
+        </Link>
         <Link href="/order-history" className="btn-header">
           <Button variant="contained" disableElevation>
             <img src="/images/1.png" alt="Rider"/>

@@ -58,10 +58,10 @@ const Footer: React.FC = () => {
               <strong>Information</strong>
             </div>
             <div className="footer-links">
-              <Link href="/">About Us</Link>
+              <Link href="/about">About Us</Link>
             </div>
             <div className="footer-links">
-              <Link href="/">Privacy</Link>
+              <Link href="/privacy">Privacy</Link>
             </div>
           </div>
           <div>
@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
               <strong>Location</strong>
             </div>
             <div className="footer-links">
-              <Link href="/">Contact Us</Link>
+              <Link href="/contact">Contact Us</Link>
             </div>
           </div>
           <div>
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
               <strong>Get In Touch</strong>
             </div>
             <div className="footer-links">
-              <Link href="/">Terms & Conditions</Link>
+              <Link href="/terms">Terms & Conditions</Link>
             </div>
           </div>
         </Grid>

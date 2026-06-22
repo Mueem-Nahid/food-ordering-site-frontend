@@ -14,7 +14,7 @@ const HorizontalLabelPositionBelowStepper: React.FC<HorizontalLabelPositionBelow
   const steps = [t("menu"), t("bucket"), t("checkout")];
   return (
     <div className="stepper">
-      <Box sx={{ width: "60%", margin: "auto" }}>
+      <Box sx={{ width: {xs: "100%", sm: "60%"}, margin: "auto" }}>
         <Stepper activeStep={step} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>

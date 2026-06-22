@@ -1,6 +1,5 @@
 import React from "react";
-import {Container} from "@mui/system";
-import {Box, Grid} from "@mui/material";
+import {Container, Stack, Box} from "@mui/material";
 import {Facebook, Instagram} from "@mui/icons-material";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,78 +8,64 @@ const Footer: React.FC = () => {
   return (
     <footer id="footer">
       <Container>
-        <Grid
-          container
-          sx={{marginBottom: "5rem"}}
-          spacing={4}
+        <Stack
+          direction={{xs: "column", sm: "row"}}
+          spacing={{xs: 2, sm: 4, md: 6}}
+          sx={{marginBottom: {xs: "2rem", md: "5rem"}}}
           justifyContent="center"
           alignItems="center"
-          gridTemplateColumns={{xs: 12, sm: 12, md: 12}}
         >
-          <Grid
-            sx={{
-              textAlign: "center",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Box>
-              <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{ borderRadius: "50%" }}/>
-            </Box>
-          </Grid>
-          <Grid className="footer-box-cont" sx={{alignItems: "center"}}>
+          <Box sx={{textAlign: "center"}}>
+            <Image src="/images/deshi-q-logo.jpeg" height={70} width={70} alt="DeshiQ" style={{ borderRadius: "50%" }}/>
+          </Box>
+          <Box className="footer-box-cont" sx={{display: {xs: "none", md: "flex"}, alignItems: "center"}}>
             <Box id="footer-box"></Box>
-          </Grid>
-          <Grid sx={{textAlign: "center"}}>
+          </Box>
+          <Box sx={{textAlign: "center"}}>
             <span>Find Us On</span>
-            <div className="footer-icons" style={{marginTop: "1rem"}}>
-              <div className="icon-item">
-                <Link target="_blank" href="https://www.instagram.com/deshiq__/" className="insta">
-                  <Instagram fontSize="large"/>
-                </Link>
-              </div>
-              <div className="icon-item">
-                <Link target="_blank" href="https://www.facebook.com/profile.php?id=61585522453607" className="fb">
-                  <Facebook fontSize="large"/>
-                </Link>
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          spacing={17}
-          gridTemplateColumns={{xs: 12, sm: 12, md: 12}}
-          justifyContent="center"
+            <Stack direction="row" spacing={2} sx={{marginTop: "1rem", justifyContent: "center"}}>
+              <Link target="_blank" href="https://www.instagram.com/deshiq__/" className="insta">
+                <Instagram fontSize="large"/>
+              </Link>
+              <Link target="_blank" href="https://www.facebook.com/profile.php?id=61585522453607" className="fb">
+                <Facebook fontSize="large"/>
+              </Link>
+            </Stack>
+          </Box>
+        </Stack>
+        <Stack
+          direction={{xs: "column", sm: "row"}}
+          spacing={{xs: 3, sm: 6, md: 10}}
+          justifyContent={{xs: "flex-start", sm: "center"}}
         >
-          <div>
-            <div>
+          <Box>
+            <Box>
               <strong>Information</strong>
-            </div>
-            <div className="footer-links">
+            </Box>
+            <Box className="footer-links">
               <Link href="/about">About Us</Link>
-            </div>
-            <div className="footer-links">
+            </Box>
+            <Box className="footer-links">
               <Link href="/privacy">Privacy</Link>
-            </div>
-          </div>
-          <div>
-            <div>
+            </Box>
+          </Box>
+          <Box>
+            <Box>
               <strong>Location</strong>
-            </div>
-            <div className="footer-links">
+            </Box>
+            <Box className="footer-links">
               <Link href="/contact">Contact Us</Link>
-            </div>
-          </div>
-          <div>
-            <div>
+            </Box>
+          </Box>
+          <Box>
+            <Box>
               <strong>Get In Touch</strong>
-            </div>
-            <div className="footer-links">
+            </Box>
+            <Box className="footer-links">
               <Link href="/terms">Terms & Conditions</Link>
-            </div>
-          </div>
-        </Grid>
+            </Box>
+          </Box>
+        </Stack>
       </Container>
     </footer>
   );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Drawer, Button, Grid } from "@mui/material";
+import { Box, Drawer, Button, Grid, IconButton } from "@mui/material";
 import { Close, ShoppingCartOutlined } from "@mui/icons-material";
 import CartItem from "../cart/CartItem";
 import Link from "next/link";
@@ -60,12 +60,12 @@ const TemporaryDrawer: React.FC = () => {
               }}
             >
               {totalItems >= 1 ? <h3>$ {amount}</h3> : ""}
-              <Close
-                sx={{
-                  cursor: "pointer",
-                }}
+              <IconButton
                 onClick={toggleDrawer("right", false)}
-              />
+                size="small"
+              >
+                <Close />
+              </IconButton>
             </strong>
           </div>
         </div>

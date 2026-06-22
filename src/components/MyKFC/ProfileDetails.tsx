@@ -71,7 +71,7 @@ const ProfileDetails: React.FC = () => {
           backgroundColor: "#1c1816",
           color: "white",
           borderRadius: "12px !important",
-          padding: "1rem 0.4rem",
+          padding: "1rem 1rem",
           fontFamily: "Poppins",
         }}
       >

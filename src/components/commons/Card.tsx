@@ -1,5 +1,5 @@
 import React, {MouseEvent, useContext, useEffect, useState} from "react";
-import {Button} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {Add, Edit} from "@mui/icons-material";
 import Link from "next/link";
 import userContext from "../../context/userContext";
@@ -80,10 +80,8 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
             className="top-sel-img"
           />
         </div>
-        <h4>
-          {title.length > 20 ? title.substring(0, 20) + "..." : title}
-        </h4>
-        <h5>{desc.substring(0, 50)} ...</h5>
+        <h4>{title}</h4>
+        <h5>{desc}</h5>
         <div className="card-footer">
           <h2>
             <strong>$ {price}</strong>
@@ -91,15 +89,21 @@ const Card: React.FC<CardProps> = ({src, title, desc, price, id, catName}) => {
           <strong>
             {addIcon === true ? (
               btn === false ? (
-                <Add
+                <IconButton
                   className="plus-icon"
                   onClick={(e) => handleAddToCart(id, e)}
-                />
+                  size="small"
+                  sx={{color: "#ff741f"}}
+                >
+                  <Add />
+                </IconButton>
               ) : (
                 ""
               )
             ) : (
-              <Edit className="plus-icon" sx={{color: "#e4002b"}}/>
+              <IconButton className="plus-icon" size="small" sx={{color: "#e4002b"}}>
+                <Edit />
+              </IconButton>
             )}
           </strong>
 

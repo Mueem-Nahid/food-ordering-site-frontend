@@ -6,6 +6,7 @@ import {
   Apartment,
   BusinessCenterOutlined,
 } from "@mui/icons-material";
+import {IconButton} from "@mui/material";
 import locationContext from "../../context/locationContext";
 import { usePathname } from "next/navigation";
 import RadioBtn from "../commons/RadioBtn";
@@ -102,11 +103,11 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
       ) : (
         <div className="edit-address">
           <div className="del-add" onClick={() => handleDelete(location._id)}>
-            <Delete />
+            <IconButton size="small" sx={{color: "red"}}><Delete /></IconButton>
             {t("remove")}
           </div>
           <div className="edit-add" onClick={() => handleEdit(location._id)}>
-            <Edit />
+            <IconButton size="small" sx={{color: "red"}}><Edit /></IconButton>
             {t("edit")}
           </div>
         </div>

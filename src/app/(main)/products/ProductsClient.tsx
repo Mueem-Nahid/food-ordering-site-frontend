@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { useTheme, useMediaQuery } from "@mui/material";
 import Card from "../../../components/commons/Card";
 import CategoryPageSkeleton from "../../../components/deals/CatergoryPageSkeleton";
 import { useGetProductsPageQuery } from "@/redux/features/products/productApi";
@@ -11,8 +12,9 @@ import { IProduct } from "@/types/globalTypes";
 
 export default function ProductsClient() {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [page, setPage] = useState(1);
-  const [isMobile, setIsMobile] = useState(false);
   const [reachedEnd, setReachedEnd] = useState(false);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const isLoadingMore = useRef(false);
@@ -44,13 +46,6 @@ export default function ProductsClient() {
       isLoadingMore.current = false;
     }
   }, [isFetching]);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const handleIntersect = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -105,16 +100,12 @@ export default function ProductsClient() {
             <Grid
               className="grid"
               container
-              columnGap={{ xs: 0, sm: 4, md: 3 }}
-              gap={1}
-              justifyContent={{
-                sm: "center",
-                xs: "center",
-                md: "flex-start",
-              }}
+              columnGap={{ xs: 1, sm: 2, md: 2 }}
+              rowSpacing={2}
+              justifyContent={{ xs: "center", md: "flex-start" }}
             >
               {products.map((prod: IProduct) => (
-                <Grid key={prod._id} size={{ xs: 10, sm: 5, md: 2.8 }}>
+                <Grid key={prod._id} size={{ xs: 6, sm: 5, md: 2.8 }}>
                   <Card
                     title={prod.name}
                     desc={prod.desc}

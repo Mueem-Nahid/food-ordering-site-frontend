@@ -5,6 +5,7 @@ import Container from "@mui/material/Container";
 import {Button} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import {useTheme, useMediaQuery} from "@mui/material";
 import AddonCard from "../../../../components/commons/AddonCard";
 import DealSection from "../../../../components/deals/DealSection";
 import ProductPageSkeleton from "../../../../components/ProductPageSkeleton";
@@ -95,14 +96,8 @@ export default function ProductClient() {
   const {getCats} = context;
   const dispatch = useAppDispatch();
   const {t} = useTranslation();
-
-  const [windowWidth, setWindowWidth] = useState(0);
-  useEffect(() => {
-    const updateWidth = () => setWindowWidth(window.innerWidth);
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [text, setText] = useState("Add To Bucket");
 
@@ -235,23 +230,12 @@ export default function ProductClient() {
                     style={{
                       backgroundImage: `url(/images/bg-ellipse.png)`,
                       backgroundRepeat: "no-repeat",
-                      backgroundPosition:
-                        windowWidth <= 991 && windowWidth > 0
-                          ? "-65% -115px"
-                          : windowWidth === 0
-                          ? "-6% -117px"
-                          : "-6% -117px",
-                      marginBottom:
-                        windowWidth <= 768 && windowWidth > 0
-                          ? "32px"
-                          : "",
-                      backgroundSize:
-                        windowWidth <= 768 && windowWidth > 0
-                          ? "contain"
-                          : "",
+                      backgroundPosition: isMobile ? "-65% -115px" : "-6% -117px",
+                      marginBottom: isMobile ? "2rem" : "",
+                      backgroundSize: isMobile ? "contain" : "",
                     }}
                   >
-                    <Box sx={{width: "100%", marginBottom: "5rem"}}>
+                    <Box sx={{width: "100%", marginBottom: {xs: "2rem", md: "5rem"}}}>
                       <Grid
                         container
                         rowSpacing={1}

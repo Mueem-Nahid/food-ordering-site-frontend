@@ -13,6 +13,17 @@ const settings = {
   slidesToScroll: 1,
   autoplay: true,
   autoplaySpeed: 3000,
+  arrows: true,
+  swipeToSlide: true,
+  touchMove: true,
+  responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        arrows: false,
+      },
+    },
+  ],
 };
 
 const banners = [

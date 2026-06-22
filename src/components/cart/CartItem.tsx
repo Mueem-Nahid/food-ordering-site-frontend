@@ -9,7 +9,7 @@ import {
 import SoftDrinkCard from "../commons/SoftDrinkCard";
 import AddonCard from "../commons/AddonCard";
 import OptimizedImage from "../commons/OptimizedImage";
-import { Grid, Collapse, Box } from "@mui/material";
+import { Grid, Collapse, Box, IconButton } from "@mui/material";
 import { useAppDispatch } from "@/redux/hook";
 import {
   delCartItem,
@@ -91,39 +91,43 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         }}
       >
         <div className="cart-item-inner">
-          <div style={{ display: "flex", alignItems: "center", gap: "1.3rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             <OptimizedImage
               src={item.product.src}
               alt="Cart Item"
-              width={100}
-              height={100}
-              sizes="100px"
-              style={{ marginLeft: "-20px" }}
+              width={80}
+              height={80}
+              sizes="80px"
             />
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <strong>{item.product.title}</strong>
+            <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+              <strong style={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "180px"}}>{item.product.title}</strong>
               <span
                 style={{ display: "flex", gap: ".5rem", alignItems: "center" }}
               >
-                <Remove
-                  sx={{ color: "#e4002b", "&:hover": { cursor: "pointer" } }}
-                  fontSize="small"
+                <IconButton
+                  sx={{ color: "#e4002b" }}
+                  size="small"
                   onClick={() => handleQuantity("-")}
-                  ref={ref}
-                />
+                >
+                  <Remove ref={ref} />
+                </IconButton>
                 {isDelete && (
-                  <DeleteOutline
-                    sx={{ color: "#e4002b", "&:hover": { cursor: "pointer" } }}
-                    fontSize="small"
+                  <IconButton
+                    sx={{ color: "#e4002b" }}
+                    size="small"
                     onClick={() => removeFromCart()}
-                  />
+                  >
+                    <DeleteOutline />
+                  </IconButton>
                 )}
-                <span>{item.quantity}</span>
-                <Add
-                  sx={{ color: "#e4002b", "&:hover": { cursor: "pointer" } }}
-                  fontSize="small"
+                <span style={{minWidth: "1.5rem", textAlign: "center"}}>{item.quantity}</span>
+                <IconButton
+                  sx={{ color: "#e4002b" }}
+                  size="small"
                   onClick={() => handleQuantity("+")}
-                />
+                >
+                  <Add />
+                </IconButton>
               </span>
             </div>
           </div>
@@ -135,17 +139,13 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               alignItems: "flex-end",
             }}
           >
-            {icon === "Down" ? (
-              <KeyboardArrowDown
-                sx={{ color: "#e4002b", "&:hover": { cursor: "pointer" } }}
-                onClick={handleArrowClick}
-              />
-            ) : (
-              <KeyboardArrowUp
-                sx={{ color: "#e4002b", "&:hover": { cursor: "pointer" } }}
-                onClick={handleArrowClick}
-              />
-            )}
+            <IconButton
+              sx={{ color: "#e4002b" }}
+              size="small"
+              onClick={handleArrowClick}
+            >
+              {icon === "Down" ? <KeyboardArrowDown /> : <KeyboardArrowUp />}
+            </IconButton>
           </div>
         </div>
         <div className="collapse">

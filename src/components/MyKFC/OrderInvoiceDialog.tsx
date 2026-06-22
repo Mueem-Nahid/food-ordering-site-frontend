@@ -112,7 +112,7 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
             <div style={{padding: "1rem"}}>
               <div style={{fontWeight: 600, marginBottom: 8}}>Items</div>
               <div style={{overflowX: "auto"}}>
-                <table style={{width: "100%", borderCollapse: "collapse", minWidth: 350}}>
+                <table style={{width: "100%", borderCollapse: "collapse"}}>
                   <thead>
                   <tr style={{background: "#f5f5f5"}}>
                     <th style={{

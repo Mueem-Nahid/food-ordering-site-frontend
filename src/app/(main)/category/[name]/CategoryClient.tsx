@@ -1,9 +1,10 @@
 "use client";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import {useParams} from "next/navigation";
 import {Container} from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import {useTheme, useMediaQuery} from "@mui/material";
 import Card from "../../../../components/commons/Card";
 import DealSection from "../../../../components/deals/DealSection";
 import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
@@ -18,14 +19,8 @@ export default function CategoryClient() {
   const params = useParams();
   const name = safeDecodeURIComponent(params?.name as string);
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const softDrink_context = useContext(softDrinkContext);
   const addon_context = useContext(addonContext);
@@ -33,7 +28,7 @@ export default function CategoryClient() {
   const {setAddonQuantity} = addon_context;
   const {setSoftDrinksQuantity} = softDrink_context;
 
-  const {data, isLoading, isError} = useGetCategoriesQuery(undefined);
+  const {data, isLoading} = useGetCategoriesQuery(undefined);
   const categories = data?.data || [];
 
   const {data: productData, isLoading: isProductLoading} = useGetProductsQuery({categoryName: name});
@@ -64,16 +59,12 @@ export default function CategoryClient() {
                 <Grid
                   className="grid"
                   container
-                  columnGap={{xs: 0, sm: 4, md: 3}}
-                  gap={1}
-                  justifyContent={{
-                    sm: "center",
-                    xs: "center",
-                    md: "flex-start",
-                  }}
+                  columnGap={{ xs: 1, sm: 2, md: 2 }}
+                  rowSpacing={2}
+                  justifyContent={{ xs: "center", md: "flex-start" }}
                 >
                   {products.map((prod: IProduct) => (
-                    <Grid key={prod._id} size={{xs: 10, sm: 5, md: 2.8}}>
+                    <Grid key={prod._id} size={{ xs: 6, sm: 5, md: 2.8 }}>
                       <Card
                         key={prod._id}
                         title={prod.name}

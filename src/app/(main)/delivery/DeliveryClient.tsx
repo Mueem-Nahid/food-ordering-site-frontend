@@ -35,7 +35,7 @@ export default function DeliveryClient() {
     <Container>
       <div className="cart">
         <Stepper step={2}/>
-        <Grid container display="flex" gap={{md: 4}}>
+        <Grid container display="flex" gap={{xs: 1.5, sm: 2, md: 4}}>
           <Grid
             display="flex"
             flexDirection="column"

@@ -25,7 +25,7 @@ export default function OrderHistoryClient() {
         status === "loading" ? (
             <h2>Please wait...</h2>
           ) :
-          <div className="order-history" style={{marginBottom: "8rem"}}>
+          <div className="order-history" style={{marginBottom: "2rem"}}>
             <OrderHistory showAllOrders/>
           </div>
       }

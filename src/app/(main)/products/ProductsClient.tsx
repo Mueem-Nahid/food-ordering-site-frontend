@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Card from "../../../components/commons/Card";
-import CategoryPageSkeleton from "../../../components/deals/CatergoryPageSkeleton";
+import CategoryPageSkeleton from "../../../components/deals/CategoryPageSkeleton";
 import { useGetProductsPageQuery } from "@/redux/features/products/productApi";
 import { useTranslation } from "react-i18next";
 import { IProduct } from "@/types/globalTypes";

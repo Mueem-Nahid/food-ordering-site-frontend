@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import OrderInvoiceDialog from "./OrderInvoiceDialog";
 import OrderHistoryItem from "./OrderHistoryItem";
+import OrderHistorySkeleton from "./OrderHistorySkeleton";
 import {useTranslation} from "react-i18next";
 import Link from "next/link";
 import {useGetMyOrdersQuery} from "@/redux/features/orders/orderApi";
@@ -48,7 +49,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
       {showAllOrders && <h1 style={{marginBottom: "10px"}}>{t("pastOrders")}</h1>}
       <div className="order-history">
         {isLoading ? (
-          <span>{t("loading") || "Loading..."}</span>
+          <OrderHistorySkeleton />
         ) : isError ? (
           <span>{t("noOrder")}</span>
         ) : orders.length < 1 ? (

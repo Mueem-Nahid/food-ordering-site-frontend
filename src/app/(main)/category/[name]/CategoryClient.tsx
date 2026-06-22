@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import {useTheme, useMediaQuery} from "@mui/material";
 import Card from "../../../../components/commons/Card";
 import DealSection from "../../../../components/deals/DealSection";
-import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
+import CategoryPageSkeleton from "../../../../components/deals/CategoryPageSkeleton";
 import softDrinkContext from "../../../../context/softDrinkContext";
 import addonContext from "../../../../context/addonContext";
 import {useGetProductsQuery} from "@/redux/features/products/productApi";

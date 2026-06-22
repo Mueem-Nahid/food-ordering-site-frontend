@@ -1,36 +1,45 @@
-import ContentLoader from "react-content-loader";
+import React from "react";
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 
 const MyKFCSkeleton: React.FC = () => {
   return (
-    <>
-      <ContentLoader
-        viewBox="0 0 50 4"
-        backgroundColor="#1c1816"
-        foregroundColor="#d3d3d3"
-        foregroundOpacity={0.1}
-      >
-        {/* Only SVG shapes */}
-        <rect x="5" y="1" rx="0.2" ry="0.2" width="15" height="2" />
-      </ContentLoader>
-      <ContentLoader
-        viewBox="0 0 50 4"
-        backgroundColor="#1c1816"
-        foregroundColor="#d3d3d3"
-        foregroundOpacity={0.1}
-      >
-        {/* Only SVG shapes */}
-        <rect x="5" y="1" rx="0.2" ry="0.2" width="40" height="2" />
-      </ContentLoader>
-      <ContentLoader
-        viewBox="0 0 50 4"
-        backgroundColor="#1c1816"
-        foregroundColor="#d3d3d3"
-        foregroundOpacity={0.1}
-      >
-        {/* Only SVG shapes */}
-        <rect x="5" y="1" rx="0.2" ry="0.2" width="40" height="2" />
-      </ContentLoader>
-    </>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", mt: 2 }}>
+      {[0, 1, 2].map((i) => (
+        <Box
+          key={i}
+          sx={{
+            backgroundColor: "#1c1816",
+            borderRadius: "12px",
+            padding: "1rem 1rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <Skeleton
+              variant="circular"
+              width={32}
+              height={32}
+              sx={{ backgroundColor: "#2a2421" }}
+            />
+            <Skeleton
+              variant="text"
+              width={120}
+              height={24}
+              sx={{ backgroundColor: "#2a2421" }}
+            />
+          </Box>
+          <Skeleton
+            variant="circular"
+            width={24}
+            height={24}
+            sx={{ backgroundColor: "#2a2421" }}
+          />
+        </Box>
+      ))}
+    </Box>
   );
 };
 

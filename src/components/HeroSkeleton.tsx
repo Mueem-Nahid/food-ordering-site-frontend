@@ -9,7 +9,7 @@ const HeroSkeleton: React.FC = () => {
       sx={{
         aspectRatio: "2.79 / 1",
         borderRadius: "10px",
-        minHeight: { xs: "180px", sm: "300px", md: "auto" },
+        minHeight: { xs: "220px", sm: "320px", md: "420px" },
       }}
     />
   );

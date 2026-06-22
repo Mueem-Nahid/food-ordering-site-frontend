@@ -37,7 +37,14 @@ const Hero: React.FC = () => {
     <Box sx={{ px: 1 }}>
       <Slider {...settings}>
         {banners.map((banner, index) => (
-          <div key={banner.src} style={{ borderRadius: 10, overflow: "hidden" }}>
+          <div
+            key={banner.src}
+            style={{
+              borderRadius: 10,
+              overflow: "hidden",
+              minHeight: 220,
+            }}
+          >
             <OptimizedImage
               src={banner.src}
               alt={banner.alt}
@@ -45,7 +52,14 @@ const Hero: React.FC = () => {
               height={banner.h}
               priority={index === 0}
               sizes="100vw"
-              style={{ width: "100%", height: "auto", display: "block", borderRadius: 10 }}
+              style={{
+                width: "100%",
+                height: "100%",
+                minHeight: 220,
+                objectFit: "cover",
+                display: "block",
+                borderRadius: 10,
+              }}
             />
           </div>
         ))}

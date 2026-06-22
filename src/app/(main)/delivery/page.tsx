@@ -1,80 +1,17 @@
-"use client";
-import React, {useEffect, useState} from "react";
-import Stepper from "../../../components/commons/Stepper";
-import {Container, Grid} from "@mui/material";
-import OrderSummary from "../../../components/checkout/OrderSummary";
-import PaymentMethod from "../../../components/checkout/PaymentMethod";
-import PhoneNumber from "../../../components/checkout/PhoneNumber";
-import DeliveryAddress from "../../../components/checkout/DeliveryAddress";
-import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
-import OrderTotal from "../../../components/checkout/OrderTotal";
-import {useAppSelector} from "@/redux/hook";
-import {useRouter} from "next/navigation";
+import React from "react";
+import type { Metadata } from "next";
+import { noindexMetadata } from "@/lib/seo";
+import DeliveryClient from "./DeliveryClient";
+
+export const metadata: Metadata = {
+  title: "Checkout",
+  description: "Complete your DeshiQ order — delivery address, payment method, and order confirmation.",
+  alternates: {
+    canonical: "/delivery",
+  },
+  ...noindexMetadata(),
+};
 
 export default function DeliveryPage() {
-  const {cartItems} = useAppSelector((store) => store.cart);
-  const userInfo = useAppSelector((state) => state.user?.userInfo);
-  const router = useRouter();
-  const [phoneValue, setPhoneValue] = useState("");
-  const [addressValue, setAddressValue] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
-
-  useEffect(() => {
-    if (!userInfo) {
-      router.replace("/");
-      return;
-    }
-    if (cartItems.length === 0) {
-      router.replace("/cart");
-      return;
-    }
-  }, []);
-
-  return (
-    <Container>
-      <div className="cart">
-        <Stepper step={2}/>
-        <Grid container display="flex" gap={{md: 4}}>
-          <Grid
-            display="flex"
-            flexDirection="column"
-            size={{xs: 12, sm: 12, md: 6}}
-            columnSpacing={{xs: 3, sm: 3, md: 3}}
-            gap={{md: 3, sm: 3, xs: 3}}
-          >
-            <DeliveryAddress
-              addressValue={addressValue}
-              setAddressValue={setAddressValue}
-              setDeliveryFee={setDeliveryFee}
-            />
-            <PaymentMethod
-              paymentMethod={paymentMethod}
-              setPaymentMethod={setPaymentMethod}
-            />
-            <PhoneNumber
-              phoneValue={phoneValue}
-              setPhoneValue={setPhoneValue}
-            />
-          </Grid>
-          <Grid
-            size={{xs: 12, sm: 12, md: 5}}
-            display="flex"
-            flexDirection="column"
-            gap={{md: 4, sm: 4, xs: 3}}
-          >
-            <Grid className="checkout-item">
-              <OrderSummary/>
-            </Grid>
-            <Grid className="checkout-item">
-              <OrderTotal deliveryFee={deliveryFee}/>
-            </Grid>
-            <Grid>
-              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value} deliveryFee={deliveryFee} />
-            </Grid>
-          </Grid>
-        </Grid>
-      </div>
-    </Container>
-  );
+  return <DeliveryClient />;
 }

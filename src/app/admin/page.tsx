@@ -1,27 +1,17 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import { useAppSelector } from "@/redux/hook";
-import { useRouter } from "next/navigation";
+import React from "react";
+import type { Metadata } from "next";
+import { noindexMetadata } from "@/lib/seo";
+import AdminClient from "./AdminClient";
 
-const AdminDashboard = dynamic(() => import("../../components/admin/ReactAdminDashboard"), { ssr: false });
+export const metadata: Metadata = {
+  title: "Admin",
+  description: "DeshiQ admin dashboard for managing products, categories, and orders.",
+  alternates: {
+    canonical: "/admin",
+  },
+  ...noindexMetadata(),
+};
 
 export default function AdminPage() {
-  const router = useRouter();
-  const userInfo = useAppSelector((state) => state.user?.userInfo);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const role = userInfo?.role;
-    if (role === "admin") {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-      router.replace("/");
-    }
-  }, [userInfo, router]);
-
-  if (isAdmin === null) return null;
-
-  return isAdmin ? <AdminDashboard /> : null;
+  return <AdminClient />;
 }

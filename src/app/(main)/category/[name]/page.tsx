@@ -1,96 +1,50 @@
-"use client";
-import React, {useContext, useEffect, useState} from "react";
-import {useParams} from "next/navigation";
-import {Container} from "@mui/material";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Card from "../../../../components/commons/Card";
-import DealSection from "../../../../components/deals/DealSection";
-import CategoryPageSkeleton from "../../../../components/deals/CatergoryPageSkeleton";
-import softDrinkContext from "../../../../context/softDrinkContext";
-import addonContext from "../../../../context/addonContext";
-import {useGetProductsQuery} from "@/redux/features/products/productApi";
-import {useGetCategoriesQuery} from "@/redux/features/categories/categoryApi";
-import {IProduct} from "@/types/globalTypes";
-import {safeDecodeURIComponent} from "@/utils/utils";
+import React from "react";
+import type { Metadata } from "next";
+import { fetchProductsByCategory, absoluteUrl } from "@/lib/seo";
+import CategoryClient from "./CategoryClient";
 
-export default function CategoryPage() {
-  const params = useParams();
-  const name = safeDecodeURIComponent(params?.name as string);
+type Params = Promise<{ name: string }>;
 
-  const [isMobile, setIsMobile] = useState(false);
+function decodeNameParam(name: string): string {
+  try {
+    return decodeURIComponent(name);
+  } catch {
+    return name;
+  }
+}
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const { name } = await params;
+  const decodedName = decodeNameParam(name);
+  const products = await fetchProductsByCategory(decodedName);
 
-  const softDrink_context = useContext(softDrinkContext);
-  const addon_context = useContext(addonContext);
+  const categoryName = products[0]?.catId?.name || decodedName;
+  const title = categoryName;
+  const description = `Browse ${categoryName} on DeshiQ — order fresh ${categoryName.toLowerCase()} for delivery.`;
+  const canonical = absoluteUrl(`/category/${name}`);
 
-  const {setAddonQuantity} = addon_context;
-  const {setSoftDrinksQuantity} = softDrink_context;
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      title: `${title} | DeshiQ`,
+      description,
+      url: canonical,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | DeshiQ`,
+      description,
+    },
+  };
+}
 
-  const {data, isLoading, isError} = useGetCategoriesQuery(undefined);
-  const categories = data?.data || [];
-
-  const {data: productData, isLoading: isProductLoading} = useGetProductsQuery({categoryName: name});
-  const products = productData?.data || [];
-
-  useEffect(() => {
-    setAddonQuantity([]);
-    setSoftDrinksQuantity([]);
-  }, [name, setAddonQuantity, setSoftDrinksQuantity]);
-
-  return (
-    <Container>
-      <DealSection categories={categories}/>
-      <div className="cat-container">
-        {isLoading ? (
-          <CategoryPageSkeleton/>
-        ) : (
-          <>
-            <h2
-              style={{
-                textAlign: isMobile ? ("center" as React.CSSProperties["textAlign"]) : undefined,
-              }}
-            >
-              {products[0]?.catId?.name || name}
-            </h2>
-            <div className="cat-cards">
-              <Box marginTop={6}>
-                <Grid
-                  className="grid"
-                  container
-                  columnGap={{xs: 0, sm: 4, md: 3}}
-                  gap={1}
-                  justifyContent={{
-                    sm: "center",
-                    xs: "center",
-                    md: "flex-start",
-                  }}
-                >
-                  {products.map((prod: IProduct) => (
-                    <Grid key={prod._id} size={{xs: 10, sm: 5, md: 2.8}}>
-                      <Card
-                        key={prod._id}
-                        title={prod.name}
-                        desc={prod.desc}
-                        price={prod.price}
-                        src={prod.productImage}
-                        id={prod._id}
-                        catName={prod.category?.name}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
-            </div>
-          </>
-        )}
-      </div>
-    </Container>
-  );
+export default async function CategoryPage() {
+  return <CategoryClient />;
 }

@@ -67,6 +67,10 @@ export type IProduct = {
     _id: string;
     name: string;
   }
+  catId?: {
+    _id: string;
+    name: string;
+  };
 };
 
 export interface IOrderProductItem {

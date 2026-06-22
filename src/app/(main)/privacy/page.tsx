@@ -21,11 +21,11 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <Container maxWidth="md" sx={{ py: 6, minHeight: "60vh" }}>
-      <Box sx={{ color: "text.primary" }}>
+      <Box sx={{ color: "white" }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
           Privacy Policy
         </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
+        <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.6)" }} paragraph>
           Last updated: {new Date().getFullYear()}
         </Typography>
 

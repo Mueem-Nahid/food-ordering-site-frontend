@@ -64,7 +64,7 @@ export default function CategoryClient() {
                   justifyContent={{ xs: "center", md: "flex-start" }}
                 >
                   {products.map((prod: IProduct) => (
-                    <Grid key={prod._id} size={{ xs: 6, sm: 5, md: 2.8 }}>
+                    <Grid key={prod._id} size={{ xs: 12, sm: 6, md: 2.8 }}>
                       <Card
                         key={prod._id}
                         title={prod.name}

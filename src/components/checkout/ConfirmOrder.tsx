@@ -94,13 +94,13 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
   };
 
   return (
-    <div style={{display: "flex", justifyContent: "center"}}>
+    <div style={{display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "1rem"}}>
       <Button
         sx={{
           borderColor: "white !important",
           color: "white !important",
           borderRadius: "8px",
-          padding: ".7rem 2.6rem",
+          padding: {xs: "0.6rem 1.5rem", sm: "0.7rem 2.6rem"},
         }}
         variant="outlined"
         onClick={handleBack}
@@ -112,10 +112,8 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
           borderColor: "white !important",
           color: "white !important",
           borderRadius: "8px",
-          padding: ".8rem 2.6rem",
+          padding: {xs: "0.6rem 1.5rem", sm: "0.8rem 2.6rem"},
           backgroundColor: "#e4002b !important",
-          margin: "0 1rem",
-          marginRight: "0",
         }}
         variant="contained"
         onClick={() => handleConfirm(stripeData)}

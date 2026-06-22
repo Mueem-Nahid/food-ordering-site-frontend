@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <Container maxWidth="md" sx={{ py: 6, minHeight: "60vh" }}>
+    <Container maxWidth="md" sx={{ py: {xs: 4, md: 6}, minHeight: "60vh" }}>
       <Box sx={{ color: "white" }}>
         <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 700 }}>
           About DeshiQ

@@ -2,6 +2,8 @@
 import "../i18n";
 import React from "react";
 import {Provider} from "react-redux";
+import {ThemeProvider, CssBaseline} from "@mui/material";
+import {theme} from "@/theme/theme";
 import DealState from "../context/dealState";
 import AddonState from "../context/addonState";
 import SoftDrinkState from "../context/softDrinkState";
@@ -15,22 +17,25 @@ import AuthSync from "./AuthSync";
 export default function Providers({children}: { children: React.ReactNode }) {
   return (
     <SessionProvider>
-      <Provider store={store}>
-        <DealState>
-          <AddonState>
-            <SoftDrinkState>
-              <PaymentState>
-                <LocationState>
-                  <UserState>
-                    <AuthSync />
-                    {children}
-                  </UserState>
-                </LocationState>
-              </PaymentState>
-            </SoftDrinkState>
-          </AddonState>
-        </DealState>
-      </Provider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
+        <Provider store={store}>
+          <DealState>
+            <AddonState>
+              <SoftDrinkState>
+                <PaymentState>
+                  <LocationState>
+                    <UserState>
+                      <AuthSync />
+                      {children}
+                    </UserState>
+                  </LocationState>
+                </PaymentState>
+              </SoftDrinkState>
+            </AddonState>
+          </DealState>
+        </Provider>
+      </ThemeProvider>
     </SessionProvider>
   );
 }

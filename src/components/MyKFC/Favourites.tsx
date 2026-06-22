@@ -35,12 +35,12 @@ const Favourites: React.FC<FavouritesProps> = ({ favs, setFavs }) => {
       <h1>{t("fav")}</h1>
       <Grid
         container
-        columnSpacing={{ md: 0, xs: 0, sm: 2 }}
-        gap={1.5}
-        marginTop="2rem"
+        columnSpacing={{ xs: 0, sm: 2, md: 2 }}
+        rowSpacing={2}
+        marginTop="1.5rem"
       >
         {favs.length < 1 ? (
-          <Grid sx={{ marginBottom: "1rem" }}>
+          <Grid size={{xs: 12}} sx={{ marginBottom: "1rem" }}>
             <h4>{t("noProd")}</h4>
           </Grid>
         ) : (
@@ -48,18 +48,16 @@ const Favourites: React.FC<FavouritesProps> = ({ favs, setFavs }) => {
         )}
         {favs.map((fav, index) => {
           return (
-            <div key={index}>
-              <Grid sx={{ marginBottom: "1rem" }}>
-                <FavouritesCard
-                  title={fav.prod_id.name}
-                  src={fav.prod_id.prodImg}
-                  desc={fav.prod_id.desc}
-                  price={fav.prod_id.price}
-                  id={fav.prod_id._id}
-                  handleRemoveFav={handleRemoveFav}
-                />
-              </Grid>
-            </div>
+            <Grid key={index} size={{xs: 12, sm: 6, md: 4}} sx={{ marginBottom: "1rem" }}>
+              <FavouritesCard
+                title={fav.prod_id.name}
+                src={fav.prod_id.prodImg}
+                desc={fav.prod_id.desc}
+                price={fav.prod_id.price}
+                id={fav.prod_id._id}
+                handleRemoveFav={handleRemoveFav}
+              />
+            </Grid>
           );
         })}
       </Grid>

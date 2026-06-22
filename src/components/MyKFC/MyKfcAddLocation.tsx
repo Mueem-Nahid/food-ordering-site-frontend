@@ -148,13 +148,13 @@ const MyKfcAddLocation: React.FC = () => {
         </div>
       </Grid>
 
-      <Grid sx={{ display: displaySections.first, justifyContent: "flex-end" }}>
+      <Grid sx={{ display: displaySections.first, justifyContent: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
         <Button
           sx={{
             borderColor: "white !important",
             color: "white !important",
             borderRadius: "8px",
-            padding: ".7rem 2.6rem",
+            padding: {xs: "0.6rem 1.5rem", sm: "0.7rem 2.6rem"},
           }}
           variant="outlined"
           onClick={handleCancel}
@@ -166,9 +166,8 @@ const MyKfcAddLocation: React.FC = () => {
             borderColor: "white !important",
             color: "white !important",
             borderRadius: "8px",
-            padding: ".8rem 2.6rem",
+            padding: {xs: "0.6rem 1.5rem", sm: "0.8rem 2.6rem"},
             backgroundColor: "#e4002b !important",
-            margin: "0 1rem",
           }}
           variant="contained"
           onClick={handleDone}

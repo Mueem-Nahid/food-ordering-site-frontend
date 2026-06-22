@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Add, Remove, DeleteOutline } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import softDrinkContext from "../../context/softDrinkContext";
 import { useAppSelector } from "@/redux/hook";
 import { useTranslation } from "react-i18next";
@@ -23,7 +24,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
   const context = useContext(softDrinkContext);
   const ref = useRef<HTMLSpanElement | null>(null);
 
-  // delete icon trigger
   const [del, setDel] = useState(false);
 
   const { cartItems } = useAppSelector((store) => store.cart);
@@ -33,7 +33,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
     quantity: "",
   });
   const { t } = useTranslation();
-  // handle when clicked on add icon
   const handleAdd = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, softDrink: SoftDrink) => {
     if (e.target instanceof HTMLElement) {
       const parent = e.target.parentElement;
@@ -57,8 +56,7 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
     setDel(false);
   };
 
-  // handle when clicked on either + or -
-  const handleQuantity = (operator: "+" | "-", e: React.MouseEvent<SVGSVGElement, MouseEvent>, softDrink: SoftDrink) => {
+  const handleQuantity = (operator: "+" | "-", softDrink: SoftDrink) => {
     const filteredSoftDrink = softDrinksQuantity.filter((softDrinkCheck: any) => {
       return softDrinkCheck.softDrink._id !== softDrink._id;
     });
@@ -69,7 +67,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
         quantity: newQuantity,
       });
 
-      // adding softdrink again with new value to softdrink quantity
       setSoftDrinksQuantity(
         filteredSoftDrink.concat({
           softDrink: softDrink,
@@ -78,7 +75,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
       );
     } else {
       if (Number(quantity.quantity) < 2) {
-        // if quantity equals to one show delete button
         setDel(true);
         return;
       }
@@ -88,7 +84,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
         quantity: newQuantity,
       });
 
-      // adding softdrink again with new value to softdrink quantity
       setSoftDrinksQuantity(
         filteredSoftDrink.concat({
           softDrink: softDrink,
@@ -100,7 +95,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
 
   const checkSoftDrink = (prod_id: string) => {
     const checkFilter = cartItems.find((item) => item.prod_id === prod_id);
-    // check if product not exist in cart items then return it
     if (checkFilter === undefined) {
       return;
     }
@@ -110,7 +104,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
     if (checkSoftDrink === undefined) {
       return;
     } else {
-      // removing incoming softdrink from softdrink quantity and adding it again. Purpose:When someone use browser navigation button it will not be added again and again
       const filteredDrinks = softDrinksQuantity.filter((softCheck: any) => {
         return softCheck.softDrink._id !== softDrink._id;
       });
@@ -136,7 +129,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
     }
   };
 
-  // handle when clicked on delete icon
   const removeSoftDrink = (softDrink: SoftDrink) => {
     const newDrinks = softDrinksQuantity.filter((item: any) => {
       return item.softDrink._id !== softDrink._id;
@@ -154,7 +146,6 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
   };
 
   useEffect(() => {
-    //check if addon is with product or not
     checkSoftDrink(prod_id);
     //eslint-disable-next-line
   }, [prod_id]);
@@ -162,7 +153,7 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
   return (
     <>
       <div className="img">
-        <OptimizedImage src={softDrink.pic} alt="Soft Drink" width={30} height={30} sizes="30px" />
+        <OptimizedImage src={softDrink.pic} alt="Soft Drink" width={40} height={40} sizes="40px" />
       </div>
       <div className="addon-name">
         <span>{softDrink.name}</span>
@@ -170,7 +161,7 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
       </div>
       <div
         className="addon-add"
-        style={{ display: "flex", width: "15vw", justifyContent: "center" }}
+        style={{ display: "flex", justifyContent: "center" }}
       >
         <span onClick={(e) => handleAdd(e, softDrink)} ref={ref}>
           + {t("add")}
@@ -178,15 +169,21 @@ const SoftDrinkItem: React.FC<SoftDrinkItemProps> = ({ softDrink, index, prod_id
       </div>
       <div
         className="addon-quantity"
-        style={{ display: "none", width: "15vw", justifyContent: "center" }}
+        style={{ display: "none", justifyContent: "center" }}
       >
         {del ? (
-          <DeleteOutline onClick={() => removeSoftDrink(softDrink)} />
+          <IconButton onClick={() => removeSoftDrink(softDrink)} size="small" sx={{ color: "#ff741f" }}>
+            <DeleteOutline />
+          </IconButton>
         ) : (
-          <Remove onClick={(e) => handleQuantity("-", e, softDrink)} />
+          <IconButton onClick={() => handleQuantity("-", softDrink)} size="small" sx={{ color: "#ff741f" }}>
+            <Remove />
+          </IconButton>
         )}
         <span>{quantity.quantity}</span>
-        <Add onClick={(e) => handleQuantity("+", e, softDrink)} />
+        <IconButton onClick={() => handleQuantity("+", softDrink)} size="small" sx={{ color: "#ff741f" }}>
+          <Add />
+        </IconButton>
       </div>
     </>
   );

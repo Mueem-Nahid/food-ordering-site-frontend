@@ -8,7 +8,7 @@ import TopSelling from "../components/TopSelling";
 import HeroSkeleton from "../components/HeroSkeleton";
 import DealSkeleton from "../components/deals/DealSkeleton";
 import dealContext from "../context/dealContext";
-import CategoryPageSkeleton from "../components/deals/CatergoryPageSkeleton";
+import CategoryPageSkeleton from "../components/deals/CategoryPageSkeleton";
 import Header from "../components/commons/Header";
 import Footer from "../components/commons/Footer";
 import TopBar from "../components/commons/TopBar";

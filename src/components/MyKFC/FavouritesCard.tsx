@@ -71,7 +71,7 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
   return (
     <Link href={`/product/${id}`} style={{ textDecoration: "none" }}>
       <Card
-        sx={{ minWidth: 350, backgroundColor: "#1c1816", borderRadius: "10px" }}
+        sx={{ width: "100%", maxWidth: 380, backgroundColor: "#1c1816", borderRadius: "10px" }}
       >
         <CardContent className="fav-card">
           <div className="fav-icon" onClick={(e) => handleRemoveFav(e, id)}>
@@ -85,13 +85,13 @@ const FavouritesCard: React.FC<FavouritesCardProps> = ({
           </div>
           <Typography
             variant="h6"
-            sx={{ mb: 1.5, fontWeight: "700" }}
+            sx={{ mb: 1.5, fontWeight: "700", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
             color="white"
           >
             {title}
           </Typography>
-          <Typography variant="body2" sx={{ color: "white" }}>
-            {desc.substring(0, 20)} ...
+          <Typography variant="body2" sx={{ color: "white", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+            {desc}
           </Typography>
           <div className="fav-price">
             <span>Rs {price}</span>

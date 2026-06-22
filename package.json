@@ -25,7 +25,6 @@
     "ra-data-simple-rest": "^5.13.4",
     "react": "19.2.3",
     "react-admin": "^5.13.4",
-    "react-content-loader": "^7.1.1",
     "react-dom": "19.2.3",
     "react-i18next": "^16.5.0",
     "react-places-autocomplete": "^7.3.0",

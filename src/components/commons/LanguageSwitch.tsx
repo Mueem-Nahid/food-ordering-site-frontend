@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 interface Language {
   code: string;
   name: string;
-  dir: "ltr" | "rtl";
 }
 
 const LanguageSwitch: React.FC = () => {
@@ -13,23 +12,15 @@ const LanguageSwitch: React.FC = () => {
   const [currentLang, setCurrentLang] = useState<string>(i18n.language || "en");
 
   const languages: Language[] = [
-    { code: "en", name: "English", dir: "ltr" },
-    { code: "ur-PK", name: "اردو", dir: "rtl" },
+    { code: "en", name: "English" },
+    { code: "ur-PK", name: "اردو" },
   ];
-
-  const applyDir = (lang: Language) => {
-    if (typeof document !== "undefined") {
-      document.documentElement.dir = lang.dir;
-      document.documentElement.lang = lang.code;
-    }
-  };
 
   useEffect(() => {
     const stored = cookies.get("i18next") || "en";
-    const matched = languages.find((l) => l.code === stored);
-    if (matched) {
-      setCurrentLang(matched.code);
-      applyDir(matched);
+    if (stored && stored !== currentLang) {
+      i18n.changeLanguage(stored);
+      setCurrentLang(stored);
     }
     //eslint-disable-next-line
   }, []);
@@ -37,7 +28,6 @@ const LanguageSwitch: React.FC = () => {
   const handleChange = (lang: Language) => {
     i18n.changeLanguage(lang.code);
     setCurrentLang(lang.code);
-    applyDir(lang);
   };
 
   return (

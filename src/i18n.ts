@@ -1,5 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import cookies from "js-cookie";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -146,7 +147,7 @@ i18n.use(initReactI18next).init({
       }
     }
   },
-  lng: "en",
+  lng: typeof window !== "undefined" ? (cookies.get("i18next") || "en") : "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,

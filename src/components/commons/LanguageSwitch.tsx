@@ -26,6 +26,7 @@ const LanguageSwitch: React.FC = () => {
   }, []);
 
   const handleChange = (lang: Language) => {
+    cookies.set("i18next", lang.code, { expires: 365 });
     i18n.changeLanguage(lang.code);
     setCurrentLang(lang.code);
   };

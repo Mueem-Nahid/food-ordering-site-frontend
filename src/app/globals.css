@@ -38,7 +38,7 @@ img {
 .language-switcher {
   display: flex;
   position: fixed;
-  right: -65px;
+  right: -50px;
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
   z-index: 1035;
@@ -55,18 +55,18 @@ img {
   cursor: pointer;
 }
 .switch-ur-PK {
-  padding: 0.4rem 1.2rem;
-  font-size: 15px;
+  padding: 0.3rem 0.7rem;
+  font-size: 11px;
   border: 2px solid var(--color-red);
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
 }
 .switch-ur-PK span {
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 }
 .switch-en {
-  padding: 0.4rem 1.2rem;
-  font-size: 15px;
+  padding: 0.3rem 0.7rem;
+  font-size: 11px;
   border: 2px solid var(--color-red);
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
@@ -1063,6 +1063,17 @@ img {
   .map-h2 {
     font-size: 1.2rem;
   }
+  .language-switcher {
+    right: -60px;
+  }
+  .switch-en,
+  .switch-ur-PK {
+    font-size: 13px;
+    padding: 0.35rem 0.9rem;
+  }
+  .switch-ur-PK span {
+    padding: 0 0.7rem;
+  }
   .pin {
     width: 15vw;
   }
@@ -1132,6 +1143,17 @@ img {
   }
   .header .header-inner {
     gap: 1rem;
+  }
+  .language-switcher {
+    right: -65px;
+  }
+  .switch-en,
+  .switch-ur-PK {
+    font-size: 15px;
+    padding: 0.4rem 1.2rem;
+  }
+  .switch-ur-PK span {
+    padding: 0 1rem;
   }
   .deal-container {
     padding: 3rem 0;

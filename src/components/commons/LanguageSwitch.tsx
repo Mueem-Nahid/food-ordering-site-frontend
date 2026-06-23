@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import cookies from "js-cookie";
-import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
 interface Language {
@@ -9,21 +8,28 @@ interface Language {
 }
 
 const LanguageSwitch: React.FC = () => {
+  const { i18n } = useTranslation();
+  const [currentLang, setCurrentLang] = useState<string>(i18n.language || "en");
+
   const languages: Language[] = [
-    {
-      code: "en",
-      name: "English",
-    },
-    {
-      code: "ur-PK",
-      name: "اردو",
-    },
+    { code: "en", name: "English" },
+    { code: "ur-PK", name: "اردو" },
   ];
-  const currentLangCode = cookies.get("i18next") || "en";
 
-  const { t } = useTranslation();
+  useEffect(() => {
+    const stored = cookies.get("i18next") || "en";
+    if (stored && stored !== currentLang) {
+      i18n.changeLanguage(stored);
+      setCurrentLang(stored);
+    }
+    //eslint-disable-next-line
+  }, []);
 
-  useEffect(() => {}, [t]);
+  const handleChange = (lang: Language) => {
+    cookies.set("i18next", lang.code, { expires: 365 });
+    i18n.changeLanguage(lang.code);
+    setCurrentLang(lang.code);
+  };
 
   return (
     <div className="language-switcher">
@@ -31,9 +37,9 @@ const LanguageSwitch: React.FC = () => {
         return (
           <div
             key={lang.code}
-            onClick={() => i18next.changeLanguage(lang.code)}
+            onClick={() => handleChange(lang)}
             className={`switch-${lang.code} ${
-              currentLangCode === lang.code ? "switch-active" : ""
+              currentLang === lang.code ? "switch-active" : ""
             }`}
           >
             <span>{lang.name}</span>

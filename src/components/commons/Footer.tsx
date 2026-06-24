@@ -1,10 +1,13 @@
+"use client";
 import React from "react";
 import {Container, Stack, Box} from "@mui/material";
 import {Facebook, Instagram} from "@mui/icons-material";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <footer id="footer">
       <Container>
@@ -22,7 +25,7 @@ const Footer: React.FC = () => {
             <Box id="footer-box"></Box>
           </Box>
           <Box sx={{textAlign: "center"}}>
-            <span>Find Us On</span>
+            <span>{t("findUsOn")}</span>
             <Stack direction="row" spacing={2} sx={{marginTop: "1rem", justifyContent: "center"}}>
               <Link target="_blank" href="https://www.instagram.com/deshiq__/" className="insta">
                 <Instagram fontSize="large"/>
@@ -40,29 +43,29 @@ const Footer: React.FC = () => {
         >
           <Box>
             <Box>
-              <strong>Information</strong>
+              <strong>{t("information")}</strong>
             </Box>
             <Box className="footer-links">
-              <Link href="/about">About Us</Link>
+              <Link href="/about">{t("aboutUs")}</Link>
             </Box>
             <Box className="footer-links">
-              <Link href="/privacy">Privacy</Link>
+              <Link href="/privacy">{t("privacyLink")}</Link>
             </Box>
           </Box>
           <Box>
             <Box>
-              <strong>Location</strong>
+              <strong>{t("location")}</strong>
             </Box>
             <Box className="footer-links">
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/contact">{t("contactUs")}</Link>
             </Box>
           </Box>
           <Box>
             <Box>
-              <strong>Get In Touch</strong>
+              <strong>{t("getInTouch")}</strong>
             </Box>
             <Box className="footer-links">
-              <Link href="/terms">Terms & Conditions</Link>
+              <Link href="/terms">{t("termsLink")}</Link>
             </Box>
           </Box>
         </Stack>

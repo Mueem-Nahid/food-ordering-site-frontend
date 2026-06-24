@@ -13,6 +13,7 @@ const LanguageSwitch: React.FC = () => {
 
   const languages: Language[] = [
     { code: "en", name: "English" },
+    { code: "fi", name: "Suomi" },
     { code: "ur-PK", name: "اردو" },
   ];
 

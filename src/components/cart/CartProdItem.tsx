@@ -4,6 +4,7 @@ import { DeleteOutlined, Add, Remove, Edit } from "@mui/icons-material";
 import Link from "next/link";
 import { useAppDispatch } from "@/redux/hook";
 import OptimizedImage from "../commons/OptimizedImage";
+import { useTranslation } from "react-i18next";
 import {
   increaseItemQuantity,
   decreaseItemQuantity,
@@ -29,6 +30,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
   const [del, setDel] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const handleQuantity = (condition: "+" | "-") => {
     if (condition === "+") {
@@ -60,7 +62,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
             flexWrap: "wrap",
           }}
         >
-          <OptimizedImage src={item.product.src} alt="Product-Image" width={80} height={80} sizes="80px" />
+          <OptimizedImage src={item.product.src} alt={t("productImage")} width={80} height={80} sizes="80px" />
           <Grid
             sx={{
               display: "flex",
@@ -73,7 +75,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
           >
             <strong style={{overflow: "hidden", textOverflow: "ellipsis", maxWidth: "100%"}}>{item.product.title}</strong>
             <span>$ {item.product.price}</span>
-            <span>Delivery day: {item.product.deliveryDay || "N/A"}</span>
+            <span>{t("deliveryDay")} {item.product.deliveryDay || t("notAvailable")}</span>
             <div className="cart-prod-item-quan" style={{ display: "flex", alignItems: "center" }}>
               {del ? (
                 <IconButton onClick={() => removeFromCart()} sx={{ color: "#e4002b" }} size="small">
@@ -112,7 +114,7 @@ const CartProdItem: React.FC<CartProdItemProps> = ({ item }) => {
           >
             {item.softDrinks.length > 0 ? (
               <>
-                <h4>Drinks</h4>
+                <h4>{t("drinks")}</h4>
                 {item.softDrinks.map((drink, index) => {
                   return (
                     <div key={index} style={{ textAlign: "left", overflow: "hidden", textOverflow: "ellipsis" }}>

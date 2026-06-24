@@ -1,14 +1,11 @@
-import React from "react";
-import type { Metadata } from "next";
-import { Box, Typography } from "@mui/material";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Page Not Found",
-  description: "The page you are looking for does not exist.",
-  robots: { index: false, follow: false },
-};
+import React from "react";
+import { Box, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function NotFound() {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -24,10 +21,10 @@ export default function NotFound() {
         404
       </Typography>
       <Typography variant="h5" component="h2">
-        Page Not Found
+        {t("pageNotFound")}
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        The page you are looking for does not exist.
+        {t("pageNotFoundDesc")}
       </Typography>
     </Box>
   );

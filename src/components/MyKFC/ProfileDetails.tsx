@@ -42,7 +42,7 @@ const ProfileDetails: React.FC = () => {
   if (!userId) {
     return (
       <div style={{marginTop: "2rem", color: "red"}}>
-        {t("User not found. Please log in.")}
+        {t("userNotFound")}
       </div>
     );
   }
@@ -50,7 +50,7 @@ const ProfileDetails: React.FC = () => {
   if (isLoading) {
     return (
       <div style={{marginTop: "2rem"}}>
-        {t("Loading user information...")}
+        {t("loadingUserInfo")}
       </div>
     );
   }
@@ -58,7 +58,7 @@ const ProfileDetails: React.FC = () => {
   if (isError || !userInfo.data) {
     return (
       <div style={{marginTop: "2rem", color: "red"}}>
-        {t("Failed to load user information.")}
+        {t("failedToLoadUser")}
       </div>
     );
   }

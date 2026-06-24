@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function Error({
   error,
@@ -10,6 +11,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -26,13 +28,13 @@ export default function Error({
       }}
     >
       <Typography variant="h4" component="h1">
-        Something went wrong!
+        {t("somethingWentWrong")}
       </Typography>
       <Typography variant="body1" color="text.secondary">
-        An unexpected error occurred. Please try again.
+        {t("unexpectedError")}
       </Typography>
       <Button variant="contained" color="primary" onClick={reset}>
-        Try again
+        {t("tryAgain")}
       </Button>
     </Box>
   );

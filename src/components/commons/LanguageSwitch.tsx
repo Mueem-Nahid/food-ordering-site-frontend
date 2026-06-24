@@ -13,8 +13,8 @@ const LanguageSwitch: React.FC = () => {
 
   const languages: Language[] = [
     { code: "en", name: "English" },
-    { code: "ur-PK", name: "اردو" },
     { code: "fi", name: "Suomi" },
+    { code: "ur-PK", name: "اردو" },
   ];
 
   useEffect(() => {

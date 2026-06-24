@@ -47,6 +47,7 @@ img {
 }
 
 .switch-en,
+.switch-fi,
 .switch-ur-PK {
   color: var(--color-primary);
   font-family: "Poppins", serif;
@@ -70,6 +71,11 @@ img {
   border: 2px solid var(--color-red);
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
+}
+.switch-fi {
+  padding: 0.3rem 0.7rem;
+  font-size: 11px;
+  border: 2px solid var(--color-red);
 }
 .switch-active {
   background-color: var(--color-red);
@@ -1067,6 +1073,7 @@ img {
     right: -60px;
   }
   .switch-en,
+  .switch-fi,
   .switch-ur-PK {
     font-size: 13px;
     padding: 0.35rem 0.9rem;
@@ -1148,6 +1155,7 @@ img {
     right: -65px;
   }
   .switch-en,
+  .switch-fi,
   .switch-ur-PK {
     font-size: 15px;
     padding: 0.4rem 1.2rem;

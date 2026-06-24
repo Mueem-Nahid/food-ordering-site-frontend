@@ -32,7 +32,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ phoneValue, setPhoneValue }) 
       !isIntlMobile &&
       !isIntlLandline
     ) {
-      setError("Please enter a valid Australian phone number.");
+      setError(t("invalidPhone"));
     } else {
       setError(null);
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import {Order} from "@/types/globalTypes";
+import { useTranslation } from "react-i18next";
 
 interface OrderInvoiceDialogProps {
   open: boolean;
@@ -9,10 +10,11 @@ interface OrderInvoiceDialogProps {
 }
 
 const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
-                                                                  open,
-                                                                  onClose,
-                                                                  order
-                                                                }) => {
+                                                                   open,
+                                                                   onClose,
+                                                                   order
+                                                                 }) => {
+  const { t } = useTranslation();
 
   // Download invoice as PDF with default filename using jsPDF/html2canvas
   const handleDownload = async () => {
@@ -72,14 +74,14 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
             >
 
               <h2 style={{margin: 0, fontWeight: 700, fontSize: 28}}>
-                Invoice
+                {t("invoice")}
               </h2>
               <div style={{display: "flex", justifyContent: "space-between", margin: "4px"}}>
                 <div style={{fontSize: 14}}>
-                  Order ID: <span style={{fontWeight: 500}}>{order._id}</span>
+                  {t("orderId")} <span style={{fontWeight: 500}}>{order._id}</span>
                 </div>
                 <div style={{fontSize: 14}}>
-                  Date: {new Date(order.createdAt).toLocaleString()}
+                  {t("dateLabel")} {new Date(order.createdAt).toLocaleString()}
                 </div>
               </div>
             </div>
@@ -94,23 +96,23 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
               }}
             >
               <div style={{flex: 1, minWidth: 180}}>
-                <div style={{fontWeight: 600, marginBottom: 4}}>Customer</div>
+                <div style={{fontWeight: 600, marginBottom: 4}}>{t("customerLabel")}</div>
                 <div style={{fontSize: 15}}>{order.user?.name}</div>
                 <div style={{fontSize: 15}}>{order.email}</div>
                 <div style={{fontSize: 15}}>{order.phone_no}</div>
               </div>
               <div style={{flex: 1, minWidth: 180}}>
-                <div style={{fontWeight: 600, marginBottom: 4}}>Delivery Address</div>
+                <div style={{fontWeight: 600, marginBottom: 4}}>{t("deliveryAddress")}</div>
                 <div style={{fontSize: 15}}>{order.delivery_address}</div>
               </div>
               <div style={{flex: 1, minWidth: 120}}>
-                <div style={{fontWeight: 600, marginBottom: 4}}>Status</div>
+                <div style={{fontWeight: 600, marginBottom: 4}}>{t("status")}</div>
                 <div style={{fontSize: 15}}>{order.order_status}</div>
               </div>
             </div>
             {/* Items Table */}
             <div style={{padding: "1rem"}}>
-              <div style={{fontWeight: 600, marginBottom: 8}}>Items</div>
+              <div style={{fontWeight: 600, marginBottom: 8}}>{t("items")}</div>
               <div style={{overflowX: "auto"}}>
                 <table style={{width: "100%", borderCollapse: "collapse"}}>
                   <thead>
@@ -120,10 +122,10 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                       fontWeight: 600,
                       fontSize: 15,
                       textAlign: "left"
-                    }}>Product</th>
-                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>Qty</th>
-                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>Price</th>
-                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>Delivery Day</th>
+                    }}>{t("product")}</th>
+                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>{t("qty")}</th>
+                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>{t("price")}</th>
+                    <th style={{padding: 8, fontWeight: 600, fontSize: 15}}>{t("deliveryDayLabel")}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -153,15 +155,15 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                 }}
               >
                 <div style={{display: "flex", justifyContent: "space-between", marginBottom: 8}}>
-                  <span style={{fontWeight: 500}}>Payment Method:</span>
+                  <span style={{fontWeight: 500}}>{t("paymentMethodLabel")}</span>
                   <span>{order.payment_method}</span>
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", marginBottom: 8}}>
-                  <span style={{fontWeight: 500}}>Delivery Charge:</span>
+                  <span style={{fontWeight: 500}}>{t("deliveryCharge")}</span>
                   <span>$ {order.delivery_fee}</span>
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: 18}}>
-                  <span>Total:</span>
+                  <span>{t("total")}:</span>
                   <span>$ {order.amount}</span>
                 </div>
               </div>
@@ -183,10 +185,10 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
       </DialogContent>
       <DialogActions className="no-print">
         <Button onClick={handleDownload} variant="outlined">
-          Download
+          {t("download")}
         </Button>
         <Button onClick={onClose} variant="contained" color="error">
-          Close
+          {t("close")}
         </Button>
       </DialogActions>
     </Dialog>

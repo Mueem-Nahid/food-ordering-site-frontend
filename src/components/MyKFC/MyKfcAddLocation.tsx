@@ -49,10 +49,10 @@ const MyKfcAddLocation: React.FC = () => {
   // handle when clicked on done button
   const handleDone = async () => {
     if (tagIndex === null) {
-      toast.warning("Please Select A Tag");
+      toast.warning(t("pleaseSelectTag"));
       return;
     } else if (value === "") {
-      toast.warning("Please Type House No.");
+      toast.warning(t("pleaseTypeHouseNo"));
       return;
     }
     setDisplaySections({

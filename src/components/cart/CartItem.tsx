@@ -94,7 +94,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
             <OptimizedImage
               src={item.product.src}
-              alt="Cart Item"
+              alt={t("cartItem")}
               width={80}
               height={80}
               sizes="80px"

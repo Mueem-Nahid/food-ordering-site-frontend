@@ -18,7 +18,7 @@ export default function MyProfileClient() {
     return (
       <Container>
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <h2>Please login to view your profile.</h2>
+          <h2>{t("pleaseLogin")}</h2>
         </div>
       </Container>
     );

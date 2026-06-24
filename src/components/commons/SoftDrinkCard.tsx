@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React, { useContext, useEffect, useState, ReactNode } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import SoftDrinkItem from "./SoftDrinkItem";
 import softDrinkContext from "../../context/softDrinkContext";
@@ -58,23 +58,15 @@ const softDrinksDummy: [] = [
 
 const SoftDrinkCard: React.FC<SoftDrinkCardProps> = ({ title, prod_id }) => {
   const [show, setShow] = useState<"none" | "flex">("none");
-  // use follow context to get all soft drinks
   const context = useContext(softDrinkContext);
   const { getAllSoftDrinks, softDrinks } = context;
-  const [text, setText] = useState<{ text: string; icon: ReactNode }>({
-    text: "View More (1)",
-    icon: <KeyboardArrowDown />,
-  });
+  const [expanded, setExpanded] = useState(false);
 
   const { t } = useTranslation();
   // handle click on view more and less more
   const handleClick = () => {
     setShow(show === "none" ? "flex" : "none");
-    setText(
-      text.text === "View More (1)"
-        ? { text: "View Less", icon: <KeyboardArrowUp /> }
-        : { text: "View More (1)", icon: <KeyboardArrowDown /> }
-    );
+    setExpanded(!expanded);
   };
 
   useEffect(() => {
@@ -91,7 +83,7 @@ const SoftDrinkCard: React.FC<SoftDrinkCardProps> = ({ title, prod_id }) => {
       <div className="addon-item">
         {
           softDrinksDummy.length === 0 &&
-          <div>Not available at the moment.</div>
+          <div>{t("notAvailableMoment")}</div>
         }
         {softDrinksDummy.slice(0, 4).map((softDrink: SoftDrink, index: number) => {
           return (
@@ -123,8 +115,8 @@ const SoftDrinkCard: React.FC<SoftDrinkCardProps> = ({ title, prod_id }) => {
         >
           <div className="addon-view-more" onClick={handleClick}>
             <span className="view-more">
-              {text.text}
-              {text.icon}
+              {expanded ? t("viewLess") : t("viewMore")}
+              {expanded ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </span>
           </div>
         </div>

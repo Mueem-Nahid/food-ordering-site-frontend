@@ -3,6 +3,7 @@ import { TextField, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
 interface EditableFieldProps {
   label: string;
@@ -13,6 +14,7 @@ interface EditableFieldProps {
 const EditableField: React.FC<EditableFieldProps> = ({ label, value, onSave }) => {
   const [editMode, setEditMode] = useState(false);
   const [tempValue, setTempValue] = useState(value);
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     setTempValue(value);
@@ -31,7 +33,7 @@ const EditableField: React.FC<EditableFieldProps> = ({ label, value, onSave }) =
             sx={{ background: "white", borderRadius: 1, minWidth: 180 }}
           />
           <IconButton
-            aria-label="save"
+            aria-label={t("saveAria")}
             color="primary"
             onClick={() => {
               onSave(tempValue);
@@ -42,7 +44,7 @@ const EditableField: React.FC<EditableFieldProps> = ({ label, value, onSave }) =
             <SaveIcon sx={{ color: "#ff741f" }} />
           </IconButton>
           <IconButton
-            aria-label="cancel"
+            aria-label={t("cancelAria")}
             color="secondary"
             onClick={() => {
               setTempValue(value);
@@ -57,7 +59,7 @@ const EditableField: React.FC<EditableFieldProps> = ({ label, value, onSave }) =
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontFamily: "Poppins" }}>{value || "-"}</span>
           <IconButton
-            aria-label="edit"
+            aria-label={t("editAria")}
             onClick={() => setEditMode(true)}
             size="small"
           >

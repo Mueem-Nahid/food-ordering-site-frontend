@@ -31,11 +31,13 @@ function ProductAvailabilitySelector({
   selectedDay,
   setSelectedDay,
   onChangeDeliveryDay,
+  label,
 }: {
   availability: string[];
   selectedDay: string;
   setSelectedDay: (day: string) => void;
   onChangeDeliveryDay: (day: string) => void;
+  label: string;
 }) {
   const availableDays = daysOfWeek.filter(day => availability.includes(day));
 
@@ -61,13 +63,13 @@ function ProductAvailabilitySelector({
         }}
         id="availability-label"
       >
-        Select Day
+        {label}
       </InputLabel>
       <Select
         sx={{color:"white"}}
         labelId="availability-label"
         value={selectedDay}
-        label="Select Day"
+        label={label}
         onChange={e => {
           setSelectedDay(e.target.value);
           onChangeDeliveryDay(e.target.value);
@@ -99,7 +101,7 @@ export default function ProductClient() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [text, setText] = useState("Add To Bucket");
+  const [isInCart, setIsInCart] = useState(false);
 
   const addon_context = useContext(addonContext);
   const {addonQuantity} = addon_context;
@@ -153,10 +155,10 @@ export default function ProductClient() {
 
   const handleAddToCart = () => {
       if (!selectedDay) {
-        toast.error("Please select a delivery day.");
+        toast.error(t("selectDeliveryDay"));
         return;
       }
-    if (text === "محفوظ کریں" || text === "save") {
+    if (isInCart) {
       dispatch(
         updateCartItem({
           product: {
@@ -196,10 +198,10 @@ export default function ProductClient() {
       return item.prod_id === prod_id;
     });
     if (filter.length > 0) {
-      setText(t("save"));
+      setIsInCart(true);
       setQuantity(filter[0].quantity);
     } else {
-      setText(t("addToBucket"));
+      setIsInCart(false);
       setQuantity(1);
     }
   };
@@ -223,7 +225,7 @@ export default function ProductClient() {
           <>
             {
               isProductError ?
-                <div className="deal-container">Failed to load product.</div> :
+                <div className="deal-container">{t("failedToLoadProduct")}</div> :
                 product ?
                   <div
                     className="product-info"
@@ -250,7 +252,7 @@ export default function ProductClient() {
                           <div className="product-img">
                             <OptimizedImage
                               src={product?.productImage}
-                              alt="Product Image"
+                              alt={t("productImage")}
                               fill
                               width={300}
                               priority
@@ -265,13 +267,14 @@ export default function ProductClient() {
                               <span>{product?.desc}</span>
                               <div style={{ margin: "1rem 0" }}>
                                 <div style={{ fontWeight: 500, marginBottom: "1rem", color: "#ff741f" }}>
-                                  When do you need the food to be delivered?
+                                  {t("whenDelivered")}
                                 </div>
                                 <ProductAvailabilitySelector
                                   availability={product?.availability || []}
                                   selectedDay={selectedDay}
                                   setSelectedDay={setSelectedDay}
                                   onChangeDeliveryDay={updateDeliveryDayInRedux}
+                                  label={t("selectDay")}
                                 />
                               </div>
                               <h2>
@@ -305,7 +308,7 @@ export default function ProductClient() {
                                     className="add-to-bucket"
                                     onClick={() => handleAddToCart()}
                                   >
-                                    {text}
+                                    {isInCart ? t("save") : t("addToBucket")}
                                   </Button>
                                 </div>
                               </div>
@@ -315,7 +318,7 @@ export default function ProductClient() {
                       </Grid>
                     </Box>
                   </div> :
-                  <div className="deal-container">No product found.</div>
+                  <div className="deal-container">{t("noProductFound")}</div>
             }
             <Box>
               <Grid

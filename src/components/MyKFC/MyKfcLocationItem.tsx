@@ -61,7 +61,7 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
   };
   // get address of locations
   const getAddress = async (lat: number, lng: number) => {
-    setAddress("Sample Address");
+    setAddress(t("notAvailableMoment"));
   };
   // handle when clicked on radio button
   const handleRadioClick = (index: number) => {
@@ -95,7 +95,7 @@ const MyKfcLocationItem: React.FC<MyKfcLocationItemProps> = ({ location, index }
         <h3>{location.tag === "1" ? t("office") : ""}</h3>
         <h3>{location.tag === "2" ? t("partner") : ""}</h3>
         <span style={{ fontFamily: "Poppins" }}>
-          {location.street}, {address.length < 1 ? "Not Available" : address}
+          {location.street}, {address.length < 1 ? t("notAvailable") : address}
         </span>
       </div>
       {pathname === "/delivery" ? (

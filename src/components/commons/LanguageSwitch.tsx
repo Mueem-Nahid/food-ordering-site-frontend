@@ -14,6 +14,7 @@ const LanguageSwitch: React.FC = () => {
   const languages: Language[] = [
     { code: "en", name: "English" },
     { code: "ur-PK", name: "اردو" },
+    { code: "fi", name: "Suomi" },
   ];
 
   useEffect(() => {

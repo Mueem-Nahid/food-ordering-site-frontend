@@ -79,7 +79,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                   <span className="order-card-value">$ {item.amount}</span>
                 </Box>
                 <Box className="order-card-row">
-                  <span className="order-card-label">{t("status") || "Status"}</span>
+                  <span className="order-card-label">{t("status")}</span>
                   <span className="order-card-value">{item.order_status}</span>
                 </Box>
                 <Box className="order-card-view">
@@ -89,7 +89,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                     onClick={() => handleView(item)}
                     sx={{borderColor: "#ff741f", color: "#ff741f"}}
                   >
-                    {t("details") || "View"}
+                    {t("details")}
                   </Button>
                 </Box>
               </Box>
@@ -120,7 +120,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
               <TableHead>
                 <TableRow>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
-                    <strong>{t("ID")}</strong>
+                    <strong>{t("id")}</strong>
                   </TableCell>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
                     <strong>{t("paymentMethod")}</strong>
@@ -135,7 +135,7 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                     <strong>{t("subTotal")}</strong>
                   </TableCell>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
-                    <strong>{t("status") || "Status"}</strong>
+                    <strong>{t("status")}</strong>
                   </TableCell>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
                     <strong>{t("details")}</strong>

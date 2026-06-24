@@ -33,13 +33,13 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
   // handle when clicked on confirm order
   const handleConfirm = async (stripeData: any[]) => {
     if (!addressValue || addressValue.trim() === "") {
-      toast.error("Please enter or select a delivery/pickup address!");
+      toast.error(t("enterAddress"));
       return;
     } else if (paymentMethod === "") {
-      toast.error("Please Choose Payment Method To Continue!");
+      toast.error(t("choosePayment"));
       return;
     } else if (phoneValue === "") {
-      toast.error("Please Enter Your Phone Number!");
+      toast.error(t("enterPhone"));
       return;
     }
     // Australian phone validation (same as PhoneNumber component)
@@ -54,7 +54,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
       !isIntlMobile &&
       !isIntlLandline
     ) {
-      toast.error("Please enter a valid Australian phone number!");
+      toast.error(t("validPhone"));
       return;
     }
 
@@ -86,10 +86,10 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
     try {
       const res = await createOrder(data).unwrap();
       dispatch({ type: "cart/clearCart" });
-      toast.success("Order Placed!");
+      toast.success(t("orderPlaced"));
       router.push("/order-history");
     } catch (error: any) {
-      toast.error(error?.data?.message || "Order failed. Please try again.");
+      toast.error(error?.data?.message || t("orderFailed"));
     }
   };
 

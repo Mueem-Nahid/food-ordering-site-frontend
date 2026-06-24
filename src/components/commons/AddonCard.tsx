@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React, { useContext, useEffect, useState, ReactNode } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import AddonItem from "./AddonItem";
 import addonContext from "../../context/addonContext";
@@ -54,21 +54,13 @@ const addsOn:[] = [
 const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
   const [show, setShow] = useState<"none" | "flex">("none");
   const { t } = useTranslation();
-  // use follow context to get all addons
   const context = useContext(addonContext);
   const { getAllAddons, addons } = context;
-  const [text, setText] = useState<{ text: string; icon: ReactNode }>({
-    text: "View More (3)",
-    icon: <KeyboardArrowDown />,
-  });
+  const [expanded, setExpanded] = useState(false);
   // handle click on view more and less more
   const handleClick = () => {
     setShow(show === "none" ? "flex" : "none");
-    setText(
-      text.text === "View More (3)"
-        ? { text: "View Less", icon: <KeyboardArrowUp /> }
-        : { text: "View More (3)", icon: <KeyboardArrowDown /> }
-    );
+    setExpanded(!expanded);
   };
 
   useEffect(() => {
@@ -121,7 +113,7 @@ const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
       <div className="addon-item">
         {
           addsOn.length === 0 &&
-          <div>Not available at the moment.</div>
+          <div>{t("notAvailableMoment")}</div>
         }
         {addsOn.slice(0, 2).map((addon: Addon, index: number) => {
           return (
@@ -145,8 +137,8 @@ const AddonCard: React.FC<AddonCardProps> = ({ title, prod_id }) => {
         >
           <div className="addon-view-more" onClick={handleClick}>
             <span className="view-more">
-              {text.text}
-              {text.icon}
+              {expanded ? t("viewLess") : t("viewMore")}
+              {expanded ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </span>
           </div>
         </div>

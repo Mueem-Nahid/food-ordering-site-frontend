@@ -7,11 +7,10 @@ import {
   EmailField,
   FunctionField,
   ArrayField,
-  SingleFieldList,
-  ChipField, Datagrid
+  Datagrid
 } from "react-admin";
 
-const Orde$how = (props: any) => (
+const OrderShow = (props: any) => (
   <Show {...props} title="Order Details">
     <SimpleShowLayout>
       <TextField source="id" label="Order ID" />
@@ -20,7 +19,10 @@ const Orde$how = (props: any) => (
       <TextField source="payment_method" label="Payment Method" />
       <TextField source="delivery_address" label="Delivery Address" />
       <TextField source="delivery_fee" label="Delivery Fee" />
-      <TextField source="amount" label="Total" />
+      <TextField source="amount" label="Sub Total" />
+      <TextField source="discount" label="Discount" />
+      <TextField source="discountedAmount" label="Total (After Discount)" />
+      <TextField source="couponCode" label="Coupon Code" />
       <EmailField source="email" label="Email" />
       <FunctionField
         label="User"
@@ -80,4 +82,4 @@ const Orde$how = (props: any) => (
   </Show>
 );
 
-export default Orde$how;
+export default OrderShow;

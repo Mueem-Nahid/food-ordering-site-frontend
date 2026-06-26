@@ -56,7 +56,10 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
           <span>{t("noOrder")}</span>
         ) : isMobile ? (
           <>
-            {(showAllOrders ? orders : showOrders).map((item: Order, index: number) => (
+            {(showAllOrders ? orders : showOrders).map((item: Order, index: number) => {
+              const discount = item.discount || 0;
+              const finalAmount = item.discountedAmount ?? (item.amount - discount);
+              return (
               <Box key={item._id || index} className="order-card">
                 <Box className="order-card-row">
                   <span className="order-card-label">ID</span>
@@ -76,8 +79,14 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                 </Box>
                 <Box className="order-card-row">
                   <span className="order-card-label">{t("subTotal")}</span>
-                  <span className="order-card-value">$ {item.amount}</span>
+                  <span className="order-card-value">{discount > 0 ? <><del style={{ opacity: 0.6 }}>$ {item.amount}</del> <span style={{ color: "#4caf50" }}>$ {finalAmount.toFixed(2)}</span></> : <span>$ {item.amount}</span>}</span>
                 </Box>
+                {discount > 0 && (
+                  <Box className="order-card-row">
+                    <span className="order-card-label">Discount</span>
+                    <span className="order-card-value" style={{ color: "#4caf50" }}>- $ {discount.toFixed(2)}</span>
+                  </Box>
+                )}
                 <Box className="order-card-row">
                   <span className="order-card-label">{t("status")}</span>
                   <span className="order-card-value">{item.order_status}</span>
@@ -93,7 +102,8 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                   </Button>
                 </Box>
               </Box>
-            ))}
+              );
+            })}
             {!showAllOrders && orders.length > 2 && (
               <Box sx={{display: "flex", justifyContent: "center", marginTop: "1rem"}}>
                 <Link href="/order-history" className="view-all">
@@ -133,6 +143,9 @@ const OrderHistory: React.FC<IProps> = ({showAllOrders}) => {
                   </TableCell>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
                     <strong>{t("subTotal")}</strong>
+                  </TableCell>
+                  <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
+                    <strong>{t("discount")}</strong>
                   </TableCell>
                   <TableCell align="center" sx={{color: "white", backgroundColor: "#1c1816"}}>
                     <strong>{t("status")}</strong>

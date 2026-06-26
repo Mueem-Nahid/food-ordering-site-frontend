@@ -167,6 +167,19 @@ const customDataProvider = {
       if (isNaN(data.price)) data.price = 0;
     }
 
+    // Ensure coupon numeric fields are numbers
+    ["discountValue", "maxDiscountAmount", "minOrderValue", "usageLimit"].forEach((field) => {
+      if (typeof data[field] !== "undefined" && data[field] !== null && data[field] !== "") {
+        data[field] = Number(data[field]);
+        if (isNaN(data[field])) data[field] = 0;
+      }
+    });
+
+    // Ensure expiresAt is a valid Date string
+    if (data.expiresAt instanceof Date) {
+      data.expiresAt = data.expiresAt.toISOString();
+    }
+
     // Transform availability to array of strings if needed
     if (
       Array.isArray(data.availability) &&
@@ -216,6 +229,19 @@ const customDataProvider = {
     if (typeof diff.price !== "undefined") {
       diff.price = Number(diff.price);
       if (isNaN(diff.price)) diff.price = 0;
+    }
+
+    // Ensure coupon numeric fields are numbers
+    ["discountValue", "maxDiscountAmount", "minOrderValue", "usageLimit"].forEach((field) => {
+      if (typeof diff[field] !== "undefined" && diff[field] !== null && diff[field] !== "") {
+        diff[field] = Number(diff[field]);
+        if (isNaN(diff[field])) diff[field] = 0;
+      }
+    });
+
+    // Ensure expiresAt is a valid Date string
+    if (diff.expiresAt instanceof Date) {
+      diff.expiresAt = diff.expiresAt.toISOString();
     }
 
     // Transform availability to array of strings if needed

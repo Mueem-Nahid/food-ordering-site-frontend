@@ -11,12 +11,12 @@ interface ConfirmOrderProps {
   addressValue: string;
   paymentMethod: string;
   deliveryFee: number;
+  couponCode: string;
 }
 
-const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod, deliveryFee}) => {
+const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, paymentMethod, deliveryFee, couponCode}) => {
   const {t} = useTranslation();
   const dispatch = useAppDispatch();
-  const userInfo = useAppSelector((state) => state.user?.userInfo);
   const router = useRouter();
 
   const {cartItems, totalItems, amount} = useAppSelector((store) => store.cart);
@@ -59,7 +59,7 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
     }
 
     //add delivery charges in amount
-    let total = amount + deliveryFee;
+    const total = amount + deliveryFee;
 
     // call the api and save the order in mongodb
     const data = {
@@ -71,15 +71,14 @@ const ConfirmOrder: React.FC<ConfirmOrderProps> = ({phoneValue, addressValue, pa
         addons: item.addons,
         prod_id: item.prod_id,
       })),
-      user: userInfo?._id,
-      email: userInfo?.email,
-      payment_status: "pending",
+      payment_status: "PENDING",
       amount: total,
       total_items: totalItems,
       payment_method: paymentMethod,
       delivery_address: addressValue,
       delivery_fee: deliveryFee,
       phone_no: phoneValue,
+      ...(couponCode ? { couponCode } : {}),
       // order_status is set server-side (default: PENDING)
     };
 

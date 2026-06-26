@@ -11,7 +11,7 @@ export const api = createApi({
       return headers
     }
   }),
-  tagTypes: ['newPost', 'fetchAfterDelete', 'comments', 'login', 'fetchAfterReact', 'products', 'categories', 'orders', 'addons', 'user'],
+  tagTypes: ['newPost', 'fetchAfterDelete', 'comments', 'login', 'fetchAfterReact', 'products', 'categories', 'orders', 'addons', 'user', 'coupons'],
   keepUnusedDataFor: 300,
   endpoints: () => ({}),
 });

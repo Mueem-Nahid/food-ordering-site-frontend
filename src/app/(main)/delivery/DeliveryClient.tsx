@@ -8,17 +8,22 @@ import PhoneNumber from "../../../components/checkout/PhoneNumber";
 import DeliveryAddress from "../../../components/checkout/DeliveryAddress";
 import ConfirmOrder from "../../../components/checkout/ConfirmOrder";
 import OrderTotal from "../../../components/checkout/OrderTotal";
+import CouponInput from "../../../components/checkout/CouponInput";
 import {useAppSelector} from "@/redux/hook";
 import {useRouter} from "next/navigation";
+import type { ICouponApplyResult } from "@/types/globalTypes";
 
 export default function DeliveryClient() {
   const {cartItems} = useAppSelector((store) => store.cart);
+  const { amount } = useAppSelector((store) => store.cart);
   const userInfo = useAppSelector((state) => state.user?.userInfo);
   const router = useRouter();
   const [phoneValue, setPhoneValue] = useState("");
   const [addressValue, setAddressValue] = useState("");
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState({ value: "COD", index: 0 });
+  const [couponCode, setCouponCode] = useState("");
+  const [couponResult, setCouponResult] = useState<ICouponApplyResult | null>(null);
 
   useEffect(() => {
     if (!userInfo) {
@@ -30,6 +35,8 @@ export default function DeliveryClient() {
       return;
     }
   }, []);
+
+  const productIds = cartItems.map((item: any) => item.prod_id || item.product?._id || item.product?.id);
 
   return (
     <Container>
@@ -67,10 +74,20 @@ export default function DeliveryClient() {
               <OrderSummary/>
             </Grid>
             <Grid className="checkout-item">
-              <OrderTotal deliveryFee={deliveryFee}/>
+              <OrderTotal deliveryFee={deliveryFee} couponResult={couponResult}/>
             </Grid>
             <Grid>
-              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value} deliveryFee={deliveryFee} />
+              <CouponInput
+                orderAmount={amount}
+                productIds={productIds}
+                couponCode={couponCode}
+                couponResult={couponResult}
+                setCouponCode={setCouponCode}
+                setCouponResult={setCouponResult}
+              />
+            </Grid>
+            <Grid>
+              <ConfirmOrder phoneValue={phoneValue} addressValue={addressValue} paymentMethod={paymentMethod.value} deliveryFee={deliveryFee} couponCode={couponCode} />
             </Grid>
           </Grid>
         </Grid>

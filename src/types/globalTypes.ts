@@ -90,6 +90,34 @@ export interface IOrderUser {
   email: string;
 }
 
+export interface ICoupon {
+  _id: string;
+  code: string;
+  isActive: boolean;
+  discountType: "percent" | "flat";
+  discountValue: number;
+  maxDiscountAmount?: number | null;
+  expiresAt: string;
+  usageLimit?: number | null;
+  usedCount?: number;
+  minOrderValue?: number | null;
+  applicableCategories?: string[] | null;
+  applicableProducts?: string[] | null;
+}
+
+export interface ICouponApplyResult {
+  discountedAmount: number;
+  discount: number;
+  coupon: {
+    _id: string;
+    code: string;
+    discountType: "percent" | "flat";
+    discountValue: number;
+    minOrderValue?: number | null;
+    expiresAt: string;
+  };
+}
+
 export type Order = {
   _id: string;
   product: IOrderProductItem[];
@@ -97,6 +125,11 @@ export type Order = {
   email: string;
   payment_status: string;
   amount: number;
+  subtotal?: number;
+  discount?: number;
+  discountedAmount?: number;
+  coupon?: string | { _id: string; code: string } | null;
+  couponCode?: string | null;
   total_items: number;
   payment_method: string;
   delivery_address: string;

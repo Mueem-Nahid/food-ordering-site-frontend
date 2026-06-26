@@ -53,6 +53,7 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
               padding: 0,
               margin: 0,
               background: "#fff",
+              color: "#1c1816",
               borderRadius: 12,
               boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
               maxWidth: 600,
@@ -162,9 +163,19 @@ const OrderInvoiceDialog: React.FC<OrderInvoiceDialogProps> = ({
                   <span style={{fontWeight: 500}}>{t("deliveryCharge")}</span>
                   <span>$ {order.delivery_fee}</span>
                 </div>
+                <div style={{display: "flex", justifyContent: "space-between", marginBottom: 8}}>
+                  <span style={{fontWeight: 500}}>{t("subTotal")}</span>
+                  <span>$ {order.amount}</span>
+                </div>
+                {(order.discount || 0) > 0 && (
+                  <div style={{display: "flex", justifyContent: "space-between", marginBottom: 8, color: "#4caf50"}}>
+                    <span style={{fontWeight: 500}}>Discount {order.couponCode ? `(${order.couponCode})` : ""}</span>
+                    <span>- $ {order.discount?.toFixed(2)}</span>
+                  </div>
+                )}
                 <div style={{display: "flex", justifyContent: "space-between", fontWeight: 700, fontSize: 18}}>
                   <span>{t("total")}:</span>
-                  <span>$ {order.amount}</span>
+                  <span>$ {(order.discountedAmount ?? (order.amount - (order.discount || 0))).toFixed(2)}</span>
                 </div>
               </div>
             </div>

@@ -16,18 +16,19 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/login",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         try {
+          if (!account?.id_token) {
+            return token;
+          }
           const res = await fetch(
             `${process.env.NEXT_PUBLIC_BASE_URL}/users/google-auth`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                email: user.email,
-                name: user.name,
-                address: "",
+                idToken: account.id_token,
               }),
             }
           );

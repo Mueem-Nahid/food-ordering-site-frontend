@@ -12,6 +12,9 @@ import AddonList from "./AddonList";
 import OrderList from "./OrderList";
 import OrderShow from "./OrderShow";
 import OrderEdit from "./OrderEdit";
+import CouponList from "./CouponList";
+import CouponCreate from "./CouponCreate";
+import CouponEdit from "./CouponEdit";
 
 const dataProvider = customDataProvider;
 
@@ -23,6 +26,7 @@ export default function ReactAdminDashboard() {
       <Resource name="orders" list={OrderList} edit={OrderEdit} show={OrderShow} />
       <Resource name="addons" list={AddonList} edit={EditGuesser} show={ShowGuesser} create={AddonCreate} />
       <Resource name="users" list={ListGuesser} edit={EditGuesser} show={ShowGuesser} />
+      <Resource name="coupons" list={CouponList} edit={CouponEdit} create={CouponCreate} />
     </Admin>
   );
 }

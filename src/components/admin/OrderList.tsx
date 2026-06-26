@@ -5,7 +5,6 @@ import {
   TextField,
   DateField,
   FunctionField,
-  ChipField,
   EmailField,
   ShowButton,
   EditButton
@@ -28,6 +27,8 @@ const OrderList = (props: any) => (
       <TextField source="delivery_address" label="Address" />
       <TextField source="order_status" label="Status" />
       <TextField source="amount" label="Total" />
+      <TextField source="discount" label="Discount" />
+      <TextField source="couponCode" label="Coupon" />
       <DateField source="createdAt" label="Created" showTime />
       <FunctionField
         label="Products"
